@@ -9,7 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.Date;
 
 public class SignUpPage {
-    private static WebDriver driver;
+    private final WebDriver driver;
 
     @FindBy(xpath = "//input[@name='name']")
     private WebElement nameInput;
@@ -39,46 +39,82 @@ public class SignUpPage {
     private WebElement calendarLeftBtn;
 
     @FindBy(xpath = "//button[.//span[text()='OK']]")
-    public WebElement calendarOkBtn;
+    private WebElement calendarOkBtn;
 
     public SignUpPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
     }
 
-    public void Register(String name, String email, String phoneNumber, Date birthDate, String password) throws InterruptedException {
+    public void inputName(String name) {
         nameInput.sendKeys(name);
-        emailInput.sendKeys(email);
+    }
+
+    public void inputPhoneNumber(String phoneNumber)    {
         phoneNumberInput.sendKeys(phoneNumber);
+    }
+
+    public void inputEmail(String email)    {
+        emailInput.sendKeys(email);
+    }
+
+    public void calendarAccess()    {
         birthDateInput.click();
-        String dateYearMonth = dateYearMonthElement.getAttribute("innerText");
-        String month = dateYearMonth.replaceAll("[^A-z]", "");
-        int year = Integer.parseInt(dateYearMonth.replaceAll("\\D", ""));
-        System.out.println(year);
-        System.out.println(birthDate.getYear() + 1900);
-        while (year != (birthDate.getYear() + 1900))
+    }
+
+    public void setYearCalendar(Date birthDate) {
+        String date;
+        int year;
+        int birthDateYear = getBirthDateRealYear(birthDate.getYear());
+        do
         {
-            //!month.equals(getMonthFromDate(birthDate.getMonth()))
-            Thread.sleep(200);
             calendarLeftBtn.click();
-            dateYearMonth = dateYearMonthElement.getAttribute("innerText");
-            month = dateYearMonth.replaceAll("[^A-z]", "");
-            year = Integer.parseInt(dateYearMonth.replaceAll("\\D", ""));
-        }
-        System.out.println(birthDate.getYear() + 1900);
-        System.out.println(getMonthFromDate(birthDate.getMonth()));
-        System.out.println(birthDate.getDay());
-        Thread.sleep(200);
-        driver.findElement(By.xpath("//*[text() = '" + birthDate.getDay() + "']")).click();
+            date = dateYearMonthElement.getAttribute("innerText");
+            year = Integer.parseInt(date.replaceAll("\\D", ""));
+        }   while (year != birthDateYear);
+    }
+
+    public void setMonthCalendar(Date birthDate)    {
+        String month;
+        String birthDateMonth = getMonthFromDate(birthDate.getMonth());
+        String date;
+        do
+        {
+            calendarLeftBtn.click();
+            date = dateYearMonthElement.getAttribute("innerText");
+            month = date.replaceAll("[^A-z]", "");
+        }   while (!month.equals(birthDateMonth));
+    }
+
+    public void setDayCalendar(Date birthDate) throws  InterruptedException {
+        Thread.sleep(100);
+        driver.findElement(By.xpath("//*[text() = '" + (birthDate.getDay() + 1) + "']")).click();
+    }
+
+    public void calendarAcceptChanges() {
         calendarOkBtn.click();
+    }
+
+    public void inputPassword(String password)  {
         passwordInput.sendKeys(password);
+    }
+
+    public void inputRepeatedPassword(String password)  {
         repeatedPasswordInput.sendKeys(password);
+    }
+
+    public void createAccountAccept()   {
         createAccountButton.click();
     }
 
-    public static String getMonthFromDate(int monthNumber)  {
+    private String getMonthFromDate(int monthNumber)  {
         String[] monthNames = {"January", "February", "March", "April", "May",
                 "June", "July", "August", "September", "October", "November", "December"};
         return monthNames[monthNumber];
     }
+
+    private int getBirthDateRealYear(int birthDateYear)    {
+        return birthDateYear + 1900;
+    }
+
 }

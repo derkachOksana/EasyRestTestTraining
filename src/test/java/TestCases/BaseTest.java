@@ -1,4 +1,34 @@
 package TestCases;
 
+import Utility.ConfProperties;
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+
 public class BaseTest {
+
+    public WebDriver driver;
+    public ExtentReports extent;
+    public ExtentTest logger;
+
+    @BeforeClass
+    public void setUp() {
+        ExtentSparkReporter spark = new ExtentSparkReporter(ConfProperties.getProperty("reportsFolder")
+                + ConfProperties.getCurrentDateTime() + ".html");
+        extent = new ExtentReports();
+        extent.attachReporter(spark);
+        System.setProperty("webdriver.chrome.driver", ConfProperties.getProperty("chromedriver"));
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+    }
+
+    @AfterClass
+    public void shutDown()  {
+        driver.quit();
+        extent.flush();
+    }
 }
