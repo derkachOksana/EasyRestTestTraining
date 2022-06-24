@@ -11,7 +11,7 @@ import java.util.Date;
 public class SignUpPage {
     private final WebDriver driver;
 
-    @FindBy(xpath = "//input[@name='name']")
+    @FindBy(name = "name")
     private WebElement nameInput;
 
     @FindBy(name = "email")
@@ -116,5 +116,4 @@ public class SignUpPage {
     private int getBirthDateRealYear(int birthDateYear)    {
         return birthDateYear + 1900;
     }
-
 }

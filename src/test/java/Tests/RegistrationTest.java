@@ -1,26 +1,21 @@
-package TestCases;
+package Tests;
 
 import Pages.SignUpPage;
 import Utility.ConfProperties;
 import Utility.RegistrationData;
-import com.github.javafaker.Faker;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Test;
-
-import java.util.Date;
 
 public class RegistrationTest extends BaseTest{
     public static SignUpPage signUpPage;
+    private RegistrationData regData;
 
     @Test
     public void Register() throws InterruptedException {
-        Faker faker = new Faker();
-        RegistrationData regData = new RegistrationData.Builder()
+        regData = new RegistrationData.Builder()
                 .name(faker.name().fullName())
                 .email(faker.internet().emailAddress())
                 .phoneNumber(faker.phoneNumber().cellPhone())
-                .birthDate(faker.date().birthday(18, 80))
+                .birthDate(faker.date().birthday(2, 5))
                 .password(faker.gameOfThrones().dragon() + faker.pokemon().name())
                 .build();
 
