@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd"><suite name="All Test Suite"><test verbose="2" preserve-order="true" name="C:/SoftServe/EasyRestTestTraining"><classes><class name="Tests.RegistrationTest"><methods><include name="Register"/></methods></class></classes></test></suite>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <test name="LoginTest">
+        <groups>
+                <run>
+                        <include name="smoke" />
+                </run>
+        </groups>
+        <classes>
+            <class name="smoke.RegistrationTest"></class>
+            <class name="smoke.enterEmptyEmailTest"></class>
+        </classes>
+    </test>
+</suite>

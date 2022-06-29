@@ -5,6 +5,7 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.github.javafaker.Faker;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterClass;
@@ -21,18 +22,18 @@ public class BaseTest {
     @BeforeClass
     public void setUp() {
         faker = new Faker();
-        spark = new ExtentSparkReporter(ConfProperties.getProperty("reportsFolder")
-                + ConfProperties.getCurrentDateTime() + ".html");
+        spark = new ExtentSparkReporter(ConfProperties.getProperty("reportsFolder") + ConfProperties.getCurrentDateTime() + ".html");
         extent = new ExtentReports();
         extent.attachReporter(spark);
-        System.setProperty("webdriver.chrome.driver", ConfProperties.getProperty("chromedriver"));
+        //System.setProperty("webdriver.chrome.driver", ConfProperties.getProperty("chromedriver"));
+        driver = WebDriverManager.chromedriver().create();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
     }
 
     @AfterClass
     public void shutDown()  {
-        driver.quit();
+       // driver.quit();
         extent.flush();
     }
 }

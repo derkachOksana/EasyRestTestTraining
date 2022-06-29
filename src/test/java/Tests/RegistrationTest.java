@@ -10,7 +10,7 @@ public class RegistrationTest extends BaseTest{
     private RegistrationData regData;
 
     @Test
-    public void Register() throws InterruptedException {
+    public void Register() throws InterruptedException{
         regData = new RegistrationData.Builder()
                 .name(faker.name().fullName())
                 .email(faker.internet().emailAddress())
