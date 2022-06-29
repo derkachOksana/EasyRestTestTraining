@@ -1,4 +1,4 @@
-package Pages;
+package pages;
 
 public final class Month {
 
@@ -9,6 +9,6 @@ public final class Month {
         return monthNames[monthNumber];
     }
 
-    private Month() {};
+    private Month() {}
 
 }
