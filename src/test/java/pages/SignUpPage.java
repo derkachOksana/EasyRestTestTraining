@@ -1,4 +1,4 @@
-package Pages;
+package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -76,7 +76,7 @@ public class SignUpPage {
 
     public void setMonthCalendar(Date birthDate)    {
         String month;
-        String birthDateMonth = getMonthFromDate(birthDate.getMonth());
+        String birthDateMonth = Month.getMonthFromDate(birthDate.getMonth());
         String date;
         do
         {
@@ -105,12 +105,6 @@ public class SignUpPage {
 
     public void createAccountAccept()   {
         createAccountButton.click();
-    }
-
-    private String getMonthFromDate(int monthNumber)  {
-        String[] monthNames = {"January", "February", "March", "April", "May",
-                "June", "July", "August", "September", "October", "November", "December"};
-        return monthNames[monthNumber];
     }
 
     private int getBirthDateRealYear(int birthDateYear)    {
