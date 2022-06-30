@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="All chosen tests" >
-    <test name="Tests" >
 
-
+<suite name="All Test Suite">
+    <listeners>
+        <listener class-name="utility.Listener"/>
+    </listeners>
+    <test verbose="2" preserve-order="true" name="C:/SoftServe/EasyRestTestTraining">
         <classes>
-            <class name="tests.LoginTest"></class>
-            <class name="tests.RegistrationTest"></class>
+            <class name="tests.RegistrationTest">
+                <methods>
+                    <include name="registerNewUserTest"/>
+                </methods>
+            </class>
         </classes>
     </test>
 </suite>

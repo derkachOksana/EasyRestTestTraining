@@ -22,6 +22,7 @@
     <testng.version>7.6.0</testng.version>
     <extentreports.version>5.0.9</extentreports.version>
     <javafaker.version>1.0.2</javafaker.version>
+    <webdrivermanager.version>5.2.1</webdrivermanager.version>
 
     <!--plugins-->
     <maven-clean.version>3.1.0</maven-clean.version>
@@ -63,10 +64,12 @@
       <artifactId>javafaker</artifactId>
       <version>${javafaker.version}</version>
     </dependency>
+
+    <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
     <dependency>
       <groupId>io.github.bonigarcia</groupId>
       <artifactId>webdrivermanager</artifactId>
-      <version>5.2.1</version>
+      <version>${webdrivermanager.version}</version>
     </dependency>
   </dependencies>
 
