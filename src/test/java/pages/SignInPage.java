@@ -1,18 +1,19 @@
-package Pages;
+package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import utility.ConfProperties;
 
-public class StartPage {
+public class SignInPage {
     private WebDriver driver;
-    public StartPage(WebDriver driver) {
+    public SignInPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
     }
+
 
 
     @FindBy(xpath = "//span[contains(text(),'Sign In')]")
@@ -47,10 +48,7 @@ public class StartPage {
     public boolean enterToAccount () {
         String email = "jasonbrown@test.com";
         String password = "1111";
-
         signInButton.click();
-
-
         emailButton.click();
         emailButton.clear();
         emailButton.sendKeys(email);

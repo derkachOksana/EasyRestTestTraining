@@ -1,54 +1,35 @@
-package Tests;
-
-import Pages.SignUpPage;
-import Pages.StartPage;
-import Utility.ConfProperties;
+package tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pages.SignInPage;
+import utility.ConfProperties;
 
 
 public class LoginTest extends BaseTest{
-    public static StartPage startPage;
+    public static SignInPage signInPage;
 
-    @Test (groups = {"smoke", "regression"})
+    @Test (groups = {"smokeTest", "regression"})
     public void enterEmptyEmailTest () throws InterruptedException {
-        driver.get(ConfProperties.getProperty("startPage"));
+        driver.get(ConfProperties.getProperty("homePage"));
         logger = extent.createTest("enterEmptyEmail test");
-        startPage = new StartPage(driver);
+        signInPage = new SignInPage(driver);
 
         Thread.sleep(500);
         String exceptedText = "Email is required";
 
-            Assert.assertEquals(startPage.warningTextEnterEmptyEmail(), exceptedText);
-            logger.pass("The correct text appears");
-
-            //logger.fail("Doesn`t correct text appear");
-
+            Assert.assertEquals(signInPage.warningTextEnterEmptyEmail(), exceptedText);
     }
-    @Test(groups = {"smoke"})
+    @Test(groups = {"regression"})
     public void enterToAccountTest () throws InterruptedException {
-        driver.get(ConfProperties.getProperty("startPage"));
+        driver.get(ConfProperties.getProperty("homePage"));
         logger = extent.createTest("buttonSignInForRegisteredUser");
-        startPage = new StartPage(driver);
+        signInPage = new SignInPage(driver);
         logger.info("Test is running!");
 
-        Assert.assertTrue(startPage.enterToAccount(), "Account exists");
-        logger.pass("Account exists");
-
-
-            logger.fail("Something went wrong, cann`t enter to own account");
-
-
-
-
-
-
-
-
-
-
-
+        Assert.assertFalse(signInPage.enterToAccount(), "Account exists");
+        logger.pass("fvfvfvf");
+        Thread.sleep(1000);
     }
 
 

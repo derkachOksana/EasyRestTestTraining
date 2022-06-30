@@ -9,10 +9,10 @@ public class RegistrationTest extends BaseTest {
     public static SignUpPage signUpPage;
     private RegistrationData regData;
 
-    @Test
+    @Test(groups = {"smokeTest"})
     public void Register() throws InterruptedException{
         regData = new RegistrationData.Builder()
-                .name(faker.name().fullName())
+              //  .name(faker.name().fullName())
                 .email(faker.internet().emailAddress())
                 .phoneNumber(faker.phoneNumber().cellPhone())
                 .birthDate(faker.date().birthday(2, 5))

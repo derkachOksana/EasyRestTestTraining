@@ -10,6 +10,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 
 public class BaseTest {
 
@@ -25,9 +26,7 @@ public class BaseTest {
         spark = new ExtentSparkReporter(ConfProperties.getProperty("reportsFolder") + ConfProperties.getCurrentDateTime() + ".html");
         extent = new ExtentReports();
         extent.attachReporter(spark);
-        //System.setProperty("webdriver.chrome.driver", ConfProperties.getProperty("chromedriver"));
         driver = WebDriverManager.chromedriver().create();
-        driver = new ChromeDriver();
         driver.manage().window().maximize();
     }
 

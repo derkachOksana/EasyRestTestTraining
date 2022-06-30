@@ -13,7 +13,7 @@ public final class ConfProperties {
 
     static  {
         try {
-            fileInputStream = new FileInputStream("src/test/resources/Conf.properties");
+            fileInputStream = new FileInputStream("src/test/resources/conf.properties");
             props = new Properties();
             props.load(fileInputStream);
         } catch (IOException e) {
