@@ -1,4 +1,4 @@
-package Utility;
+package utility;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
 
-public class ConfProperties {
+public final class ConfProperties {
     private static FileInputStream fileInputStream;
     private static Properties props;
 

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.example</groupId>
+  <groupId>team2.java</groupId>
   <artifactId>TestEasyRestProject</artifactId>
   <version>1.0-SNAPSHOT</version>
 
@@ -14,8 +14,27 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+
+    <!--dependencies-->
+    <selenium.version>4.2.2</selenium.version>
+    <testng.version>7.6.0</testng.version>
+    <extentreports.version>5.0.9</extentreports.version>
+    <javafaker.version>1.0.2</javafaker.version>
+
+    <!--plugins-->
+    <maven-clean.version>3.1.0</maven-clean.version>
+    <maven-resources.version>3.0.2</maven-resources.version>
+    <maven-compiler.version>3.8.0</maven-compiler.version>
+    <maven-surefire.version>2.22.1</maven-surefire.version>
+    <maven-jar.version>3.0.2</maven-jar.version>
+    <maven-install.version>2.5.2</maven-install.version>
+    <maven-deploy.version>2.8.2</maven-deploy.version>
+    <maven-site.version>3.7.1</maven-site.version>
+    <maven-project-info-reports>3.0.0</maven-project-info-reports>
+
+
   </properties>
 
   <dependencies>
@@ -23,26 +42,26 @@
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-java</artifactId>
-      <version>4.2.2</version>
+      <version>${selenium.version}</version>
     </dependency>
     <!-- https://mvnrepository.com/artifact/org.testng/testng -->
     <dependency>
       <groupId>org.testng</groupId>
       <artifactId>testng</artifactId>
-      <version>7.6.0</version>
+      <version>${testng.version}</version>
       <scope>test</scope>
     </dependency>
     <!-- https://mvnrepository.com/artifact/com.aventstack/extentreports -->
     <dependency>
       <groupId>com.aventstack</groupId>
       <artifactId>extentreports</artifactId>
-      <version>5.0.9</version>
+      <version>${extentreports.version}</version>
     </dependency>
     <!-- https://mvnrepository.com/artifact/com.github.javafaker/javafaker -->
     <dependency>
       <groupId>com.github.javafaker</groupId>
       <artifactId>javafaker</artifactId>
-      <version>1.0.2</version>
+      <version>${javafaker.version}</version>
     </dependency>
     <dependency>
       <groupId>io.github.bonigarcia</groupId>
@@ -52,46 +71,46 @@
   </dependencies>
 
   <build>
-    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (maybe moved to parent pom) -->
       <plugins>
         <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
         <plugin>
           <artifactId>maven-clean-plugin</artifactId>
-          <version>3.1.0</version>
+          <version>${maven-clean.version}</version>
         </plugin>
         <!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
         <plugin>
           <artifactId>maven-resources-plugin</artifactId>
-          <version>3.0.2</version>
+          <version>${maven-resources.version}</version>
         </plugin>
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.8.0</version>
+          <version>${maven-compiler.version}</version>
         </plugin>
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>
-          <version>2.22.1</version>
+          <version>${maven-surefire.version}</version>
         </plugin>
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
-          <version>3.0.2</version>
+          <version>${maven-jar.version}</version>
         </plugin>
         <plugin>
           <artifactId>maven-install-plugin</artifactId>
-          <version>2.5.2</version>
+          <version>${maven-install.version}</version>
         </plugin>
         <plugin>
           <artifactId>maven-deploy-plugin</artifactId>
-          <version>2.8.2</version>
+          <version>${maven-deploy.version}</version>
         </plugin>
         <!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle -->
         <plugin>
           <artifactId>maven-site-plugin</artifactId>
-          <version>3.7.1</version>
+          <version>${maven-site.version}</version>
         </plugin>
         <plugin>
           <artifactId>maven-project-info-reports-plugin</artifactId>
-          <version>3.0.0</version>
+          <version>${maven-project-info-reports}</version>
         </plugin>
       </plugins>
     </pluginManagement>

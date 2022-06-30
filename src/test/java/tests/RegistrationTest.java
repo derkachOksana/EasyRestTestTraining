@@ -1,11 +1,11 @@
-package Tests;
+package tests;
 
-import Pages.SignUpPage;
-import Utility.ConfProperties;
-import Utility.RegistrationData;
+import pages.SignUpPage;
+import utility.ConfProperties;
+import utility.RegistrationData;
 import org.testng.annotations.Test;
 
-public class RegistrationTest extends BaseTest{
+public class RegistrationTest extends BaseTest {
     public static SignUpPage signUpPage;
     private RegistrationData regData;
 
