@@ -1,17 +1,24 @@
 package tests;
 
+import org.testng.Assert;
+import pages.LogInPage;
 import pages.SignUpPage;
 import utility.ConfProperties;
+import utility.RegDataBuilder;
 import utility.RegistrationData;
 import org.testng.annotations.Test;
 
 public class RegistrationTest extends BaseTest {
     public static SignUpPage signUpPage;
+    public static LogInPage logInPage;
     private RegistrationData regData;
+    private RegDataBuilder regDataBuilder;
 
     @Test
-    public void Register() throws InterruptedException {
-        regData = new RegistrationData.Builder()
+    public void registerNewUserTest() throws InterruptedException {
+        regDataBuilder = new RegDataBuilder();
+
+        regData = regDataBuilder
                 .name(faker.name().fullName())
                 .email(faker.internet().emailAddress())
                 .phoneNumber(faker.phoneNumber().cellPhone())
@@ -20,9 +27,11 @@ public class RegistrationTest extends BaseTest {
                 .build();
 
         driver.get(ConfProperties.getProperty("signUpPage"));
-        logger = extent.createTest("Registration test");
+        logger = extent.createTest("Registration new user test");
 
         signUpPage = new SignUpPage(driver);
+        logInPage = new LogInPage(driver);
+
         signUpPage.inputName(regData.getName());
         logger.info("Name has been entered.");
         signUpPage.inputEmail(regData.getEmail());
@@ -43,7 +52,7 @@ public class RegistrationTest extends BaseTest {
         signUpPage.inputRepeatedPassword(regData.getPassword());
         logger.info("Password has been repeated.");
         signUpPage.createAccountAccept();
-        logger.pass("Account has been created.");
-        Thread.sleep(1000);
+        Thread.sleep(10000);
+        Assert.assertEquals(logInPage.getSignInText(), "Sign In");
     }
 }
