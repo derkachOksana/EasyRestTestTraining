@@ -9,6 +9,7 @@ import com.github.javafaker.Faker;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import utility.DateHandler;
 
 public class BaseTest {
 
@@ -22,7 +23,7 @@ public class BaseTest {
     public void setUp() {
         faker = new Faker();
         spark = new ExtentSparkReporter(ConfProperties.getProperty("reportsFolder")
-                + ConfProperties.getCurrentDateTime() + ".html");
+                + DateHandler.getCurrentDateTime() + ".html");
         extent = new ExtentReports();
         extent.attachReporter(spark);
         driver = WebDriverManager.chromedriver().create();

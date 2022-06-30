@@ -31,10 +31,4 @@ public final class ConfProperties {
     public static String getProperty(String key) {
         return props.getProperty(key);
     }
-
-    public static String getCurrentDateTime()   {
-        DateFormat format = new SimpleDateFormat("dd-MM-yyyy_HH_mm_ss");
-        Date date = new Date();
-        return format.format(date);
-    }
 }
