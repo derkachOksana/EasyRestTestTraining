@@ -1,7 +1,7 @@
 package tests;
 
 import org.testng.Assert;
-import pages.LogInPage;
+import pages.SignInPage;
 import pages.SignUpPage;
 import utility.ConfProperties;
 import utility.RegDataBuilder;
@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 
 public class RegistrationTest extends BaseTest {
     public static SignUpPage signUpPage;
-    public static LogInPage logInPage;
+    public static SignInPage signInPage;
     private RegistrationData regData;
     private RegDataBuilder regDataBuilder;
 
@@ -31,7 +31,7 @@ public class RegistrationTest extends BaseTest {
         logger = extent.createTest("Registration new user test");
 
         signUpPage = new SignUpPage(driver);
-        logInPage = new LogInPage(driver);
+        signInPage = new SignInPage(driver);
 
         signUpPage.inputName(regData.getName());
         logger.info("Name has been entered.");
@@ -54,6 +54,6 @@ public class RegistrationTest extends BaseTest {
         logger.info("Password has been repeated.");
         signUpPage.createAccountAccept();
         Thread.sleep(10000);
-        Assert.assertEquals(logInPage.getSignInText(), "Sign In");
+        Assert.assertEquals(SignInPage.getSignInText(), "Sign In");
     }
 }

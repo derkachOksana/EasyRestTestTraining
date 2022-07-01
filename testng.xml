@@ -6,10 +6,17 @@
         <listener class-name="utility.Listener"/>
     </listeners>
     <test verbose="2" preserve-order="true" name="C:/SoftServe/EasyRestTestTraining">
+
         <classes>
+            <class name="tests.LoginTest">
+                <methods>
+                    <include name="enterEmptyEmailTest" />
+                    <include name="enterToAccountTest" />
+                </methods>
+            </class>
             <class name="tests.RegistrationTest">
                 <methods>
-                    <include name="registerNewUserTest"/>
+                    <include name="registerNewUserTest" />
                 </methods>
             </class>
         </classes>

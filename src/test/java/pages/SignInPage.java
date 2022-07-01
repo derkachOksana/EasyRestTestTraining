@@ -14,7 +14,8 @@ public class SignInPage {
         this.driver = driver;
     }
 
-
+    @FindBy(xpath = "//*[text() = 'Sign In']")
+    private static WebElement signInTextElement;
 
     @FindBy(xpath = "//span[contains(text(),'Sign In')]")
     private WebElement signInButton;
@@ -31,8 +32,9 @@ public class SignInPage {
     @FindBy(xpath = "//input[@name='password']")
     private WebElement passwordButton;
 
-
-
+    public static String getSignInText()   {
+        return signInTextElement.getText();
+    }
 
     public String warningTextEnterEmptyEmail() {
         signInButton.click();
