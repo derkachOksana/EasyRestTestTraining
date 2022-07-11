@@ -87,8 +87,7 @@ public class SignUpPage {
         }   while (!month.equals(birthDateMonth));
     }
 
-    public void setDayCalendar(Date birthDate) throws  InterruptedException {
-        Thread.sleep(100);
+    public void setDayCalendar(Date birthDate)  {
         driver.findElement(By.xpath("//*[text() = '" + (birthDate.getDay() + 1) + "']")).click();
     }
 

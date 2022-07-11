@@ -3,9 +3,9 @@ package utility;
 import java.util.Date;
 
 public class RegDataBuilder {
-    private String name = "";
-    private String email = "";
-    private String phoneNumber = "";
+    private String name;
+    private String email;
+    private String phoneNumber;
     private Date birthDate;
     private String password;
 
@@ -26,10 +26,6 @@ public class RegDataBuilder {
 
     public String getPassword() {
         return password;
-    }
-
-    public void RegDataBuilderBuilder()    {
-
     }
 
     public RegDataBuilder name(String val) {

@@ -1,5 +1,6 @@
 package tests;
 
+import com.github.javafaker.Faker;
 import org.testng.Assert;
 import pages.LogInPage;
 import pages.SignUpPage;
@@ -15,9 +16,9 @@ public class RegistrationTest extends BaseTest {
     private RegDataBuilder regDataBuilder;
 
     @Test
-    public void registerNewUserTest() throws InterruptedException {
+    public void registerNewUserTest()   {
+        faker = new Faker();
         regDataBuilder = new RegDataBuilder();
-
         regData = regDataBuilder
                 .name(faker.name().fullName())
                 .email(faker.internet().emailAddress())
@@ -52,7 +53,6 @@ public class RegistrationTest extends BaseTest {
         signUpPage.inputRepeatedPassword(regData.getPassword());
         logger.info("Password has been repeated.");
         signUpPage.createAccountAccept();
-        Thread.sleep(10000);
-        Assert.assertEquals(logInPage.getSignInText(), "Sign In");
+        Assert.assertEquals(logInPage.getSignInText(), "to continue E-Restaurant");
     }
 }
