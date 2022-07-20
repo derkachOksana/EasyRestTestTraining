@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import utility.Month;
+import utility.DateHandler;
 
 import java.util.Date;
 
@@ -77,7 +77,7 @@ public class SignUpPage {
 
     public void setMonthCalendar(Date birthDate)    {
         String month;
-        String birthDateMonth = Month.getMonthFromDate(birthDate.getMonth());
+        String birthDateMonth = DateHandler.getMonthFromDate(birthDate.getMonth());
         String date;
         do
         {
@@ -87,8 +87,7 @@ public class SignUpPage {
         }   while (!month.equals(birthDateMonth));
     }
 
-    public void setDayCalendar(Date birthDate) throws  InterruptedException {
-        Thread.sleep(100);
+    public void setDayCalendar(Date birthDate)  {
         driver.findElement(By.xpath("//*[text() = '" + (birthDate.getDay() + 1) + "']")).click();
     }
 
