@@ -13,7 +13,7 @@ public class LogInPage {
         this.driver = driver;
     }
 
-    @FindBy(xpath = "//*[@id=\"root\"]/main/div/div[1]/div/span/h6")
+    @FindBy(xpath = "//*[text() = 'to continue E-Restaurant']")
     public WebElement signInTextElement;
 
     public String getSignInText()   {
