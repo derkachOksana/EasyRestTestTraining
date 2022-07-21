@@ -10,7 +10,7 @@ public class WaiterOrdersPage {
     private final WebDriver driver;
     private String orderNumber;
 
-    public WaiterOrdersPage(WebDriver driver, String orderNumber) {
+    public WaiterOrdersPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
     }
