@@ -22,9 +22,13 @@ public class ProfilePersonalInfoPage {
     @FindBy(xpath = "//*[text()='Order History']")
     private WebElement orderHistoryBtn;
 
-    public void myProfileClick() {
+    public void myProfileAccess() {
         myProfileBtn.click();
     }
-
-
+    public void currentOrdersAccess() {
+        currentOrdersBtn.click();
+    }
+    public void orderHistoryAccess() {
+        orderHistoryBtn.click();
+    }
 }
