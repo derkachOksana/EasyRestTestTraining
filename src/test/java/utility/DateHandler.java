@@ -16,8 +16,18 @@ public final class DateHandler {
     private DateHandler() {}
 
     public static String getCurrentDateTime()   {
-        DateFormat format = new SimpleDateFormat("dd-MM-yyyy_HH_mm_ss");
+        DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy_HH_mm_ss");
         Date date = new Date();
-        return format.format(date);
+        return formatter.format(date);
+    }
+
+    public static int getHours(Date date)   {
+        DateFormat formatter = new SimpleDateFormat("HH");
+        return Integer.parseInt(formatter.format(date));
+    }
+
+    public static int getMinutes(Date date) {
+        DateFormat formatter = new SimpleDateFormat("mm");
+        return Integer.parseInt(formatter.format(date));
     }
 }
