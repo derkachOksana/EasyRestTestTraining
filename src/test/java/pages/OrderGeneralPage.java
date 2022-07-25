@@ -16,27 +16,6 @@ public class OrderGeneralPage {
        this.driver = driver;
    }
 
-   // Use Component Page
-  /* public List<WebElement> orderConfirmationBody () {
-       List<WebElement> listOfElementsByOrderConfirmation = driver.findElements(By.xpath("//tbody/tr/td"));
-       return listOfElementsByOrderConfirmation;
-   }
-   public String getElementFromOrderConfirmationByIndex (int index, List<WebElement> bodyOfOrderDate) {
-       System.out.println(bodyOfOrderDate.get(index));
-       return String.valueOf(bodyOfOrderDate.get(index));
-   }
-
-   //The same functionality as above but another presentation, Use Component Page
-   /* public WebElement[][] elementFromOrderByIndex (int row, int column){
-        WebElement[][] sheetOrder = new WebElement[row][column];
-        for (int r = 0; r < row; r++) {
-            for (int c = 0; c < column; c++) {
-                sheetOrder[r][c] = driver.findElement(By.xpath("//tbody/tr[" + r + "]/td[" + c +  "]"));
-            }
-        }
-        return sheetOrder;
-    }*/
-
    @FindBy(xpath = "//button[@aria-label='Add to cart']")
    List<WebElement> setOfAddToCartBtn;
 
@@ -57,8 +36,7 @@ public class OrderGeneralPage {
     @FindBy(xpath = "//tbody//button[@aria-label = 'Remove item']")
     List <WebElement> removeItemOrderConfirmationBtns;
 
-
-
+    
     public void removeItemOrderBtnAccessByIndex (int index) {
         int i = 0;
         try {
