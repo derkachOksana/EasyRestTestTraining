@@ -3,6 +3,7 @@ package tests;
 import com.github.javafaker.Faker;
 import org.testng.Assert;
 import pages.LogInPage;
+import pages.OrderGeneralPage;
 import pages.SignUpPage;
 import utility.ConfProperties;
 import utility.RegDataBuilder;
