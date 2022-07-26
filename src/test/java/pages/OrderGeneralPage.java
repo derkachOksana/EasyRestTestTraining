@@ -36,7 +36,7 @@ public class OrderGeneralPage {
     @FindBy(xpath = "//tbody//button[@aria-label = 'Remove item']")
     List <WebElement> removeItemOrderConfirmationBtns;
 
-    
+
     public void removeItemOrderBtnAccessByIndex (int index) {
         int i = 0;
         try {
@@ -79,6 +79,7 @@ public class OrderGeneralPage {
            }
        } catch (Exception e) {
            System.out.println("Not expected index");
+
        }
    }
 }
