@@ -29,16 +29,16 @@ public class HomePage {
 
 
 
-    public void signInAccess() {
+    public void clickSignInBtn() {
         signInBtn.click();
     }
-    public void signUpAccess() {
+    public void clickSignUpBtn() {
         signUpBtn.click();
     }
-    public void restaurantsListAccess() {
+    public void clickRestaurantsListBtn() {
         restaurantsListBtn.click();
     }
-    public void viewAllAccess() {
+    public void clickViewAllTag() {
         viewAllTag.click();
     }
 
