@@ -35,7 +35,7 @@ public class SignInPage {
         userPasswordInputField.sendKeys(password);
     }
 
-    public void getSignInBtn() {
+    public void clickSignInBtn() {
         signInBtn.click();
     }
 
