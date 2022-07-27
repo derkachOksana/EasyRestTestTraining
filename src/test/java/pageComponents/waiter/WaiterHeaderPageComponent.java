@@ -8,20 +8,20 @@ import pages.waiter.WaiterHistoryPage;
 import pages.waiter.WaiterInProgressPage;
 import pages.waiter.WaiterMainPage;
 
-public class WaiterOrdersHeaderPageComponent {
+public class WaiterHeaderPageComponent {
     @FindBy(xpath = "//main/header")
     private WebElement header;
 
-    private WebElement assignedWaiterLink = header.findElement(By.xpath(
+    private final WebElement assignedWaiterLink = header.findElement(By.xpath(
             "./a[@href='/waiter/orders/Assigned waiter']"));
 
-    private WebElement inProgressLink = header.findElement(By.xpath(
+    private final WebElement inProgressLink = header.findElement(By.xpath(
             "./a[@href='/waiter/orders/In progress']"));
 
-    private WebElement historyLink = header.findElement(By.xpath(
+    private final WebElement historyLink = header.findElement(By.xpath(
             "./a[@href='/waiter/orders/History']"));
 
-    private WebElement allLink = header.findElement(By.xpath(
+    private final WebElement allLink = header.findElement(By.xpath(
             "./a[@href='/waiter/orders/']"));
 
     public WaiterAssignedWaiterPage waiterAssignedWaiterPageAccess()  {

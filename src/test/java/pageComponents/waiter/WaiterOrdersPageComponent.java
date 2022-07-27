@@ -8,6 +8,8 @@ import java.util.List;
 
 public class WaiterOrdersPageComponent {
     private WebElement neededOrder;
+
+    private final WaiterOrderInfoPageComponent orderInfo = expandOrder();
     @FindBy(xpath = "//main/div/div")
     private List<WebElement> orders;
 
@@ -29,7 +31,15 @@ public class WaiterOrdersPageComponent {
                 .getAttribute("textContent");
     }
 
-    public WaiterOrderInfoPageComponent expandOrder()   {
+    public void startOrder() {
+        orderInfo.startOrderBtnClick();
+    }
+
+    public void closeOrder() {
+        orderInfo.closeOrderBtnClick();
+    }
+
+    private WaiterOrderInfoPageComponent expandOrder()   {
         neededOrder.findElement(By.xpath(
                 ".//*[button]"))
                 .click();

@@ -3,8 +3,7 @@ package pages.waiter;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pageComponents.HeaderGeneralPageComponent;
-import pageComponents.waiter.WaiterOrderInfoPageComponent;
-import pageComponents.waiter.WaiterOrdersHeaderPageComponent;
+import pageComponents.waiter.WaiterHeaderPageComponent;
 import pageComponents.waiter.WaiterOrdersPageComponent;
 
 public class WaiterMainPage {
@@ -14,47 +13,39 @@ public class WaiterMainPage {
         this.orderNumber = orderNumber;
     }
 
-    @FindBy(xpath = "//div[contains(@class, 'UserMenu')]/*[button]")
-    private WebElement userIconBtn;
+    private final HeaderGeneralPageComponent headerGeneralPageComponent = new HeaderGeneralPageComponent();
+    private final WaiterHeaderPageComponent waiterHeader = new WaiterHeaderPageComponent();
+    private final WaiterOrdersPageComponent orders = new WaiterOrdersPageComponent(orderNumber);
 
-    @FindBy(xpath = "//a[text()='Waiter panel']")
-    private WebElement waiterPanelAccessBtn;
-
-    private HeaderGeneralPageComponent headerGeneralPageComponent = new HeaderGeneralPageComponent();
-    private WaiterOrdersHeaderPageComponent headerComponent = new WaiterOrdersHeaderPageComponent();
-    private WaiterOrdersPageComponent ordersComponent = new WaiterOrdersPageComponent(orderNumber);
-    private WaiterOrderInfoPageComponent orderInfo = ordersComponent.expandOrder();
-
-    public void userMenuAccess()    {
-        userIconBtn.click();
-    }
-
-    public void waiterPanelSheetAccess() {
-        waiterPanelAccessBtn.click();
+    public WaiterMainPage waiterPanelSheetAccess() {
+        return headerGeneralPageComponent.waiterPanelAccess();
     }
 
     public WaiterAssignedWaiterPage assignedWaiterTabAccess()    {
-        return headerComponent.waiterAssignedWaiterPageAccess();
+        return waiterHeader.waiterAssignedWaiterPageAccess();
     }
 
     public WaiterInProgressPage inProgressTabAccess()   {
-        return headerComponent.waiterInProgressPageAccess();
+        return waiterHeader.waiterInProgressPageAccess();
     }
 
     public WaiterHistoryPage historyTabAccess()  {
-        return headerComponent.waiterHistoryPageAccess();
+        return waiterHeader.waiterHistoryPageAccess();
     }
 
     public WaiterMainPage allTabAccess()    {
-        return headerComponent.waiterMainPageAccess();
+        return waiterHeader.waiterMainPageAccess();
     }
 
     public String getOrderStatus()  {
-        return ordersComponent.getOrderStatus();
+        return orders.getOrderStatus();
     }
 
     public void closeOrder()    {
-        orderInfo.closeOrderBtnClick();
+        orders.closeOrder();
     }
 
+    public void startOrder()  {
+        orders.startOrder();
+    }
 }
