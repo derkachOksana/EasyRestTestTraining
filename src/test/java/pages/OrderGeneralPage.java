@@ -17,10 +17,11 @@ public class OrderGeneralPage {
    }
 
    @FindBy(xpath = "//button[@aria-label='Add to cart']")
-   List<WebElement> setOfAddToCartBtn;
+   private List<WebElement> setOfAddToCartBtn;
 
    @FindBy(xpath = "//span[contains(text(), 'Submit order')]")
    private WebElement submitOrderTab;
+
    @FindBy(xpath = "//span[contains(text(), 'Cancel')]")
    private WebElement cancelOrderConfirmationTab;
 
@@ -30,24 +31,21 @@ public class OrderGeneralPage {
    @FindBy(xpath = "//div//label[contains(text(),'Time picker')]/ancestor::div[1]//input")
    private WebElement timePickerTab;
 
-    @FindBy(xpath = "//div//label[contains(text(),'Date picker')]/ancestor::div[1]//input")
-    private WebElement datePickerTab;
+   @FindBy(xpath = "//div//label[contains(text(),'Date picker')]/ancestor::div[1]//input")
+   private WebElement datePickerTab;
 
-    @FindBy(xpath = "//tbody//button[@aria-label = 'Remove item']")
-    List <WebElement> removeItemOrderConfirmationBtns;
+   @FindBy(xpath = "//tbody//button[@aria-label = 'Remove item']")
+   private List <WebElement> removeItemOrderConfirmationBtns;
 
+   public void removeItemOrderBtnAccessByIndex (int index) throws IllegalArgumentException {
 
-    public void removeItemOrderBtnAccessByIndex (int index) {
-        int i = 0;
-        try {
-            for (WebElement element : removeItemOrderConfirmationBtns) {
-                i++;
-                if (index == i) {
-                    element.click();                }
-            }
-        } catch (Exception e) {
-            System.out.println("Not expected index");
-        }
+       int size = removeItemOrderConfirmationBtns.size();
+
+       if(index >= size) {
+           throw new IllegalArgumentException("Unexpected index [" + index + "]. Expect index should not be grater then " + size);
+       }
+
+       removeItemOrderConfirmationBtns.get(index).click();
     }
     public String datePickerGetText() {
         return datePickerTab.getText();
@@ -70,16 +68,13 @@ public class OrderGeneralPage {
    }
 
    public void addToCartBtnAccessByIndex (int index) {
-       int i = 0;
-       try {
-           for (WebElement element : setOfAddToCartBtn) {
-               i++;
-               if (index == i) {
-                   element.click();                }
-           }
-       } catch (Exception e) {
-           System.out.println("Not expected index");
 
-       }
+        int size = setOfAddToCartBtn.size();
+
+        if(index >= size) {
+           throw new IllegalArgumentException("Unexpected index [" + index + "]. Expect index should not be grater then " + size);
+        }
+
+        setOfAddToCartBtn.get(index).click();
    }
 }

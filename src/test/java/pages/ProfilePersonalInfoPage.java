@@ -25,10 +25,16 @@ public class ProfilePersonalInfoPage {
     public void myProfileAccess() {
         myProfileBtn.click();
     }
-    public void currentOrdersAccess() {
+    public ProfileCurrentOrdersPage currentOrdersAccess() {
+
+        ProfileCurrentOrdersPage currentOrdersPage = new ProfileCurrentOrdersPage(driver);
         currentOrdersBtn.click();
+        return currentOrdersPage;
     }
-    public void orderHistoryAccess() {
+    public ProfileOrderHistoryPage orderHistoryAccess() {
+
+        ProfileOrderHistoryPage orderHistoryPage = new ProfileOrderHistoryPage(driver);
         orderHistoryBtn.click();
+        return orderHistoryPage;
     }
 }

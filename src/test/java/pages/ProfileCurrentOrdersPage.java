@@ -31,14 +31,14 @@ public class ProfileCurrentOrdersPage {
 
     //left or right arrow of the order`s status
     @FindBy(xpath = "//header//button/*[@role = 'presentation']")
-    List<WebElement> presentationStatusBtns;
+    private List<WebElement> presentationStatusBtns;
 
     // arrow on the right next to each order
     @FindBy (xpath = "//div[@role = 'button']/div[@role = 'button']")
-    List<WebElement> presentationOrderBtn;
+    private List<WebElement> presentationOrderBtn;
 
     @FindBy(xpath = "//span[contains(text(), 'Decline')]")
-    List <WebElement> setOfDeclineBtns;
+    private List <WebElement> setOfDeclineBtns;
 
     public void allTabAccess() {
         allTab.click();
@@ -55,41 +55,34 @@ public class ProfileCurrentOrdersPage {
     public void inProgressTabAccess() {
         inProgressTab.click();
     }
-    public void presentationStatusBtnAccessByIndex(int index) {
-        int i = 0;
-        try {
-            for (WebElement element : presentationStatusBtns) {
-                i++;
-                if (index == i) {
-                    element.click();
-                }
-            }
-        } catch (Exception e) {
-            System.out.println("Not expected index");
+    public void presentationStatusBtnAccessByIndex(int index) throws IllegalArgumentException{
+
+        int size = presentationStatusBtns.size();
+
+        if(index >= size) {
+            throw new IllegalArgumentException("Unexpected index [" + index + "]. Expect index should not be grater then " + size);
         }
+
+        presentationStatusBtns.get(index).click();
     }
-    public void presentationOrderBtnAccessByIndex(int index) {
-        int i = 0;
-        try {
-            for (WebElement element : presentationOrderBtn) {
-                i++;
-                if (index == i) {
-                    element.click();                }
-            }
-        } catch (Exception e) {
-            System.out.println("Not expected index");
+    public void presentationOrderBtnAccessByIndex(int index) throws IllegalArgumentException {
+
+       int size = presentationOrderBtn.size();
+
+        if(index >= size) {
+            throw new IllegalArgumentException("Unexpected index [" + index + "]. Expect index should not be grater then " + size);
         }
+
+        presentationOrderBtn.get(index).click();
     }
-    public void declineBtnAccessByIndex (int index) {
-        int i = 0;
-        try {
-            for (WebElement element :setOfDeclineBtns) {
-                i++;
-                if (index == i) {
-                    element.click();                }
-            }
-        } catch (Exception e) {
-            System.out.println("Not expected index");
+    public void declineBtnAccessByIndex (int index) throws IllegalArgumentException {
+
+        int size = setOfDeclineBtns.size();
+
+        if(index >= size) {
+            throw new IllegalArgumentException("Unexpected index [" + index + "]. Expect index should not be grater then " + size);
         }
+
+        setOfDeclineBtns.get(index).click();
     }
 }

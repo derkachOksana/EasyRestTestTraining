@@ -25,7 +25,7 @@ public class ProfileOrderHistoryPage {
     private WebElement declinedTab;
 
     @FindBy(xpath = "//span[contains(text(), 'Reorder')]")
-    List<WebElement> setOfReordersBtns;
+    private List<WebElement> setOfReordersBtns;
 
     public void allTabAccess() {
         allTab.click();
@@ -36,17 +36,14 @@ public class ProfileOrderHistoryPage {
     public void declinedTabTabAccess() {
         declinedTab.click();
     }
-    public void reorderBtnAccessByIndex(int index) {
-        int i = 0;
-        try {
-            for (WebElement element : setOfReordersBtns) {
-                i++;
-                if (index == i) {
-                    element.click();
-                }
-            }
-        } catch (Exception e) {
-            System.out.println("Not expected index");
+    public void reorderBtnAccessByIndex(int index) throws IllegalArgumentException {
+
+        int size = setOfReordersBtns.size();
+
+        if(index >= size) {
+            throw new IllegalArgumentException("Unexpected index [" + index + "]. Expect index should not be grater then " + size);
         }
+
+        setOfReordersBtns.get(index).click();
     }
 }
