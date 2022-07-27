@@ -27,8 +27,6 @@ public class HomePage {
     @FindBy(xpath = "//a[contains(.,'View All')]")
     private WebElement viewAllTag;
 
-
-
     public void clickSignInBtn() {
         signInBtn.click();
     }
@@ -41,10 +39,4 @@ public class HomePage {
     public void clickViewAllTag() {
         viewAllTag.click();
     }
-
-
-
-
-
-
 }

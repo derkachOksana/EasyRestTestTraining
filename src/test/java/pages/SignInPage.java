@@ -39,7 +39,7 @@ public class SignInPage {
         signInBtn.click();
     }
 
-    public void getHomeBtn() {
+    public void clickHomeBtn() {
         homeBtn.click();
     }
 }
