@@ -1,88 +1,77 @@
 package pages.moderator;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import pageComponents.HeaderGeneralPageComponent;
+import pageComponents.HeaderPageComponent;
+import pageComponents.moderator.ModeratorRestaurantsPageComponent;
+import pages.SignInPage;
 
 public class ModeratorRestaurantsPage {
-    private final WebDriver driver;
     private String restaurantName;
-
-    public ModeratorRestaurantsPage(WebDriver driver)   {
-        PageFactory.initElements(driver, this);
-        this.driver = driver;
-    }
 
     public void setRestaurantName(String restaurantName)    {
         this.restaurantName = restaurantName;
     }
 
-    @FindBy(xpath = "//div[contains(@class, 'UserMenu')]/*[button]")
-    private WebElement userIconBtn;
+    @FindBy(xpath = "//a[@href='/moderator/users']")
+    private WebElement usersSheet;
 
-    @FindBy(xpath = "//a[text()='Moderator panel']")
-    private WebElement moderatorPanelAccessBtn;
+    @FindBy(xpath = "//a[@href='/moderator/owners']")
+    private WebElement ownersSheet;
 
-    @FindBy(xpath = "//a[@href='/moderator/restaurants']")
-    private WebElement restaurantsSheet;
+    private final HeaderGeneralPageComponent headerGlobal = new HeaderGeneralPageComponent();
+    private final HeaderPageComponent header = new HeaderPageComponent();
 
-    @FindBy(xpath = "//button[contains(., 'All')]")
-    private WebElement allTab;
-
-    @FindBy(xpath = "//button[contains(., 'Unapproved')]")
-    private WebElement unapprovedTab;
-
-    @FindBy(xpath = "//button[contains(., 'Approved')]")
-    private WebElement approvedTab;
-
-    @FindBy(xpath = "//button[contains(., 'Archived')]")
-    private WebElement archivedTab;
+    private final ModeratorRestaurantsPageComponent restaurants = new ModeratorRestaurantsPageComponent(restaurantName);
 
     public void allTabAccess()  {
-        allTab.click();
+        header.moderatorAllTabAccess();
     }
 
     public void unapprovedTabAccess()   {
-        unapprovedTab.click();
+        header.moderatorUnapprovedTabAccess();
     }
 
     public void approvedTabAccess() {
-        approvedTab.click();
+        header.moderatorApprovedTabAccess();
     }
 
     public void archivedTabAccess() {
-        archivedTab.click();
+        header.moderatorArchivedTabAccess();
+    }
+
+    public SignInPage logOut()  {
+        return headerGlobal.logOut();
+    }
+
+    public ModeratorUsersPage usersPageAccess() {
+        usersSheet.click();
+        return new ModeratorUsersPage();
+    }
+
+    public ModeratorOwnersPage ownersPageAccess()   {
+        ownersSheet.click();
+        return new ModeratorOwnersPage();
     }
 
     public String getRestaurantStatus() {
-        return driver.findElement(By.xpath("//*[contains(text(), '" + restaurantName + "')]" +
-                "/ancestor::div[3]" +
-                "//*[@role='button']")).getAttribute("outerText");
+        return restaurants.getRestaurantStatus();
     }
 
     public void approveRestaurant() {
-        driver.findElement(By.xpath("//*[contains(text(), '" + restaurantName + "')]" +
-                "/ancestor::div[3]" +
-                "button[contains(., 'Approve')]")).click();
+        restaurants.approveRestaurant();
     }
 
     public void disapproveRestaurant()  {
-        driver.findElement(By.xpath("//*[contains(text(), '" + restaurantName + "')]" +
-                "/ancestor::div[3]" +
-                "button[contains(., 'Disapprove')]")).click();
+        restaurants.disapproveRestaurant();
     }
 
     public void deleteRestaurant()  {
-        driver.findElement(By.xpath("//*[contains(text(), '" + restaurantName + "')]" +
-                "/ancestor::div[3]" +
-                "button[contains(., 'Delete')]")).click();
+        restaurants.deleteRestaurant();
     }
 
     public void restoreRestaurant() {
-        driver.findElement(By.xpath("//*[contains(text(), '" + restaurantName + "')]" +
-                "/ancestor::div[3]" +
-                "button[contains(., 'Restore')]")).click();
+        restaurants.restoreRestaurant();
     }
 }

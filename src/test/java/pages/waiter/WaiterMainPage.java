@@ -1,10 +1,9 @@
 package pages.waiter;
 
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import pageComponents.HeaderGeneralPageComponent;
-import pageComponents.waiter.WaiterHeaderPageComponent;
+import pageComponents.HeaderPageComponent;
 import pageComponents.waiter.WaiterOrdersPageComponent;
+import pages.SignInPage;
 
 public class WaiterMainPage {
     private String orderNumber;
@@ -14,7 +13,7 @@ public class WaiterMainPage {
     }
 
     private final HeaderGeneralPageComponent headerGeneralPageComponent = new HeaderGeneralPageComponent();
-    private final WaiterHeaderPageComponent waiterHeader = new WaiterHeaderPageComponent();
+    private final HeaderPageComponent waiterHeader = new HeaderPageComponent();
     private final WaiterOrdersPageComponent orders = new WaiterOrdersPageComponent(orderNumber);
 
     public WaiterMainPage waiterPanelSheetAccess() {
@@ -47,5 +46,9 @@ public class WaiterMainPage {
 
     public void startOrder()  {
         orders.startOrder();
+    }
+
+    public SignInPage logOut()  {
+        return headerGeneralPageComponent.logOut();
     }
 }

@@ -1,61 +1,44 @@
 package pages.moderator;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import pageComponents.HeaderGeneralPageComponent;
+import pageComponents.HeaderPageComponent;
+import pageComponents.moderator.ModeratorUsersTablePageComponent;
+import pages.SignInPage;
 
 public class ModeratorUsersPage {
-    private final WebDriver driver;
     private String userEmail;
-
-    public ModeratorUsersPage(WebDriver driver)    {
-        PageFactory.initElements(driver, this);
-        this.driver = driver;
-    }
 
     public void setUserEmail(String userEmail)    {
         this.userEmail = userEmail;
     }
 
-    @FindBy(xpath = "//div[contains(@class, 'UserMenu')]/*[button]")
-    private WebElement userIconBtn;
+    private final HeaderGeneralPageComponent headerGlobal = new HeaderGeneralPageComponent();
 
-    @FindBy(xpath = "//a[text()='Moderator panel']")
-    private WebElement moderatorPanelAccessBtn;
+    private final HeaderPageComponent header = new HeaderPageComponent();
 
-    @FindBy(xpath = "//a[@href='/moderator/users']")
-    private WebElement usersSheet;
+    private final ModeratorUsersTablePageComponent usersTable = new ModeratorUsersTablePageComponent(userEmail);
 
-    @FindBy(xpath = "//button[contains(., 'All')]")
-    private WebElement allTab;
-
-    @FindBy(xpath = "//button[contains(., 'Active')]")
-    private WebElement activeTab;
-
-    @FindBy(xpath = "//button[contains(., 'Banned')]")
-    private WebElement bannedTab;
+    public SignInPage logOut()  {
+        return headerGlobal.logOut();
+    }
 
     public void allTabAccess()  {
-        allTab.click();
+        header.moderatorAllTabAccess();
     }
 
     public void activeTabAccess()   {
-        activeTab.click();
+        header.moderatorActiveTabAccess();
     }
 
     public void bannedTabAccess()   {
-        bannedTab.click();
+        header.moderatorBannedTabAccess();
     }
 
     public String getUserStatus()   {
-        return driver.findElement(By.xpath("//*[contains(text(), '" + userEmail + "')]" +
-                "/..//td[4]")).getAttribute("innerText");
+        return usersTable.getUserStatus();
     }
 
-    public void banUnbanUser()   {
-        driver.findElement(By.xpath("//*[contains(text(), '" + userEmail + "')]" +
-                "/..//button")).click();
+    public void changeUserStatus()   {
+        usersTable.changeUserStatus();
     }
 }
