@@ -9,22 +9,16 @@ public class AdministratorPage {
 
     private final WebDriver driver;
 
-    private final TabPanelPage tabPanelPage;
-
     @FindBy(xpath = "//main/div/header")
     private WebElement tabDiv;
-
 
     public AdministratorPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(this.driver, this);
-
-        //waitingForConfirmTabPage = new WaitingForConfirmTabPage(driver);
-        tabPanelPage = new TabPanelPage(tabDiv);
     }
 
     public TabPanelPage getTabPanelPage() {
-        return tabPanelPage;
+        return new TabPanelPage(tabDiv);
     }
 
     public WaitingForConfirmTabPage getWaitingForConfirmTabPage() {

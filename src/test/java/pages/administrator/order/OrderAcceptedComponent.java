@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 public class OrderAcceptedComponent {
 
     private WebElement orderSummaryDiv;
-    private List<WaiterComponent> waiterComponentList;
+    //private List<WaiterComponent> waiterComponentList;
 
     @FindBy(xpath = "./div/div/div/div/div/div/button")
     private WebElement assignBtn;
@@ -22,7 +22,6 @@ public class OrderAcceptedComponent {
     public OrderAcceptedComponent(WebElement orderSummaryDiv) {
         PageFactory.initElements(orderSummaryDiv, this);
         this.orderSummaryDiv = orderSummaryDiv;
-        initWaiterComponentList();
     }
 
     public void clickAssignBtn() {
@@ -30,11 +29,7 @@ public class OrderAcceptedComponent {
     }
 
     public List<WaiterComponent> getWaiterComponentList() {
-        return waiterComponentList;
-    }
-
-    private void initWaiterComponentList() {
-        waiterComponentList = waiterList.stream()
+        return waiterList.stream()
                 .map(waiter -> new WaiterComponent(waiter))
                 .collect(Collectors.toList());
     }

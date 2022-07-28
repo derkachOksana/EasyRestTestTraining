@@ -13,31 +13,29 @@ import java.util.stream.Collectors;
 public class AcceptedTabPage {
 
     private final WebDriver driver;
-    private List<OrderComponent> orders;
 
     public AcceptedTabPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(this.driver, this);
-        initOrderList();
+       // initOrderList();
     }
 
     @FindBy(xpath = "//main/div/div/div/div/div")
     private List<WebElement> orderDivList;
 
-    public List<WebElement> getOrderDivList() {
-        return orderDivList;
-    }
 
     public OrderComponent getOrderById(String orderId) {
+        List<OrderComponent> orders = getOrderList();
+
         return orders.stream()
                 .filter(order -> order.getOrderId().equals(orderId))
                 .findFirst()
                 .orElseThrow(() -> new NoSuchElementException("No order was found for order id: " + orderId));
     }
 
-    private void initOrderList() {
-        orders = orderDivList.stream()
-                .map(el -> new OrderComponent(el))
-                .collect(Collectors.toList());
+    public List<OrderComponent> getOrderList() {
+        return orderDivList.stream()
+            .map(el -> new OrderComponent(el))
+            .collect(Collectors.toList());
     }
 }

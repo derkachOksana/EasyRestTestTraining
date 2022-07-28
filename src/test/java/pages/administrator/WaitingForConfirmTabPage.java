@@ -14,7 +14,6 @@ public class WaitingForConfirmTabPage {
 
     private final WebDriver driver;
     private String orderId;
-    private List<OrderComponent> orders;
 
     @FindBy(xpath = "//main/div/div/div/div/div")
     private List<WebElement> orderDivList;
@@ -22,26 +21,23 @@ public class WaitingForConfirmTabPage {
     public WaitingForConfirmTabPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
-        initOrderList();
     }
 
     public void setOrderId(String orderId){
         this.orderId = orderId;
     }
 
-    public List<OrderComponent> getOrderList() {
-        return orders;
-    }
-
     public OrderComponent getOrderById(String orderId) {
+        List<OrderComponent> orders = getOrderList();
+
         return orders.stream()
                 .filter(order -> order.getOrderId().equals(orderId))
                 .findFirst()
                 .orElseThrow(() -> new NoSuchElementException("No order was found for order id: " + orderId));
     }
 
-    private void initOrderList() {
-        orders = orderDivList.stream()
+    public List<OrderComponent> getOrderList() {
+        return orderDivList.stream()
                 .map(el -> new OrderComponent(el))
                 .collect(Collectors.toList());
     }
