@@ -28,35 +28,12 @@ public class OrderGeneralPage {
    @FindBy(xpath = "//*[text()='Submit']")
    private WebElement submitOrderConfirmationTab;
 
-   @FindBy(xpath = "//div//label[contains(text(),'Time picker')]/ancestor::div[1]//input")
-   private WebElement timePickerTab;
-
-   @FindBy(xpath = "//div//label[contains(text(),'Date picker')]/ancestor::div[1]//input")
-   private WebElement datePickerTab;
-
    @FindBy(xpath = "//tbody//button[@aria-label = 'Remove item']")
    private List <WebElement> removeItemOrderConfirmationBtns;
 
-   public void removeItemOrderBtnAccessByIndex (int index) throws IllegalArgumentException {
-
-       int size = removeItemOrderConfirmationBtns.size();
-
-       if(index >= size) {
-           throw new IllegalArgumentException("Unexpected index [" + index + "]. Expect index should not be grater then " + size);
-       }
-
-       removeItemOrderConfirmationBtns.get(index).click();
-    }
-    public String datePickerGetText() {
-        return datePickerTab.getText();
-    }
-
-   public String timePickerGetText() {
-       return timePickerTab.getText();
-   }
 
    public void submitOrderConfirmationAccessTab() {
-       submitOrderTab.click();
+       submitOrderConfirmationTab.click();
    }
 
    public void setCancelOrderConfirmationAccess() {
@@ -77,4 +54,15 @@ public class OrderGeneralPage {
 
         setOfAddToCartBtn.get(index).click();
    }
+
+    public void removeItemOrderBtnAccessByIndex (int index) throws IllegalArgumentException {
+
+        int size = removeItemOrderConfirmationBtns.size();
+
+        if(index >= size) {
+            throw new IllegalArgumentException("Unexpected index [" + index + "]. Expect index should not be grater then " + size);
+        }
+
+        removeItemOrderConfirmationBtns.get(index).click();
+    }
 }
