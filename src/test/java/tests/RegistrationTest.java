@@ -3,7 +3,7 @@ package tests;
 import com.github.javafaker.Faker;
 import org.testng.Assert;
 import pages.LogInPage;
-import pages.OrderGeneralPage;
+import pages.RestaurantPage;
 import pages.SignUpPage;
 import utility.ConfProperties;
 import utility.RegDataBuilder;
@@ -17,7 +17,7 @@ public class RegistrationTest extends BaseTest {
     private RegDataBuilder regDataBuilder;
 
     @Test
-    public void registerNewUserTest()   {
+    public void registerNewUserTest() throws InterruptedException {
         faker = new Faker();
         regDataBuilder = new RegDataBuilder();
         regData = regDataBuilder
