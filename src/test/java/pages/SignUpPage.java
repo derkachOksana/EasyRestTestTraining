@@ -9,7 +9,7 @@ import java.util.Date;
 public class SignUpPage {
 
     //**********************
-    //Will be changed by Nazar
+    //PlaceHolder
     //**********************
 
 

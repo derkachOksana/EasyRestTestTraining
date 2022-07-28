@@ -1,9 +1,10 @@
 package pageComponents;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import pages.MainPage;
+import pages.HomePage;
 import pages.RestaurantsPage;
 import pages.SignInPage;
 import pages.SignUpPage;
@@ -35,9 +36,9 @@ public class HeaderGeneralPageComponent {
         return new HeaderGeneralDropDownMenuPageComponent();
     }
 
-    public RestaurantsPage restaurantsListAccess()  {
+    public RestaurantsPage restaurantsListAccess(WebDriver driver)  {
         restaurantListBtn.click();
-        return new RestaurantsPage();
+        return new RestaurantsPage(driver);
     }
 
     public SignInPage signInAccess()    {
@@ -50,9 +51,9 @@ public class HeaderGeneralPageComponent {
         return new SignUpPage();
     }
 
-    public MainPage homeAccess()    {
+    public HomePage homeAccess()    {
         homeBtn.click();
-        return new MainPage();
+        return new HomePage();
     }
 
     public WaiterMainPage waiterPanelAccess() {
