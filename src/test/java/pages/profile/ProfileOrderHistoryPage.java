@@ -1,4 +1,4 @@
-package pages;
+package pages.profile;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -18,7 +18,7 @@ public class ProfileOrderHistoryPage {
     @FindBy(xpath = "//a[contains(., 'All')]")
     private WebElement allTab;
 
-    @FindBy(xpath = "//a[@href = '/profile/order_history/History'])")
+    @FindBy(xpath = "//a[@href = '/profile/order_history/History']")
     private WebElement historyTab;
 
     @FindBy (xpath = "//a[@href = '/profile/order_history/Declined']")
