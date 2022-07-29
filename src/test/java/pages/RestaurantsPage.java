@@ -8,10 +8,10 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
-public class RestaurantPage {
+public class RestaurantsPage {
     private final WebDriver driver;
 
-    public RestaurantPage(WebDriver driver)    {
+    public RestaurantsPage(WebDriver driver)    {
         PageFactory.initElements(driver, this);
         this.driver = driver;
     }

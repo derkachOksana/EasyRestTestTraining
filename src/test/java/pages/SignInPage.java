@@ -7,13 +7,6 @@ import org.openqa.selenium.support.PageFactory;
 
 public class SignInPage {
 
-    private final WebDriver driver;
-
-    public SignInPage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-    }
-
     @FindBy(xpath = "//input[@name='email']")
     private WebElement userEmailInputField;
 
