@@ -1,14 +1,24 @@
 package pageComponents;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import pages.waiter.WaiterAssignedWaiterPage;
 import pages.waiter.WaiterHistoryPage;
 import pages.waiter.WaiterInProgressPage;
 import pages.waiter.WaiterMainPage;
 
 public class HeaderPageComponent {
+
+    private WebDriver driver;
+
+    public HeaderPageComponent(WebDriver driver)    {
+        PageFactory.initElements(driver, this);
+        this.driver = driver;
+    }
+
     @FindBy(xpath = "//main//header")
     private WebElement header;
 
@@ -44,22 +54,22 @@ public class HeaderPageComponent {
 
     public WaiterAssignedWaiterPage waiterAssignedWaiterPageAccess()  {
         waiterAssignedLink.click();
-        return new WaiterAssignedWaiterPage();
+        return new WaiterAssignedWaiterPage(driver);
     }
 
     public WaiterHistoryPage waiterHistoryPageAccess()    {
         waiterHistoryLink.click();
-        return new WaiterHistoryPage();
+        return new WaiterHistoryPage(driver);
     }
 
     public WaiterInProgressPage waiterInProgressPageAccess()  {
         waiterInProgressLink.click();
-        return new WaiterInProgressPage();
+        return new WaiterInProgressPage(driver);
     }
 
     public WaiterMainPage waiterMainPageAccess()  {
         waiterAllLink.click();
-        return new WaiterMainPage();
+        return new WaiterMainPage(driver);
     }
 
     public void moderatorAllTabAccess()  {

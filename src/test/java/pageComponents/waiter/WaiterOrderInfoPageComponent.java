@@ -2,11 +2,13 @@ package pageComponents.waiter;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
 
 public class WaiterOrderInfoPageComponent {
     private WebElement orderInfo;
 
     public WaiterOrderInfoPageComponent(WebElement orderInfo)   {
+        PageFactory.initElements(orderInfo, this);
         this.orderInfo = orderInfo;
     }
 

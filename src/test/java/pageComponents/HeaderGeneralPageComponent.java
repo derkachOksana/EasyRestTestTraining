@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import pages.HomePage;
 import pages.RestaurantsPage;
 import pages.SignInPage;
@@ -11,6 +12,14 @@ import pages.SignUpPage;
 import pages.waiter.WaiterMainPage;
 
 public class HeaderGeneralPageComponent {
+
+    private WebDriver driver = null;
+
+    public HeaderGeneralPageComponent(WebDriver driver) {
+        PageFactory.initElements(driver, this);
+        this.driver = driver;
+    }
+
     @FindBy(xpath = "//body/div/header")
     private WebElement header;
 
@@ -33,7 +42,7 @@ public class HeaderGeneralPageComponent {
 
     private HeaderGeneralDropDownMenuPageComponent userMenu()   {
         userMenuBtn.click();
-        return new HeaderGeneralDropDownMenuPageComponent();
+        return new HeaderGeneralDropDownMenuPageComponent(driver);
     }
 
     public RestaurantsPage restaurantsListAccess(WebDriver driver)  {
