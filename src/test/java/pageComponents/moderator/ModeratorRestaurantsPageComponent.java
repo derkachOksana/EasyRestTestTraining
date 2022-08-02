@@ -10,15 +10,18 @@ import java.util.List;
 
 public class ModeratorRestaurantsPageComponent {
 
-    private WebElement neededRestaurant;
-    private WebDriver driver;
+
+    private String desiredRestaurantName;
 
     @FindBy(xpath = "//main/div/div")
     private List<WebElement> restaurants;
 
-    public ModeratorRestaurantsPageComponent(WebDriver driver, String desiredRestaurantName) {
+    public ModeratorRestaurantsPageComponent(WebDriver driver) {
         PageFactory.initElements(driver, this);
-        this.driver = driver;
+    }
+
+    private WebElement getNeededRestaurantName()    {
+        WebElement neededRestaurant = restaurants.get(0);
         for(WebElement restaurant : restaurants)    {
             String currentRestaurantName = restaurant.findElement(By.xpath(
                     ".//span[contains(@class, 'title')]")).getText();
@@ -27,33 +30,38 @@ public class ModeratorRestaurantsPageComponent {
                 break;
             }
         }
+        return neededRestaurant;
+    }
+
+    public void setDesiredRestaurantName(String restaurantName)  {
+        desiredRestaurantName = restaurantName;
     }
 
     public String getRestaurantStatus() {
-        return neededRestaurant.findElement(By.xpath(
+        return getNeededRestaurantName().findElement(By.xpath(
                 ".//*[@role='button']")).getAttribute("outerText");
     }
 
     public void approveRestaurant() {
-        neededRestaurant.findElement(By.xpath(
+        getNeededRestaurantName().findElement(By.xpath(
                 ".//button[contains(., 'Approve')]"))
                 .click();
     }
 
     public void disapproveRestaurant()  {
-        neededRestaurant.findElement(By.xpath(
+        getNeededRestaurantName().findElement(By.xpath(
                 ".//button[contains(., 'Disapprove')]"))
                 .click();
     }
 
     public void deleteRestaurant()  {
-        neededRestaurant.findElement(By.xpath(
+        getNeededRestaurantName().findElement(By.xpath(
                 ".//button[contains(., 'Delete')]"))
                 .click();
     }
 
     public void restoreRestaurant() {
-        neededRestaurant.findElement(By.xpath(
+        getNeededRestaurantName().findElement(By.xpath(
                 ".//button[contains(., 'Restore')]"))
                 .click();
     }

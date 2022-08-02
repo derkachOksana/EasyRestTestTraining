@@ -1,29 +1,30 @@
 package pages.waiter;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
 import pageComponents.HeaderGeneralPageComponent;
-import pageComponents.HeaderPageComponent;
+import pageComponents.moderator.ModeratorHeaderPageComponent;
+import pageComponents.waiter.WaiterHeaderPageComponent;
 import pageComponents.waiter.WaiterOrdersPageComponent;
 import pages.SignInPage;
 
 public class WaiterMainPage {
-    protected String orderNumber;
 
     protected WebDriver driver;
 
+    protected final HeaderGeneralPageComponent headerGeneralPageComponent;
+    protected final WaiterHeaderPageComponent waiterHeader;
+    protected final WaiterOrdersPageComponent orders;
+
     public void setOrderNumber(String orderNumber)    {
-        this.orderNumber = orderNumber;
+        orders.setOrderNumber(orderNumber);
     }
 
     public WaiterMainPage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
         this.driver = driver;
+        headerGeneralPageComponent = new HeaderGeneralPageComponent(driver);
+        waiterHeader = new WaiterHeaderPageComponent(driver);
+        orders = new WaiterOrdersPageComponent(driver);
     }
-
-    protected final HeaderGeneralPageComponent headerGeneralPageComponent = new HeaderGeneralPageComponent(driver);
-    protected final HeaderPageComponent waiterHeader = new HeaderPageComponent(driver);
-    protected final WaiterOrdersPageComponent orders = new WaiterOrdersPageComponent(driver, orderNumber);
 
     public WaiterMainPage waiterPanelSheetAccess() {
         return headerGeneralPageComponent.waiterPanelAccess();

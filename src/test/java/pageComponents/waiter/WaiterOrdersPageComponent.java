@@ -9,29 +9,37 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.List;
 
 public class WaiterOrdersPageComponent {
-    private WebElement neededOrder;
-    private WebDriver driver;
+
+    private String orderNumber;
+
+    public void setOrderNumber(String orderNumber)  {
+        this.orderNumber = orderNumber;
+    }
 
     private final WaiterOrderInfoPageComponent orderInfo = expandOrder();
     @FindBy(xpath = "//main/div/div")
     private List<WebElement> orders;
 
-    public WaiterOrdersPageComponent(WebDriver driver, String orderNumber)  {
+    public WaiterOrdersPageComponent(WebDriver driver)  {
         PageFactory.initElements(driver, this);
-        this.driver = driver;
+    }
+
+    private WebElement getNeededOrder() {
+        WebElement neededOrder = orders.get(0);
         for(WebElement order : orders)  {
             String fullInfo = order.findElement(By.xpath(
-                    ".//*[contains(text(), '" + orderNumber + "')]"))
+                            ".//*[contains(text(), '" + orderNumber + "')]"))
                     .getAttribute("textContent");
             if(fullInfo.substring(0, 4).equals(orderNumber))    {
                 neededOrder = order;
                 break;
             }
         }
+        return neededOrder;
     }
 
     public String getOrderStatus()    {
-        return neededOrder.findElement(By.xpath(
+        return getNeededOrder().findElement(By.xpath(
                 ".//*[@role='button']"))
                 .getAttribute("textContent");
     }
@@ -45,9 +53,11 @@ public class WaiterOrdersPageComponent {
     }
 
     private WaiterOrderInfoPageComponent expandOrder()   {
-        neededOrder.findElement(By.xpath(
+        getNeededOrder().findElement(By.xpath(
                 ".//*[button]"))
                 .click();
-        return new WaiterOrderInfoPageComponent(neededOrder.findElement(By.xpath("./div/div[2]")));
+        return new WaiterOrderInfoPageComponent(getNeededOrder()
+                .findElement(By.xpath(
+                        "./div/div[2]")));
     }
 }

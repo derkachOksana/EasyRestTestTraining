@@ -1,38 +1,18 @@
 package pages.moderator;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.PageFactory;
-import pageComponents.HeaderGeneralPageComponent;
-import pageComponents.HeaderPageComponent;
 import pageComponents.moderator.ModeratorOwnersTablePageComponent;
-import pages.SignInPage;
 
-public class ModeratorOwnersPage {
-    private String ownerEmail;
-
-    private WebDriver driver = null;
+public class ModeratorOwnersPage extends ModeratorBasePage {
+    private final ModeratorOwnersTablePageComponent ownersTable;
 
     public void setOwnerEmail(String ownerEmail)    {
-        this.ownerEmail = ownerEmail;
+        ownersTable.setOwnerEmail(ownerEmail);
     }
 
     public ModeratorOwnersPage(WebDriver driver)    {
-        PageFactory.initElements(driver, this);
-        this.driver = driver;
-    }
-
-    private final HeaderGeneralPageComponent headerGlobal = new HeaderGeneralPageComponent(driver);
-
-    private final HeaderPageComponent header = new HeaderPageComponent(driver);
-
-    private final ModeratorOwnersTablePageComponent ownersTable = new ModeratorOwnersTablePageComponent(driver, ownerEmail);
-
-    public SignInPage logout()  {
-        return headerGlobal.logOut();
-    }
-    public void allTabAccess()  {
-        header.moderatorAllTabAccess();
+        super(driver);
+        ownersTable = new ModeratorOwnersTablePageComponent(driver);
     }
 
     public void activeTabAccess()   {
@@ -42,12 +22,11 @@ public class ModeratorOwnersPage {
     public void bannedTabAccess()   {
         header.moderatorBannedTabAccess();
     }
-
-    public String getUserStatus()   {
+    public String getOwnerStatusStatus()   {
         return ownersTable.getOwnerStatus();
     }
 
-    public void banUnbanUser()   {
+    public void changeOwnerStatusUser()   {
         ownersTable.changeOwnerStatus();
     }
 }

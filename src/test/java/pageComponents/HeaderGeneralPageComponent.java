@@ -13,7 +13,7 @@ import pages.waiter.WaiterMainPage;
 
 public class HeaderGeneralPageComponent {
 
-    private WebDriver driver = null;
+    private final WebDriver driver;
 
     public HeaderGeneralPageComponent(WebDriver driver) {
         PageFactory.initElements(driver, this);
@@ -52,7 +52,7 @@ public class HeaderGeneralPageComponent {
 
     public SignInPage signInAccess()    {
         signInBtn.click();
-        return new SignInPage();
+        return new SignInPage(driver);
     }
 
     public SignUpPage signUpAccess() {
@@ -62,7 +62,7 @@ public class HeaderGeneralPageComponent {
 
     public HomePage homeAccess()    {
         homeBtn.click();
-        return new HomePage();
+        return new HomePage(driver);
     }
 
     public WaiterMainPage waiterPanelAccess() {
