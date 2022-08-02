@@ -13,8 +13,6 @@ public final class DateHandler {
         return monthNames[monthNumber];
     }
 
-    private DateHandler() {}
-
     public static String getCurrentDateTime()   {
         DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy_HH_mm_ss");
         Date date = new Date();
