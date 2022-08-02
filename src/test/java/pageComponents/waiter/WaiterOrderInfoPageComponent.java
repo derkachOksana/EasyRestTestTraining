@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
 public class WaiterOrderInfoPageComponent {
-    private WebElement orderInfo;
+    private final WebElement orderInfo;
 
     public WaiterOrderInfoPageComponent(WebElement orderInfo)   {
         PageFactory.initElements(orderInfo, this);
@@ -13,10 +13,14 @@ public class WaiterOrderInfoPageComponent {
     }
 
     public void startOrderBtnClick()    {
-        orderInfo.findElement(By.xpath("./button[contains(., 'Start order')]"));
+        orderInfo.findElement(By.xpath(
+                "./button[contains(., 'Start order')]"))
+                .click();
     }
 
     public void closeOrderBtnClick()    {
-        orderInfo.findElement(By.xpath("./button[contains(., 'Close order')]"));
+        orderInfo.findElement(By.xpath(
+                "./button[contains(., 'Close order')]"))
+                .click();
     }
 }

@@ -23,7 +23,7 @@ public class HeaderGeneralPageComponent {
     @FindBy(xpath = "//body/div/header")
     private WebElement header;
 
-    private final HeaderGeneralDropDownMenuPageComponent dropDownMenu = userMenu();
+    public final HeaderGeneralDropDownMenuPageComponent dropDownMenu = userMenu();
 
     private final WebElement userMenuBtn = header.findElement(By.xpath(
             ".//div[contains(@class, 'UserMenu')]/*[button]"));
@@ -63,13 +63,5 @@ public class HeaderGeneralPageComponent {
     public HomePage homeAccess()    {
         homeBtn.click();
         return new HomePage(driver);
-    }
-
-    public WaiterMainPage waiterPanelAccess() {
-        return dropDownMenu.waiterPanelAccess();
-    }
-
-    public SignInPage logOut()  {
-        return dropDownMenu.logOut();
     }
 }

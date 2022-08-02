@@ -9,8 +9,6 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.List;
 
 public class ModeratorRestaurantsPageComponent {
-
-
     private String desiredRestaurantName;
 
     @FindBy(xpath = "//main/div/div")

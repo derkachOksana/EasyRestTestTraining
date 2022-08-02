@@ -16,7 +16,7 @@ public class WaiterOrdersPageComponent {
         this.orderNumber = orderNumber;
     }
 
-    private final WaiterOrderInfoPageComponent orderInfo = expandOrder();
+    public final WaiterOrderInfoPageComponent orderInfo = expandOrder();
     @FindBy(xpath = "//main/div/div")
     private List<WebElement> orders;
 
@@ -42,14 +42,6 @@ public class WaiterOrdersPageComponent {
         return getNeededOrder().findElement(By.xpath(
                 ".//*[@role='button']"))
                 .getAttribute("textContent");
-    }
-
-    public void startOrder() {
-        orderInfo.startOrderBtnClick();
-    }
-
-    public void closeOrder() {
-        orderInfo.closeOrderBtnClick();
     }
 
     private WaiterOrderInfoPageComponent expandOrder()   {

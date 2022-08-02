@@ -54,7 +54,7 @@ public class ModeratorHeaderPageComponent {
     }
 
     public void moderatorActiveTabAccess()  {
-        moderatorArchivedTab.click();
+        moderatorActiveTab.click();
     }
 
     public void moderatorBannedTabAccess()  {

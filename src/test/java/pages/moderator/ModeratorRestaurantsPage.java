@@ -7,11 +7,7 @@ import pageComponents.moderator.ModeratorRestaurantsPageComponent;
 
 public class ModeratorRestaurantsPage extends ModeratorBasePage {
 
-    private final ModeratorRestaurantsPageComponent restaurants;
-
-    public void setRestaurantName(String restaurantName)    {
-        restaurants.setDesiredRestaurantName(restaurantName);
-    }
+    public final ModeratorRestaurantsPageComponent restaurants;
 
     public ModeratorRestaurantsPage(WebDriver driver)   {
         super(driver);
@@ -32,41 +28,5 @@ public class ModeratorRestaurantsPage extends ModeratorBasePage {
     public ModeratorOwnersPage ownersPageAccess()   {
         ownersSheet.click();
         return new ModeratorOwnersPage(driver);
-    }
-
-    public String getRestaurantStatus() {
-        return restaurants.getRestaurantStatus();
-    }
-
-    public void approveRestaurant() {
-        restaurants.approveRestaurant();
-    }
-
-    public void disapproveRestaurant()  {
-        restaurants.disapproveRestaurant();
-    }
-
-    public void deleteRestaurant()  {
-        restaurants.deleteRestaurant();
-    }
-
-    public void restoreRestaurant() {
-        restaurants.restoreRestaurant();
-    }
-
-    public void archivedTabAccess()   {
-        header.moderatorArchivedTabAccess();
-    }
-
-    public void unapprovedTabAccess()   {
-        header.moderatorUnapprovedTabAccess();
-    }
-
-    public void approvedTabAccess()   {
-        header.moderatorApprovedTabAccess();
-    }
-
-    public void activeTabAccess()   {
-        header.moderatorActiveTabAccess();
     }
 }
