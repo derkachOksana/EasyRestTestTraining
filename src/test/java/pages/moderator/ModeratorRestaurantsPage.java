@@ -3,24 +3,15 @@ package pages.moderator;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import pageComponents.HeaderGeneralPageComponent;
-import pageComponents.HeaderPageComponent;
 import pageComponents.moderator.ModeratorRestaurantsPageComponent;
-import pages.SignInPage;
 
-public class ModeratorRestaurantsPage {
-    private String restaurantName;
+public class ModeratorRestaurantsPage extends ModeratorBasePage {
 
-    private WebDriver driver = null;
-
-    public void setRestaurantName(String restaurantName)    {
-        this.restaurantName = restaurantName;
-    }
+    public final ModeratorRestaurantsPageComponent restaurants;
 
     public ModeratorRestaurantsPage(WebDriver driver)   {
-        PageFactory.initElements(driver, this);
-        this.driver = driver;
+        super(driver);
+        restaurants = new ModeratorRestaurantsPageComponent(driver);
     }
 
     @FindBy(xpath = "//a[@href='/moderator/users']")
@@ -28,31 +19,6 @@ public class ModeratorRestaurantsPage {
 
     @FindBy(xpath = "//a[@href='/moderator/owners']")
     private WebElement ownersSheet;
-
-    private final HeaderGeneralPageComponent headerGlobal = new HeaderGeneralPageComponent(driver);
-    private final HeaderPageComponent header = new HeaderPageComponent(driver);
-
-    private final ModeratorRestaurantsPageComponent restaurants = new ModeratorRestaurantsPageComponent(driver, restaurantName);
-
-    public void allTabAccess()  {
-        header.moderatorAllTabAccess();
-    }
-
-    public void unapprovedTabAccess()   {
-        header.moderatorUnapprovedTabAccess();
-    }
-
-    public void approvedTabAccess() {
-        header.moderatorApprovedTabAccess();
-    }
-
-    public void archivedTabAccess() {
-        header.moderatorArchivedTabAccess();
-    }
-
-    public SignInPage logOut()  {
-        return headerGlobal.logOut();
-    }
 
     public ModeratorUsersPage usersPageAccess() {
         usersSheet.click();
@@ -62,25 +28,5 @@ public class ModeratorRestaurantsPage {
     public ModeratorOwnersPage ownersPageAccess()   {
         ownersSheet.click();
         return new ModeratorOwnersPage(driver);
-    }
-
-    public String getRestaurantStatus() {
-        return restaurants.getRestaurantStatus();
-    }
-
-    public void approveRestaurant() {
-        restaurants.approveRestaurant();
-    }
-
-    public void disapproveRestaurant()  {
-        restaurants.disapproveRestaurant();
-    }
-
-    public void deleteRestaurant()  {
-        restaurants.deleteRestaurant();
-    }
-
-    public void restoreRestaurant() {
-        restaurants.restoreRestaurant();
     }
 }

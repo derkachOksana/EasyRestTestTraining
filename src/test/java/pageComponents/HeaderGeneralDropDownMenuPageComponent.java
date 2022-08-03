@@ -32,6 +32,6 @@ public class HeaderGeneralDropDownMenuPageComponent {
 
     public SignInPage logOut()    {
         logOutBtn.click();
-        return new SignInPage();
+        return new SignInPage(driver);
     }
 }

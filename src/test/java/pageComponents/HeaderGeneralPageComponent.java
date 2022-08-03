@@ -13,7 +13,7 @@ import pages.waiter.WaiterMainPage;
 
 public class HeaderGeneralPageComponent {
 
-    private WebDriver driver = null;
+    private final WebDriver driver;
 
     public HeaderGeneralPageComponent(WebDriver driver) {
         PageFactory.initElements(driver, this);
@@ -23,7 +23,7 @@ public class HeaderGeneralPageComponent {
     @FindBy(xpath = "//body/div/header")
     private WebElement header;
 
-    private final HeaderGeneralDropDownMenuPageComponent dropDownMenu = userMenu();
+    public final HeaderGeneralDropDownMenuPageComponent dropDownMenu = userMenu();
 
     private final WebElement userMenuBtn = header.findElement(By.xpath(
             ".//div[contains(@class, 'UserMenu')]/*[button]"));
@@ -52,7 +52,7 @@ public class HeaderGeneralPageComponent {
 
     public SignInPage signInAccess()    {
         signInBtn.click();
-        return new SignInPage();
+        return new SignInPage(driver);
     }
 
     public SignUpPage signUpAccess() {
@@ -62,14 +62,6 @@ public class HeaderGeneralPageComponent {
 
     public HomePage homeAccess()    {
         homeBtn.click();
-        return new HomePage();
-    }
-
-    public WaiterMainPage waiterPanelAccess() {
-        return dropDownMenu.waiterPanelAccess();
-    }
-
-    public SignInPage logOut()  {
-        return dropDownMenu.logOut();
+        return new HomePage(driver);
     }
 }
