@@ -1,18 +1,28 @@
 package pageComponents.moderator;
 
+import com.beust.jcommander.IStringConverter;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.devtools.v85.page.Page;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
 public class ModeratorOwnersTablePageComponent {
 
+    private String ownerEmail;
+
     @FindBy(xpath = "//table/tbody/tr")
     private List<WebElement> owners;
 
-    private WebElement neededOwner;
-    public ModeratorOwnersTablePageComponent(String ownerEmail)   {
+    public ModeratorOwnersTablePageComponent(WebDriver driver)   {
+        PageFactory.initElements(driver, this);
+    }
+
+    private WebElement getNeededOwner() {
+        WebElement neededOwner = owners.get(0);
         for(WebElement owner : owners)    {
             String currentOwnerEmail = owner.findElement(By.xpath(
                     "./td")).getText();
@@ -21,15 +31,20 @@ public class ModeratorOwnersTablePageComponent {
                 break;
             }
         }
+        return neededOwner;
+    }
+
+    public void setOwnerEmail(String ownerEmail)    {
+        this.ownerEmail = ownerEmail;
     }
 
     public String getOwnerStatus()  {
-        return neededOwner.findElement(By.xpath(
+        return getNeededOwner().findElement(By.xpath(
                 "./td[5]/p")).getText();
     }
 
     public void changeOwnerStatus() {
-        neededOwner.findElement(By.xpath(
+        getNeededOwner().findElement(By.xpath(
                 "./td[6]")).click();
     }
 }

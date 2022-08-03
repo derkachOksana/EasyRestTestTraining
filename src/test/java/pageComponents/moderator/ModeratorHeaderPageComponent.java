@@ -1,28 +1,23 @@
-package pageComponents;
+package pageComponents.moderator;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import pages.waiter.WaiterAssignedWaiterPage;
 import pages.waiter.WaiterHistoryPage;
 import pages.waiter.WaiterInProgressPage;
 import pages.waiter.WaiterMainPage;
 
-public class HeaderPageComponent {
+public class ModeratorHeaderPageComponent {
+
+    public ModeratorHeaderPageComponent(WebDriver driver)    {
+        PageFactory.initElements(driver, this);
+    }
+
     @FindBy(xpath = "//main//header")
     private WebElement header;
-
-    private final WebElement waiterAssignedLink = header.findElement(By.xpath(
-            "./a[@href='/waiter/orders/Assigned waiter']"));
-
-    private final WebElement waiterInProgressLink = header.findElement(By.xpath(
-            "./a[@href='/waiter/orders/In progress']"));
-
-    private final WebElement waiterHistoryLink = header.findElement(By.xpath(
-            "./a[@href='/waiter/orders/History']"));
-
-    private final WebElement waiterAllLink = header.findElement(By.xpath(
-            "./a[@href='/waiter/orders/']"));
 
     private final WebElement moderatorAllTab = header.findElement(By.xpath(
             ".//button//*[text()[contains(., 'All')]]"));
@@ -42,26 +37,6 @@ public class HeaderPageComponent {
     private final WebElement moderatorBannedTab = header.findElement(By.xpath(
             ".//button//*[text()[contains(., 'Banned')]]"));
 
-    public WaiterAssignedWaiterPage waiterAssignedWaiterPageAccess()  {
-        waiterAssignedLink.click();
-        return new WaiterAssignedWaiterPage();
-    }
-
-    public WaiterHistoryPage waiterHistoryPageAccess()    {
-        waiterHistoryLink.click();
-        return new WaiterHistoryPage();
-    }
-
-    public WaiterInProgressPage waiterInProgressPageAccess()  {
-        waiterInProgressLink.click();
-        return new WaiterInProgressPage();
-    }
-
-    public WaiterMainPage waiterMainPageAccess()  {
-        waiterAllLink.click();
-        return new WaiterMainPage();
-    }
-
     public void moderatorAllTabAccess()  {
         moderatorAllTab.click();
     }
@@ -79,7 +54,7 @@ public class HeaderPageComponent {
     }
 
     public void moderatorActiveTabAccess()  {
-        moderatorArchivedTab.click();
+        moderatorActiveTab.click();
     }
 
     public void moderatorBannedTabAccess()  {
