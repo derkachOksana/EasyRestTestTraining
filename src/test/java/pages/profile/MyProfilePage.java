@@ -5,10 +5,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class ProfilePersonalInfoPage {
+public class MyProfilePage {
     private final WebDriver driver;
 
-    public ProfilePersonalInfoPage(WebDriver driver) {
+    public MyProfilePage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
     }
