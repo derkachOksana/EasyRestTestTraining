@@ -1,19 +1,20 @@
-package pageComponents;
+package pageComponents.menu;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import pageComponents.menu.OrderConfirmationPageComponent;
+import pageComponents.menu.YearPickerPageComponent;
 import utility.DateHandler;
 
 import java.util.Date;
 
 public class DatePickerPageComponent {
 
-    private WebDriver driver;
-    private Date desiredDate;
+    private final WebDriver driver;
+    private final Date desiredDate;
 
     public DatePickerPageComponent(WebDriver driver, Date desiredDate)    {
         PageFactory.initElements(driver, this);

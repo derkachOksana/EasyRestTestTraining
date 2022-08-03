@@ -1,4 +1,4 @@
-package pageComponents;
+package pageComponents.menu;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,10 +11,10 @@ import utility.DateHandler;
 import java.util.Date;
 
 public class TimePickerPageComponent {
-    private WebDriver driver;
+    private final WebDriver driver;
     private final Actions action;
 
-    private Date desiredDate;
+    private final Date desiredDate;
 
     public TimePickerPageComponent(WebDriver driver, Date desiredDate)    {
         PageFactory.initElements(driver, this);
@@ -34,18 +34,16 @@ public class TimePickerPageComponent {
 
     @FindBy(xpath = "//button[.//span[text()='OK']]")
     private WebElement okBtn;
-    /*
-    *******************************************************
-            NEED TO ADD LOGIC FOR AM/PM CHOOSING
-    *******************************************************
-    */
-    public void setAM() {
-        amBtn.click();
+
+    public void setAmPm() {
+        if(DateHandler.getHours(desiredDate) <= 11) {
+            amBtn.click();
+        }
+        if(DateHandler.getHours(desiredDate) > 11)  {
+            pmBtn.click();
+        }
     }
 
-    public void setPM() {
-        pmBtn.click();
-    }
 
     public void setHours()  {
         action.dragAndDrop(clock,

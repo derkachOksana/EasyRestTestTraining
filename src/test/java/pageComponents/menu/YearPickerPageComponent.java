@@ -1,4 +1,4 @@
-package pageComponents;
+package pageComponents.menu;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -8,9 +8,9 @@ import org.openqa.selenium.support.PageFactory;
 
 public class YearPickerPageComponent {
 
-    private WebDriver driver;
-    private int desiredYear;
-    private JavascriptExecutor js;
+    private final WebDriver driver;
+    private final int desiredYear;
+    private final JavascriptExecutor js;
 
     public YearPickerPageComponent(WebDriver driver, int year)    {
         PageFactory.initElements(driver, this);
