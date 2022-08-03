@@ -57,7 +57,7 @@ public class HeaderGeneralPageComponent {
 
     public SignUpPage signUpAccess() {
         signUpBtn.click();
-        return new SignUpPage();
+        return new SignUpPage(driver);
     }
 
     public HomePage homeAccess()    {

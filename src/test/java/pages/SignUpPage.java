@@ -1,19 +1,24 @@
 package pages;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import utility.DateHandler;
-
-import java.util.Date;
+import org.openqa.selenium.support.PageFactory;
+import pageComponents.HeaderGeneralPageComponent;
 
 public class SignUpPage {
 
-    //**********************
-    //PlaceHolder
-    //**********************
+    private final WebDriver driver;
 
+    public final HeaderGeneralPageComponent headerGlobal;
 
-    /*@FindBy(name = "name")
+    public SignUpPage(WebDriver driver) {
+        PageFactory.initElements(driver, this);
+        this.driver = driver;
+        headerGlobal = new HeaderGeneralPageComponent(driver);
+    }
+
+    @FindBy(name = "name")
     private WebElement nameInput;
 
     @FindBy(name = "email")
@@ -22,26 +27,14 @@ public class SignUpPage {
     @FindBy(name = "phoneNumber")
     private WebElement phoneNumberInput;
 
-    @FindBy(name = "birthDate")
-    private WebElement birthDateInput;
-
     @FindBy(name = "password")
     private WebElement passwordInput;
 
     @FindBy(name = "repeated_password")
     private WebElement repeatedPasswordInput;
 
-    @FindBy(xpath = "//button")
+    @FindBy(xpath = "//*[text()='Create account']")
     private WebElement createAccountButton;
-
-    @FindBy(xpath = "/html/body/div[2]/div[2]/div/div[1]/div[2]/div[1]/div/p")
-    private WebElement dateYearMonthElement;
-
-    @FindBy(xpath = "/html/body/div[2]/div[2]/div/div[1]/div[2]/div[1]/button[1]")
-    private WebElement calendarLeftBtn;
-
-    @FindBy(xpath = "//button[.//span[text()='OK']]")
-    private WebElement calendarOkBtn;
 
     public void inputName(String name) {
         nameInput.sendKeys(name);
@@ -55,38 +48,6 @@ public class SignUpPage {
         emailInput.sendKeys(email);
     }
 
-    public void calendarAccess()    {
-        birthDateInput.click();
-    }
-
-    public void setYearCalendar(Date birthDate) {
-        String date;
-        int year;
-        int birthDateYear = getBirthDateRealYear(birthDate.getYear());
-        do
-        {
-            calendarLeftBtn.click();
-            date = dateYearMonthElement.getAttribute("innerText");
-            year = Integer.parseInt(date.replaceAll("\\D", ""));
-        }   while (year != birthDateYear);
-    }
-
-    public void setMonthCalendar(Date birthDate)    {
-        String month;
-        String birthDateMonth = DateHandler.getMonthFromDate(birthDate.getMonth());
-        String date;
-        do
-        {
-            calendarLeftBtn.click();
-            date = dateYearMonthElement.getAttribute("innerText");
-            month = date.replaceAll("[^A-z]", "");
-        }   while (!month.equals(birthDateMonth));
-    }
-
-    public void calendarAcceptChanges() {
-        calendarOkBtn.click();
-    }
-
     public void inputPassword(String password)  {
         passwordInput.sendKeys(password);
     }
@@ -95,11 +56,8 @@ public class SignUpPage {
         repeatedPasswordInput.sendKeys(password);
     }
 
-    public void createAccountAccept()   {
+    public SignInPage createAccountAccept()   {
         createAccountButton.click();
+        return new SignInPage(driver);
     }
-
-    private int getBirthDateRealYear(int birthDateYear)    {
-        return birthDateYear + 1900;
-    }*/
 }
