@@ -6,6 +6,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class HomePage {
+    public HomePage(WebDriver driver)   {
+        PageFactory.initElements(driver, this);
+    }
 
     @FindBy(xpath = "//a[@href='/log-in']")
     private WebElement signInBtn;
