@@ -18,7 +18,7 @@ public class SignInPage {
     @FindBy(xpath = "//button[@type='submit']")
     private WebElement signInBtn;
 
-    @FindBy(xpath = "//*[@id=\"root\"]/header/div/a")
+    @FindBy(xpath = "//*[@id='root']/header/div/a")
     private WebElement homeBtn;
 
 

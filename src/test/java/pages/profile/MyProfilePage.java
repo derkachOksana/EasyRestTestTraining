@@ -4,27 +4,23 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import pageComponents.HeaderGeneralPageComponent;
 
 public class MyProfilePage {
-    private final WebDriver driver;
 
+    protected WebDriver driver;
+    public final HeaderGeneralPageComponent headerGeneralPageComponent;
     public MyProfilePage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
+        headerGeneralPageComponent = new HeaderGeneralPageComponent(driver);
     }
-
-    @FindBy(xpath = "//*[text()='My Profile']")
-    private WebElement myProfileBtn;
-
     @FindBy(xpath = "//*[text()='Current Orders']")
     private WebElement currentOrdersBtn;
 
     @FindBy(xpath = "//*[text()='Order History']")
     private WebElement orderHistoryBtn;
 
-    public void myProfileAccess() {
-        myProfileBtn.click();
-    }
     public ProfileCurrentOrdersPage currentOrdersAccess() {
 
         ProfileCurrentOrdersPage currentOrdersPage = new ProfileCurrentOrdersPage(driver);
