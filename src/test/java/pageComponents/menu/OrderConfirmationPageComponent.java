@@ -23,6 +23,12 @@ public class OrderConfirmationPageComponent {
     @FindBy(xpath = "//label[contains(., 'Time picker')]/..//*[@type='text']")
     private WebElement timePickerField;
 
+    @FindBy(xpath = "//button/span[text()='Submit']")
+    private WebElement submitBtn;
+
+    @FindBy(xpath = "//button/span[text()='Cancel']")
+    private WebElement cancelBtn;
+
     public OrderConfirmationPageComponent setDate(Date desiredDate) {
         DatePickerPageComponent datePicker = new DatePickerPageComponent(driver, desiredDate);
         datePickerField.click();
@@ -47,5 +53,13 @@ public class OrderConfirmationPageComponent {
 
     public String getDate() {
         return datePickerField.getAttribute("value");
+    }
+
+    public void cancelOrder()    {
+        cancelBtn.click();
+    }
+
+    public void submitOrder()    {
+        submitBtn.click();
     }
 }
