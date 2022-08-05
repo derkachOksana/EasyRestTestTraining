@@ -9,6 +9,10 @@ import pageComponents.HeaderGeneralPageComponent;
 public class AdministratorPage {
 
     private final WebDriver driver;
+    private HeaderGeneralPageComponent headerGeneralPageComponent;
+    private TabPanelPage tabPanelPage;
+    private WaitingForConfirmTabPage waitingForConfirmTabPage;
+    private AcceptedTabPage acceptedTabPage;
 
     @FindBy(xpath = "//main/div/header")
     private WebElement tabDiv;
@@ -18,19 +22,24 @@ public class AdministratorPage {
         PageFactory.initElements(this.driver, this);
     }
 
-    public HeaderGeneralPageComponent getHeaderGeneralPageComponent() {
-        return new HeaderGeneralPageComponent(driver);
+    private void initHeaderGeneralPageComponent() {
+        if(headerGeneralPageComponent == null) {
+            headerGeneralPageComponent = new HeaderGeneralPageComponent(driver);
+        }
     }
-
-    public TabPanelPage getTabPanelPage() {
-        return new TabPanelPage(tabDiv);
+    private void initTabPanelPage() {
+        if(tabPanelPage == null) {
+            tabPanelPage = new TabPanelPage(tabDiv);
+        }
     }
-
-    public WaitingForConfirmTabPage getWaitingForConfirmTabPage() {
-        return new WaitingForConfirmTabPage(driver);
+    private void initWaitingForConfirmTabPage() {
+        if(waitingForConfirmTabPage == null) {
+            waitingForConfirmTabPage = new WaitingForConfirmTabPage(driver);
+        }
     }
-
-    public AcceptedTabPage getAcceptedTabPage() {
-        return new AcceptedTabPage(driver);
+    private void initAcceptedTabPage() {
+        if(acceptedTabPage == null) {
+            acceptedTabPage = new AcceptedTabPage(driver);
+        }
     }
 }
