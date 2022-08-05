@@ -20,27 +20,22 @@ public class HeaderGeneralPageComponent {
         this.driver = driver;
     }
 
-    @FindBy(xpath = "//body/div/header")
-    private WebElement header;
+    @FindBy(xpath = "//div[contains(@class, 'UserMenu')]/*[button]")
+    private WebElement userMenuBtn;
 
-    public final HeaderGeneralDropDownMenuPageComponent dropDownMenu = userMenu();
+    @FindBy(xpath = "//span[text()='Home']")
+    private WebElement homeBtn;
 
-    private final WebElement userMenuBtn = header.findElement(By.xpath(
-            ".//div[contains(@class, 'UserMenu')]/*[button]"));
+    @FindBy(xpath = "//span[text()='Restaurants List']")
+    private WebElement restaurantListBtn;
 
-    private final WebElement homeBtn = header.findElement(By.xpath(
-            ".//span[text()='Home']"));
+    @FindBy(xpath = "//span[text()='Sign In']")
+    private WebElement signInBtn;
 
-    private final WebElement restaurantListBtn = header.findElement(By.xpath(
-            ".//span[text()='Restaurants List']"));
+    @FindBy(xpath = "//span[text()='Sign Up']")
+    private WebElement signUpBtn;
 
-    private final WebElement signInBtn = header.findElement(By.xpath(
-            ".//span[text()='Sign In']"));
-
-    private final WebElement signUpBtn = header.findElement(By.xpath(
-            ".//span[text()='Sign Up']"));
-
-    private HeaderGeneralDropDownMenuPageComponent userMenu()   {
+    public HeaderGeneralDropDownMenuPageComponent userMenu()   {
         userMenuBtn.click();
         return new HeaderGeneralDropDownMenuPageComponent(driver);
     }
