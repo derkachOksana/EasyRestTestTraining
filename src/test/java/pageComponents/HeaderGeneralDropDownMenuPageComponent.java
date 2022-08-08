@@ -17,13 +17,12 @@ public class HeaderGeneralDropDownMenuPageComponent {
         PageFactory.initElements(driver, this);
         this.driver = driver;
     }
-    @FindBy(xpath = "//div[@role='document']")
-    private WebElement userMenu;
 
-    private final WebElement waiterPanelBtn = userMenu.findElement(By.xpath(
-            ".//*[text()='Waiter panel']"));
-    private final WebElement logOutBtn = userMenu.findElement(By.xpath(
-            ".//*[text()='Log Out']"));
+    @FindBy(xpath = "//*[text()='Waiter panel']")
+    private WebElement waiterPanelBtn;
+
+    @FindBy(xpath = "//*[text()='Log Out']")
+    private WebElement logOutBtn;
 
     private final WebElement myProfileBtn = userMenu.findElement(By.xpath(
             ".//*[text()='My Profile']"));
