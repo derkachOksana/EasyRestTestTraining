@@ -5,11 +5,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import pageComponents.HeaderGeneralPageComponent;
 
 import java.util.List;
 
 public class RestaurantsPage {
     private final WebDriver driver;
+    public HeaderGeneralPageComponent getHeaderGeneralPageComponent() {
+        return new HeaderGeneralPageComponent(driver);
+    }
 
     public RestaurantsPage(WebDriver driver)    {
         PageFactory.initElements(driver, this);

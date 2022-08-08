@@ -11,14 +11,12 @@ public class ProfileCurrentOrdersPage {
     protected WebDriver driver;
     public final HeaderGeneralPageComponent headerGeneralPageComponent;
     public final ClientHeaderPageComponent clientHeader;
-    public static ClientOrdersContainerComponent orders;
 
 
     public ProfileCurrentOrdersPage(WebDriver driver) {
         this.driver = driver;
         headerGeneralPageComponent = new HeaderGeneralPageComponent(driver);
         clientHeader = new ClientHeaderPageComponent(driver);
-        orders = new ClientOrdersContainerComponent(driver);
     }
    /* public void getId (String nameRestaurant, String timeOrder, String totalSum) {
         orders.getOrderID(nameRestaurant, timeOrder, totalSum);

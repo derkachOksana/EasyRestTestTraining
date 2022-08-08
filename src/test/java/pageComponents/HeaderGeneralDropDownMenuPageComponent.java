@@ -24,8 +24,8 @@ public class HeaderGeneralDropDownMenuPageComponent {
     @FindBy(xpath = "//*[text()='Log Out']")
     private WebElement logOutBtn;
 
-    private final WebElement myProfileBtn = userMenu.findElement(By.xpath(
-            ".//*[text()='My Profile']"));
+    @FindBy(xpath = "//*[text()='My Profile']")
+    private WebElement myProfileBtn;
 
     public WaiterMainPage waiterPanelAccess() {
         waiterPanelBtn.click();
