@@ -17,7 +17,6 @@ public class AcceptedTabPage {
     public AcceptedTabPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(this.driver, this);
-       // initOrderList();
     }
 
     @FindBy(xpath = "//main/div/div/div/div/div")
