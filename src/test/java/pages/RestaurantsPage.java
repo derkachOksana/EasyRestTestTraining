@@ -5,26 +5,38 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import pageComponents.HeaderGeneralPageComponent;
 
 import java.util.List;
 
 public class RestaurantsPage {
     private final WebDriver driver;
 
+    public final HeaderGeneralPageComponent headerGlobal;
+
     public RestaurantsPage(WebDriver driver)    {
         PageFactory.initElements(driver, this);
         this.driver = driver;
+        headerGlobal = new HeaderGeneralPageComponent(driver);
     }
-    @FindBy(xpath = "//main/div/div/div/div")
-    private List<WebElement> restaurantContainers;
+    @FindBy(xpath = "//main/div/div/div")
+    private List<WebElement> restaurants;
 
-    public void clickByRestaurantName(String name) throws IllegalArgumentException {
-
-        try {
-            driver.findElement(By.xpath("//main/div/div/div//div[@title='" + name +
-                    "']/ancestor::div[1]//div/a/span[contains(text(), 'Watch Menu')]")).click();
-        }catch (Exception e){
-            throw new IllegalArgumentException("A restaurant with the name [" + name + "] does not exist ");
+    private WebElement neededRestaurant(String restName)   {
+        WebElement neededRestaurant = restaurants.get(0);
+        for(WebElement restaurant : restaurants)    {
+            if(restaurant.findElement(By.xpath(
+                            ".//div/div"))
+                    .getAttribute("title").equals(restName))   {
+                neededRestaurant = restaurant;
+            }
         }
+        return neededRestaurant;
+    }
+
+    public MenuPage watchMenuByRestName(String restName)    {
+        neededRestaurant(restName).findElement(By.xpath(
+                ".//*[text()='Watch Menu']")).click();
+        return new MenuPage(driver);
     }
 }
