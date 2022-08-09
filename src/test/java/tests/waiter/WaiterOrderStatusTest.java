@@ -12,11 +12,25 @@ import tests.BaseTest;
 
 public class WaiterOrderStatusTest extends BaseTest    {
 
+    /*
+    ***************************************************
+
+            Fields used without preconditions
+
+    ***************************************************
+    */
+
     private final String waiterEmail = "alexandriawright@test.com";
     private final String waiterPassword = "1";
 
     private final String firstOrderNumber = "№138";
     private final String secondOrderNumber = "№123";
+
+    /*
+    ************************************************
+        End of fields used without preconditions
+    ************************************************
+    */
 
     private SignInPage signInPage;
     private WaiterMainPage waiterMainPage;
@@ -36,7 +50,6 @@ public class WaiterOrderStatusTest extends BaseTest    {
         signInPage.clickSignInBtn();
         waiterMainPage = new WaiterMainPage(driver);
     }
-
 
     @Test
     public void waiterOrderStatusTest601()  {
@@ -121,6 +134,7 @@ public class WaiterOrderStatusTest extends BaseTest    {
                 .userMenu()
                 .logOut();
     }
+
     @AfterClass
     public void postconditions()    {
 

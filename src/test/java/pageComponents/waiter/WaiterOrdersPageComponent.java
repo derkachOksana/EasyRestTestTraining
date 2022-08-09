@@ -21,7 +21,7 @@ public class WaiterOrdersPageComponent {
     }
 
     private WebElement getNeededOrder(String orderNumber) {
-        WebElement neededOrder = orders.get(0);
+        WebElement neededOrder = null;
         for(WebElement order : orders)  {
             String fullInfo = order.findElement(By.xpath(
                             ".//span[contains(@class, 'subheader')]"))
