@@ -14,8 +14,8 @@ public class ClientHeaderPageComponent {
 
     public ClientHeaderPageComponent(WebDriver driver) {
         this.driver = driver;
-        PageFactory.initElements(driver, this);
         ordersContainer = new ClientOrdersContainerComponent(driver);
+        PageFactory.initElements(driver, this);
     }
 
     @FindBy(xpath = "//a[@href='/profile/current_orders/Waiting for confirm']")

@@ -12,8 +12,8 @@ public class ClientOrderInfoComponent {
     private final WebDriver driver;
 
     public ClientOrderInfoComponent(WebDriver driver)   {
-        PageFactory.initElements(driver, this);
         this.driver = driver;
+        PageFactory.initElements(driver, this);
     }
     @FindBy(xpath = "//span[contains(text(), 'Decline')]")
     private List<WebElement> setOfDeclineBtns;

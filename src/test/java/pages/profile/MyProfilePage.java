@@ -11,9 +11,9 @@ public class MyProfilePage {
     protected WebDriver driver;
     public final HeaderGeneralPageComponent headerGeneralPageComponent;
     public MyProfilePage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
         this.driver = driver;
         headerGeneralPageComponent = new HeaderGeneralPageComponent(driver);
+        PageFactory.initElements(driver, this);
     }
     @FindBy(xpath = "//*[text()='Current Orders']")
     private WebElement currentOrdersBtn;
