@@ -24,7 +24,6 @@ public class ClientHeaderPageComponent {
     public WebElement allTab;
     @FindBy(xpath = "//a[@href = '/profile/current_orders/Accepted']")
     public WebElement acceptedTab;
-
     @FindBy(xpath = "//a[@href = '/profile/current_orders/Assigned waiter']")
     public WebElement assignedWaiterTab;
     @FindBy(xpath = "//a[@href = '/profile/current_orders/In progress']")
@@ -67,7 +66,5 @@ public class ClientHeaderPageComponent {
     public void historyTabAccess() {
         historyTab.click();
     }
-    public void declinedTabTabAccess() {
-        declinedTab.click();
-    }
+    public void declinedTabAccess() { declinedTab.click(); }
 }

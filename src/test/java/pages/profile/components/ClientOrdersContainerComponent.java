@@ -27,10 +27,6 @@ public class ClientOrdersContainerComponent {
     private List <WebElement> ordersList;
 
 
-    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
-    LocalTime localTime = LocalTime.now();
-    String currentTime = dtf.format(localTime);
-
     public void expandOrderClickById(String orderId) {
         driver.findElement(By.xpath("//div/div[@role='button']/div/div/div/p[contains(.,'" +
                 orderId + "')]" +
@@ -57,13 +53,38 @@ public class ClientOrdersContainerComponent {
                // System.out.println(rezult);
                 System.out.println(rezult.equals(currentTime));
                 order.findElement(By.xpath("./div/div/div[2]")).click();
+                Thread.sleep(1000);
+                orderInfo.declineBtnClick();
                 break;
             } else {
                 System.out.println("Order not found");
-
             }
         }
     }
 
+    public String orderId(String currentTime) throws InterruptedException {
+        for(WebElement order : ordersList)  {
+            String fullInfo = order.findElement(By.xpath(
+                            "./div/div/div/div/div[3]/p[contains(., 'Created')]"))
+                    .getText();
+            String rezult = new String(fullInfo.toCharArray(), 20, 5);
+            if(rezult.equals(currentTime)) {
+                System.out.println(rezult.equals(currentTime));
+
+                return order.findElement(By.xpath("./div/div/div/div/div[1]/p")).getText();
+            } else {
+                System.out.println("Order not found");
+            }
+        }
+        return null;
+    }
+    public boolean matchOrderById (String orderId) {
+        for(WebElement order : ordersList)  {
+            if (order.findElement(By.xpath("./div/div/div/div/div[1]/p")).getText().equals(orderId)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
 

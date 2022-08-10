@@ -1,21 +1,12 @@
 package tests;
 
-import com.github.javafaker.Faker;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pageComponents.HeaderGeneralPageComponent;
 import pages.MenuPage;
 import pages.RestaurantsPage;
 import pages.SignInPage;
 import pages.SignUpPage;
-import pages.administrator.AcceptedTabPage;
-import pages.administrator.AdministratorPage;
-import pages.administrator.WaitingForConfirmTabPage;
-import pages.administrator.order.OrderComponent;
 import pages.profile.ProfileCurrentOrdersPage;
-import pages.profile.ProfileOrderHistoryPage;
 import utility.ConfProperties;
 import utility.RegDataBuilder;
 import utility.RegistrationData;
@@ -24,15 +15,15 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 
-public class ForExampleTest extends BaseTest{
-    public static SignUpPage signUpPage;
-    public static SignInPage logInPage;
-    private RegistrationData regData;
-    public static ProfileCurrentOrdersPage currentOrdersPage;
-    private RegDataBuilder regDataBuilder;
+public class CurrentOrderFunctionalityTests extends BaseTest{
+   // public static SignUpPage signUpPage;
+   // public static SignInPage logInPage;
+   // private RegistrationData regData;
+    //public static ProfileCurrentOrdersPage currentOrdersPage;
+    //private RegDataBuilder regDataBuilder;
 
     @Test
-    public void onlyForExampleTest() throws InterruptedException {
+    public void changeOrderStatusToDeclineTest_1_7_1 () throws InterruptedException {
 
         String restaurantName = "Johnson PLC";
 
@@ -43,7 +34,6 @@ public class ForExampleTest extends BaseTest{
         signIn.clickSignInBtn();
 
         RestaurantsPage restaurantsPage = new RestaurantsPage(driver);
-        System.out.println("Restaurant page");
         Thread.sleep(500);
 
         MenuPage menuPage = restaurantsPage.watchMenuByRestName(restaurantName);
@@ -58,48 +48,26 @@ public class ForExampleTest extends BaseTest{
         Thread.sleep(2000);
 
         menuPage.menuItems.addToCartByItemName("Chicken & chorizo jambalaya");
-        System.out.println("Add to cart");
-        menuPage.submitOrder();
-        System.out.println("Submit order");
         Thread.sleep(1000);
 
-        String totalSumExpected = menuPage.orderConfirmation.orderSummary.getTotalOrderPrice();
-
+        menuPage.submitOrder();
+        Thread.sleep(1000);
         menuPage.orderConfirmation.submitOrder();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
         LocalTime localTime = LocalTime.now();
         String currentTime = dtf.format(localTime);
+        Thread.sleep(1000);
         menuPage.headerGlobal.userMenu().myProfileAccess()
                 .currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().clickNeededOrder(currentTime);
-        System.out.println("Wait decline");
-        menuPage.headerGlobal.userMenu().myProfileAccess().currentOrdersAccess()
-                .clientHeader.ordersContainer.orderInfo.declineBtnClick();
-        System.out.println("Decline already click");
+        Thread.sleep(1000);
 
-        
+        menuPage.headerGlobal.userMenu().myProfileAccess().orderHistoryAccess().clientHeader.declinedTabAccess();
 
+        String orderId = menuPage.headerGlobal.userMenu().myProfileAccess().orderHistoryAccess()
+                .clientHeader.ordersContainer.orderId(currentTime);
+        boolean resultId = menuPage.headerGlobal.userMenu().myProfileAccess().orderHistoryAccess()
+                .clientHeader.ordersContainer.matchOrderById(orderId);
 
-
-
-
-
-
-
-
-
-
-
-
-
-      /*  boolean matchRestaurant = restaurantsPage.getHeaderGeneralPageComponent().userMenu().myProfileAccess()
-                .currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().matchRestaurant(restaurantName, time, totalSum);
-        System.out.println("Cood #2!");
-
-
-        Thread.sleep(300);*/
-
-
-
-
+        Assert.assertTrue(resultId, "Something went wrong");
     }
 }

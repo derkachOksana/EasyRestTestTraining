@@ -23,15 +23,25 @@ public class ClientOrderInfoComponent {
 
     public void declineBtnClick() {
         for(WebElement declineBtn : setOfDeclineBtns) {
-            if (declineBtn.isDisplayed()) {
-                declineBtn.click();
+            try {
+                if (declineBtn.isDisplayed()) {
+                    declineBtn.click();
+                    break;
+                }
+            } catch (Exception e){
+                System.out.println("Decline button does not click");
             }
         }
     }
     public void reorderBtnClick() {
         for(WebElement reorderBtn : setOfReordersBtns) {
-            if (reorderBtn.isDisplayed()) {
-                reorderBtn.click();
+            try {
+                if (reorderBtn.isDisplayed()) {
+                    reorderBtn.click();
+                    break;
+                }
+            } catch (Exception e) {
+                System.out.println("Reorder button does not click");
             }
         }
     }
