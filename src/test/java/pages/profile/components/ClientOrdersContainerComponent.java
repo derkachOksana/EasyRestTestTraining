@@ -26,13 +26,13 @@ public class ClientOrdersContainerComponent {
     @FindBy(xpath = "//main//header/following-sibling::div/div")
     private List <WebElement> ordersList;
 
-    private WebElement neededOrder() throws InterruptedException {
+    public WebElement neededOrder() throws InterruptedException {
         return ordersList.get(0);
     }
 
     public String getOrderId () throws InterruptedException {
         return neededOrder().findElement(By.xpath(
-                        ".//div/div/div/div/div[1]/p")).getText();
+                        ".//div/div/div/div[1]/p")).getText();
     }
 
     public ClientOrderInfoComponent expandOrder() throws InterruptedException {
@@ -40,10 +40,9 @@ public class ClientOrdersContainerComponent {
         return new ClientOrderInfoComponent(driver);
     }
 
-
     public boolean matchOrderById (String orderId) {
         for(WebElement order : ordersList)  {
-            if (order.findElement(By.xpath("./div/div/div/div/div[1]/p")).getText().equals(orderId)) {
+            if (order.findElement(By.xpath(".//div/div/div/div[1]/p")).getText().equals(orderId)) {
                 return true;
             }
         }

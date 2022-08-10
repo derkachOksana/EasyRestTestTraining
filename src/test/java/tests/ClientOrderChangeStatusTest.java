@@ -9,6 +9,7 @@ import pages.HomePage;
 import pages.MenuPage;
 import pages.RestaurantsPage;
 import pages.SignInPage;
+import pages.profile.MyProfilePage;
 import pages.waiter.WaiterMainPage;
 import utility.ConfProperties;
 
@@ -20,7 +21,8 @@ public class ClientOrderChangeStatusTest extends BaseTest{
     private final String restaurantName = "Johnson PLC";
     private final String clientEmail = "nathansmith@test.com";
     private final String clientPassword = "1111";
-    private final String menuItem = "Chicken & broccoli pasta bake";
+    private final String menuItem1 = "Chicken & broccoli pasta bake";
+    private final String menuItem2 = "Chicken & chorizo jambalaya";
     private SignInPage signIn;
     private RestaurantsPage restaurantsPage;
 
@@ -45,28 +47,19 @@ public class ClientOrderChangeStatusTest extends BaseTest{
     public void changeOrderStatusToDeclineTest171 () throws InterruptedException {
         logger = extent.createTest("Client order status test 1.7.1");
 
-
-
-       /* driver.get(ConfProperties.getProperty("signInPage"));
-        SignInPage signIn = new SignInPage(driver);
-        signIn.setUserEmailInputField("nathansmith@test.com");
-        signIn.setUserPasswordInputField("1111");
-        signIn.clickSignInBtn();
-
-        RestaurantsPage restaurantsPage = new RestaurantsPage(driver);*/
         Thread.sleep(500);
         MenuPage menuPage = restaurantsPage.watchMenuByRestName(restaurantName);
         Thread.sleep(1000);
-        menuPage.menuItems.getFoodMassByItemName(menuItem);
+        menuPage.menuItems.getFoodMassByItemName(menuItem1);
         Thread.sleep(1000);
 
-        menuPage.menuItems.addToCartByItemName(menuItem);
+        menuPage.menuItems.addToCartByItemName(menuItem1);
         Thread.sleep(1000);
 
-        /*menuPage.menuItems.getFoodMassByItemName("Chicken & chorizo jambalaya");
+       /* menuPage.menuItems.getFoodMassByItemName(menuItem2);
         Thread.sleep(2000);
 
-        menuPage.menuItems.addToCartByItemName("Chicken & chorizo jambalaya");
+        menuPage.menuItems.addToCartByItemName(menuItem2);
         Thread.sleep(1000);*/
 
         menuPage.submitOrder();
@@ -74,26 +67,26 @@ public class ClientOrderChangeStatusTest extends BaseTest{
         menuPage.orderConfirmation.submitOrder();
 
 
-        /*DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
-        LocalTime localTime = LocalTime.now();
-        String currentTime = dtf.format(localTime);
+        MyProfilePage myProfilePage = new MyProfilePage(driver);
+        Thread.sleep(1000);
+        //System.out.println(menuPage.headerGlobal.userMenu().myProfileAccess().currentOrdersAccess().clientHeader.ordersContainer.neededOrder());
 
 
         Thread.sleep(1000);
-        menuPage.headerGlobal.userMenu().myProfileAccess()
-                .currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().clickNeededOrder(currentTime);
+
+        myProfilePage = menuPage.headerGlobal.userMenu().myProfileAccess();
+        Thread.sleep(1000);
+        String actualOrderId = myProfilePage.currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().getOrderId();
+        Thread.sleep(1000);
+        myProfilePage.currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().expandOrder().declineBtnClick();
+
         Thread.sleep(1000);
 
-        menuPage.headerGlobal.userMenu().myProfileAccess().orderHistoryAccess().clientHeader.declinedTabAccess();
+        myProfilePage.orderHistoryAccess().clientHeader.declinedTabAccess();
 
-        String orderId = menuPage.headerGlobal.userMenu().myProfileAccess().orderHistoryAccess()
-                .clientHeader.ordersContainer.orderId(currentTime);
         boolean resultId = menuPage.headerGlobal.userMenu().myProfileAccess().orderHistoryAccess()
-                .clientHeader.ordersContainer.matchOrderById(orderId);
+                .clientHeader.ordersContainer.matchOrderById(actualOrderId);
 
-        Assert.assertTrue(resultId, "Something went wrong");*/
+        Assert.assertTrue(resultId, "Something went wrong");
     }
-
-
-
 }
