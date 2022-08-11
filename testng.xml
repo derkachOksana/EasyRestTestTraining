@@ -6,7 +6,10 @@
     </listeners>
     <test verbose="2" preserve-order="true" name="C:/SoftServe/EasyRestTestTraining">
         <classes>
-            <class name="tests.waiter.WaiterOrderStatusTest">
+            <class name="tests.RegistrationTest">
+                <methods>
+                    <include name="registerNewUserTest"/>
+                </methods>
             </class>
         </classes>
     </test>

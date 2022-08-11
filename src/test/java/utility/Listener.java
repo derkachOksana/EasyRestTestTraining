@@ -13,9 +13,6 @@ public class Listener implements ITestListener {
 
     @Override
     public void onTestFailure(ITestResult result) {
-        if (result.getThrowable() != null)  {
-            BaseTest.logger.info("Test failures because of: " + result.getThrowable());
-        }
         BaseTest.logger.fail(result.getName() + " failed.");
     }
 }

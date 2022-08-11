@@ -17,26 +17,25 @@ public class BaseTest {
     public WebDriver driver;
     public static ExtentReports extent;
     public static ExtentTest logger;
-
+    public static ExtentSparkReporter spark;
     Faker faker;
 
     @BeforeSuite
     public void setUpReport()   {
-        ExtentSparkReporter spark = new ExtentSparkReporter(ConfProperties.getProperty("reportsFolder")
+        spark = new ExtentSparkReporter(ConfProperties.getProperty("reportsFolder")
                 + DateHandler.getCurrentDateTime() + ".html");
         extent = new ExtentReports();
         extent.attachReporter(spark);
     }
 
-    @BeforeTest
+    @BeforeClass
     public void setUp()    {
         driver = WebDriverManager.chromedriver().create();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
-        driver.get(ConfProperties.getProperty("mainPage"));
     }
 
-    @AfterTest
+    @AfterClass
     public void closeDriver()  {
         driver.close();
     }
