@@ -7,7 +7,6 @@ import pages.SignInPage;
 import pages.moderator.ModeratorBasePage;
 import pages.moderator.ModeratorRestaurantsPage;
 import tests.BaseTest;
-import utility.ConfProperties;
 
 public class ModeratorRestaurantStatusTest extends BaseTest {
 
@@ -47,7 +46,7 @@ public class ModeratorRestaurantStatusTest extends BaseTest {
     }
 
     @BeforeMethod
-    public void waiterLogIn()    {
+    public void moderatorLogIn()    {
         signInPage.setUserEmailInputField(moderatorEmail);
         signInPage.setUserPasswordInputField(moderatorPassword);
         signInPage.clickSignInBtn();
@@ -59,9 +58,9 @@ public class ModeratorRestaurantStatusTest extends BaseTest {
     public void moderatorRestaurantStatusTest301()  {
         logger = extent.createTest("Moderator restaurant status test 3.01");
 
-        moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorUnapprovedTabAccess();
+        moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorUnapprovedRestaurantsTabAccess();
         moderatorRestaurantsPage.restaurants.approveRestaurant(firstRestaurant);
-        moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorApprovedTabAccess();
+        moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorApprovedRestaurantsTabAccess();
 
         restaurantStatus = moderatorRestaurantsPage.restaurants.getRestaurantStatus(firstRestaurant);
 
@@ -72,9 +71,9 @@ public class ModeratorRestaurantStatusTest extends BaseTest {
     public void moderatorRestaurantStatusTest302()  {
         logger = extent.createTest("Moderator restaurant status test 3.02");
 
-        moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorApprovedTabAccess();
+        moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorApprovedRestaurantsTabAccess();
         moderatorRestaurantsPage.restaurants.deleteRestaurant(firstRestaurant);
-        moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorArchivedTabAccess();
+        moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorArchivedRestaurantsTabAccess();
 
         restaurantStatus = moderatorRestaurantsPage.restaurants.getRestaurantStatus(firstRestaurant);
 
@@ -85,9 +84,9 @@ public class ModeratorRestaurantStatusTest extends BaseTest {
     public void moderatorRestaurantStatusTest303()  {
         logger = extent.createTest("Moderator restaurant status test 3.03");
 
-        moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorUnapprovedTabAccess();
+        moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorUnapprovedRestaurantsTabAccess();
         moderatorRestaurantsPage.restaurants.disapproveRestaurant(secondRestaurant);
-        moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorArchivedTabAccess();
+        moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorArchivedRestaurantsTabAccess();
 
         restaurantStatus = moderatorRestaurantsPage.restaurants.getRestaurantStatus(secondRestaurant);
 
@@ -98,9 +97,9 @@ public class ModeratorRestaurantStatusTest extends BaseTest {
     public void moderatorRestaurantStatusTest304()  {
         logger = extent.createTest("Moderator restaurant status test 3.04");
 
-        moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorArchivedTabAccess();
+        moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorArchivedRestaurantsTabAccess();
         moderatorRestaurantsPage.restaurants.restoreRestaurant(secondRestaurant);
-        moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorApprovedTabAccess();
+        moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorApprovedRestaurantsTabAccess();
 
         restaurantStatus = moderatorRestaurantsPage.restaurants.getRestaurantStatus(secondRestaurant);
 
@@ -111,9 +110,9 @@ public class ModeratorRestaurantStatusTest extends BaseTest {
     public void moderatorRestaurantStatusTest305()  {
         logger = extent.createTest("Moderator restaurant status test 3.05");
 
-        moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorAllTabAccess();
+        moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorAllRestaurantsTabAccess();
         moderatorRestaurantsPage.restaurants.approveRestaurant(thirdRestaurant);
-        moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorApprovedTabAccess();
+        moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorApprovedRestaurantsTabAccess();
 
         restaurantStatus = moderatorRestaurantsPage.restaurants.getRestaurantStatus(thirdRestaurant);
 
@@ -124,9 +123,9 @@ public class ModeratorRestaurantStatusTest extends BaseTest {
     public void moderatorRestaurantStatusTest306()  {
         logger = extent.createTest("Moderator restaurant status test 3.06");
 
-        moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorAllTabAccess();
+        moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorAllRestaurantsTabAccess();
         moderatorRestaurantsPage.restaurants.deleteRestaurant(thirdRestaurant);
-        moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorArchivedTabAccess();
+        moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorArchivedRestaurantsTabAccess();
 
         restaurantStatus = moderatorRestaurantsPage.restaurants.getRestaurantStatus(thirdRestaurant);
 
@@ -137,9 +136,9 @@ public class ModeratorRestaurantStatusTest extends BaseTest {
     public void moderatorRestaurantStatusTest307()  {
         logger = extent.createTest("Moderator restaurant status test 3.07");
 
-        moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorAllTabAccess();
+        moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorAllRestaurantsTabAccess();
         moderatorRestaurantsPage.restaurants.disapproveRestaurant(fourthRestaurant);
-        moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorArchivedTabAccess();
+        moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorArchivedRestaurantsTabAccess();
 
         restaurantStatus = moderatorRestaurantsPage.restaurants.getRestaurantStatus(thirdRestaurant);
 
@@ -150,9 +149,9 @@ public class ModeratorRestaurantStatusTest extends BaseTest {
     public void moderatorRestaurantStatusTest308()  {
         logger = extent.createTest("Moderator restaurant status test 3.08");
 
-        moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorAllTabAccess();
+        moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorAllRestaurantsTabAccess();
         moderatorRestaurantsPage.restaurants.restoreRestaurant(fourthRestaurant);
-        moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorApprovedTabAccess();
+        moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorApprovedRestaurantsTabAccess();
 
         restaurantStatus = moderatorRestaurantsPage.restaurants.getRestaurantStatus(fourthRestaurant);
 
@@ -160,7 +159,7 @@ public class ModeratorRestaurantStatusTest extends BaseTest {
     }
 
     @AfterMethod
-    public void waiterLogOut()  {
+    public void moderatorLogOut()  {
         signInPage = moderatorRestaurantsPage
                 .headerGlobal
                 .userMenu()
@@ -170,6 +169,6 @@ public class ModeratorRestaurantStatusTest extends BaseTest {
     @AfterClass
     public void postonditions()
     {
-        driver.get(ConfProperties.getProperty("mainPage"));
+
     }
 }

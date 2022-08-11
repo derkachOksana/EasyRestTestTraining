@@ -14,7 +14,7 @@ import java.time.Duration;
 
 public class BaseTest {
 
-    public static WebDriver driver;
+    public WebDriver driver;
     public static ExtentReports extent;
     public static ExtentTest logger;
 

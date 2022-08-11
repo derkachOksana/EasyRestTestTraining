@@ -11,7 +11,6 @@ import java.util.List;
 
 public class ModeratorUsersTablePageComponent {
 
-    private String userEmail;
     @FindBy(xpath = "//table/tbody/tr")
     private List<WebElement> users;
 
@@ -19,11 +18,7 @@ public class ModeratorUsersTablePageComponent {
         PageFactory.initElements(driver, this);
     }
 
-    public void setUserEmail(String userEmail)  {
-        this.userEmail = userEmail;
-    }
-
-    private WebElement getNeededUser()  {
+    private WebElement getNeededUser(String userEmail)  {
         WebElement neededUser = users.get(0);
         for(WebElement user : users)    {
             String currentUserEmail = user.findElement(By.xpath(
@@ -36,13 +31,13 @@ public class ModeratorUsersTablePageComponent {
         return neededUser;
     }
 
-    public String getUserStatus()   {
-        return getNeededUser().findElement(By.xpath(
+    public String getUserStatus(String userEmail)   {
+        return getNeededUser(userEmail).findElement(By.xpath(
                 "./td[4]/p")).getText();
     }
 
-    public void changeUserStatus()   {
-        getNeededUser().findElement(By.xpath(
-                "/td[5]")).click();
+    public void changeUserStatus(String userEmail)   {
+        getNeededUser(userEmail).findElement(By.xpath(
+                "./td[5]")).click();
     }
 }
