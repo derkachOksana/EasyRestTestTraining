@@ -9,6 +9,7 @@ import pages.waiter.WaiterHistoryPage;
 import pages.waiter.WaiterInProgressPage;
 import pages.waiter.WaiterMainPage;
 import tests.BaseTest;
+import utility.ConfProperties;
 
 public class WaiterOrderStatusTest extends BaseTest    {
 
@@ -137,6 +138,6 @@ public class WaiterOrderStatusTest extends BaseTest    {
 
     @AfterClass
     public void postconditions()    {
-
+        driver.get(ConfProperties.getProperty("mainPage"));
     }
 }

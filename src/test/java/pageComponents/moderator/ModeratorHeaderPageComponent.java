@@ -1,10 +1,13 @@
 package pageComponents.moderator;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import pages.moderator.ModeratorOwnersPage;
+import pages.moderator.ModeratorRestaurantsPage;
 import pages.waiter.WaiterAssignedWaiterPage;
 import pages.waiter.WaiterHistoryPage;
 import pages.waiter.WaiterInProgressPage;
@@ -12,45 +15,56 @@ import pages.waiter.WaiterMainPage;
 
 public class ModeratorHeaderPageComponent {
 
+    private final WebDriver driver;
+
+    private final JavascriptExecutor js;
+
     public ModeratorHeaderPageComponent(WebDriver driver)    {
         PageFactory.initElements(driver, this);
+        this.driver = driver;
+        js = (JavascriptExecutor)driver;
     }
 
-    @FindBy(xpath = "//main//header")
-    private WebElement header;
+    @FindBy(xpath = "//main//header//button//*[text()[contains(., 'All')]]")
+    private WebElement moderatorAllTab;
 
-    private final WebElement moderatorAllTab = header.findElement(By.xpath(
-            ".//button//*[text()[contains(., 'All')]]"));
+    @FindBy(xpath = "//main//header//button//*[text()[contains(., 'Unapproved')]]")
+    private WebElement moderatorUnapprovedTab;
 
-    private final WebElement moderatorUnapprovedTab = header.findElement(By.xpath(
-            ".//button//*[text()[contains(., 'Unapproved')]]"));
+    @FindBy(xpath = "//main//header//button//*[text()[contains(., 'Approved')]]")
+    private WebElement moderatorApprovedTab;
 
-    private final WebElement moderatorApprovedTab = header.findElement(By.xpath(
-            ".//button//*[text()[contains(., 'Approved')]]"));
+    @FindBy(xpath = "//main//header//button//*[text()[contains(., 'Archived')]]")
+    private WebElement moderatorArchivedTab;
 
-    private final WebElement moderatorArchivedTab = header.findElement(By.xpath(
-            ".//button//*[text()[contains(., 'Archived')]]"));
+    @FindBy(xpath = "//main//header//button//*[text()[contains(., 'Active')]]")
+    private WebElement moderatorActiveTab;
 
-    private final WebElement moderatorActiveTab = header.findElement(By.xpath(
-            ".//button//*[text()[contains(., 'Active')]]"));
+    @FindBy(xpath = "//main//header//button//*[text()[contains(., 'Banned')]]")
+    private WebElement moderatorBannedTab;
 
-    private final WebElement moderatorBannedTab = header.findElement(By.xpath(
-            ".//button//*[text()[contains(., 'Banned')]]"));
-
-    public void moderatorAllTabAccess()  {
+    public ModeratorRestaurantsPage moderatorAllTabAccess()  {
+        js.executeScript("window.scrollTo(0,0)");
         moderatorAllTab.click();
+        return new ModeratorRestaurantsPage(driver);
     }
 
-    public void moderatorUnapprovedTabAccess()  {
+    public ModeratorRestaurantsPage moderatorUnapprovedTabAccess()  {
+        js.executeScript("window.scrollTo(0,0)");
         moderatorUnapprovedTab.click();
+        return new ModeratorRestaurantsPage(driver);
     }
 
-    public void moderatorApprovedTabAccess()    {
+    public ModeratorRestaurantsPage moderatorApprovedTabAccess()    {
+        js.executeScript("window.scrollTo(0,0)");
         moderatorApprovedTab.click();
+        return new ModeratorRestaurantsPage(driver);
     }
 
-    public void moderatorArchivedTabAccess()    {
+    public ModeratorRestaurantsPage moderatorArchivedTabAccess()    {
+        js.executeScript("window.scrollTo(0,0)");
         moderatorArchivedTab.click();
+        return new ModeratorRestaurantsPage(driver);
     }
 
     public void moderatorActiveTabAccess()  {

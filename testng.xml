@@ -8,6 +8,8 @@
         <classes>
             <class name="tests.waiter.WaiterOrderStatusTest">
             </class>
+            <class name="tests.moderator.ModeratorRestaurantStatusTest">
+            </class>
         </classes>
     </test>
 </suite>
