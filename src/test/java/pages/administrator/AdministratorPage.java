@@ -34,10 +34,6 @@ public class AdministratorPage {
         return new TabPanelComponent(tabDiv);
     }
 
-    public void setOrderId(String orderId){
-        this.orderId = orderId;
-    }
-
     public OrderComponent getOrderById(String orderId) {
         List<OrderComponent> orders = getOrderList();
 
