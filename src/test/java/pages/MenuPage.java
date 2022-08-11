@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pageComponents.HeaderGeneralPageComponent;
 import pageComponents.menu.MenuItemsPageComponent;
 import pageComponents.menu.OrderConfirmationPageComponent;
@@ -20,6 +21,10 @@ public class MenuPage {
     @FindBy(xpath = "//span[contains(text(), 'Submit order')]")
     private WebElement submitOrder;
 
+    @FindBy(xpath = "//button[contains(@aria-label, 'Remove')]")
+    private List <WebElement> deleteItems;
+
+
 
     public MenuPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
@@ -30,5 +35,23 @@ public class MenuPage {
 
     public void submitOrder() {
         submitOrder.click();
+    }
+    public boolean submitOrderEnable() {
+        if (submitOrder.isEnabled()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public void deleteBtnClick() throws InterruptedException {
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        for (int i = 0; i < deleteItems.size(); i++) {
+            Thread.sleep(1000);
+            if(deleteItems.get(i).isEnabled()) {
+                deleteItems.get(i).click();
+            } else {
+                break;
+            }
+        }
     }
 }

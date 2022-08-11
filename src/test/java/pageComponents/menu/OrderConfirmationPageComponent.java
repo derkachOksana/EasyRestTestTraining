@@ -29,6 +29,9 @@ public class OrderConfirmationPageComponent {
     @FindBy(xpath = "//button/span[text()='Cancel']")
     private WebElement cancelBtn;
 
+    @FindBy(xpath = "//h6[contains(., 'Order confirmation')]")
+    private WebElement orderConfirmationField;
+
     public OrderConfirmationPageComponent setDate(Date desiredDate) {
         DatePickerPageComponent datePicker = new DatePickerPageComponent(driver, desiredDate);
         datePickerField.click();
@@ -61,5 +64,8 @@ public class OrderConfirmationPageComponent {
 
     public void submitOrder()    {
         submitBtn.click();
+    }
+    public String orderConfirmationFieldVisible() {
+        return orderConfirmationField.getText();
     }
 }
