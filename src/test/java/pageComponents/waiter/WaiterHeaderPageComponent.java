@@ -20,12 +20,9 @@ public class WaiterHeaderPageComponent {
 
     private final WebDriver driver;
 
-    private final WebDriverWait wait;
-
     public WaiterHeaderPageComponent(WebDriver driver)    {
         PageFactory.initElements(driver, this);
         this.driver = driver;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         js = (JavascriptExecutor)driver;
     }
 
@@ -41,28 +38,32 @@ public class WaiterHeaderPageComponent {
     @FindBy(xpath = "//main//header//a[@href='/waiter/orders/']")
     private WebElement waiterAllLink;
 
-    public WaiterAssignedWaiterPage waiterAssignedWaiterPageAccess()  {
+    public WaiterAssignedWaiterPage waiterAssignedWaiterPageAccess(Duration duration)  {
+        WebDriverWait wait = new WebDriverWait(driver, duration);
         js.executeScript("window.scrollTo(0,0)");
         wait.until(ExpectedConditions.elementToBeClickable(waiterAssignedLink));
         waiterAssignedLink.click();
         return new WaiterAssignedWaiterPage(driver);
     }
 
-    public WaiterHistoryPage waiterHistoryPageAccess()    {
+    public WaiterHistoryPage waiterHistoryPageAccess(Duration duration)    {
+        WebDriverWait wait = new WebDriverWait(driver, duration);
         js.executeScript("window.scrollTo(0,0)");
         wait.until(ExpectedConditions.elementToBeClickable(waiterHistoryLink));
         waiterHistoryLink.click();
         return new WaiterHistoryPage(driver);
     }
 
-    public WaiterInProgressPage waiterInProgressPageAccess()  {
+    public WaiterInProgressPage waiterInProgressPageAccess(Duration duration)  {
+        WebDriverWait wait = new WebDriverWait(driver, duration);
         js.executeScript("window.scrollTo(0,0)");
         wait.until(ExpectedConditions.elementToBeClickable(waiterInProgressLink));
         waiterInProgressLink.click();
         return new WaiterInProgressPage(driver);
     }
 
-    public WaiterMainPage waiterMainPageAccess()  {
+    public WaiterMainPage waiterMainPageAccess(Duration duration)  {
+        WebDriverWait wait = new WebDriverWait(driver, duration);
         js.executeScript("window.scrollTo(0,0)");
         wait.until(ExpectedConditions.elementToBeClickable(waiterAllLink));
         waiterAllLink.click();

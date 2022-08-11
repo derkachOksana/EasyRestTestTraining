@@ -28,7 +28,7 @@ public class BaseTest {
         extent.attachReporter(spark);
     }
 
-    @BeforeTest
+    @BeforeClass
     public void setUp()    {
         driver = WebDriverManager.chromedriver().create();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
@@ -36,14 +36,13 @@ public class BaseTest {
         driver.get(ConfProperties.getProperty("mainPage"));
     }
 
-    @AfterTest
+    @AfterClass
     public void closeDriver()  {
-        driver.close();
+        driver.quit();
     }
 
     @AfterSuite
     public void shutDown()  {
         extent.flush();
-        driver.quit();
     }
 }

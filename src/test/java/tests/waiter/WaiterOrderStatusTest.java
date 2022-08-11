@@ -11,6 +11,8 @@ import pages.waiter.WaiterMainPage;
 import tests.BaseTest;
 import utility.ConfProperties;
 
+import java.time.Duration;
+
 public class WaiterOrderStatusTest extends BaseTest    {
 
     /*
@@ -36,6 +38,8 @@ public class WaiterOrderStatusTest extends BaseTest    {
     private SignInPage signInPage;
     private WaiterMainPage waiterMainPage;
 
+    private final Duration duration = Duration.ofSeconds(Integer.parseInt(ConfProperties.getProperty("duration")));
+
     @BeforeClass
     public void preconditions() {
         HomePage homePage = new HomePage(driver);
@@ -59,13 +63,13 @@ public class WaiterOrderStatusTest extends BaseTest    {
 
         WaiterAssignedWaiterPage waiterAssignedWaiter = waiterMainPage
                 .waiterHeader
-                .waiterAssignedWaiterPageAccess();
+                .waiterAssignedWaiterPageAccess(duration);
 
         waiterAssignedWaiter.orders.expandOrder(firstOrderNumber).startOrderBtnClick();
 
         WaiterInProgressPage waiterInProgressPage = waiterAssignedWaiter
                 .waiterHeader
-                .waiterInProgressPageAccess();
+                .waiterInProgressPageAccess(duration);
 
         orderStatus = waiterInProgressPage.orders.getOrderStatus(firstOrderNumber);
 
@@ -79,13 +83,13 @@ public class WaiterOrderStatusTest extends BaseTest    {
 
         WaiterInProgressPage waiterInProgressPage = waiterMainPage
                 .waiterHeader
-                .waiterInProgressPageAccess();
+                .waiterInProgressPageAccess(duration);
 
         waiterInProgressPage.orders.expandOrder(firstOrderNumber).closeOrderBtnClick();
 
         WaiterHistoryPage waiterHistoryPage = waiterInProgressPage
                 .waiterHeader
-                .waiterHistoryPageAccess();
+                .waiterHistoryPageAccess(duration);
 
         orderStatus = waiterHistoryPage.orders.getOrderStatus(firstOrderNumber);
 
@@ -97,13 +101,13 @@ public class WaiterOrderStatusTest extends BaseTest    {
         logger = extent.createTest("Waiter order status test 6.03");
         String orderStatus;
 
-        waiterMainPage = waiterMainPage.waiterHeader.waiterMainPageAccess();
+        waiterMainPage = waiterMainPage.waiterHeader.waiterMainPageAccess(duration);
 
         waiterMainPage.orders.expandOrder(secondOrderNumber).startOrderBtnClick();
 
         WaiterInProgressPage waiterInProgressPage = waiterMainPage
                 .waiterHeader
-                .waiterInProgressPageAccess();
+                .waiterInProgressPageAccess(duration);
 
         orderStatus = waiterInProgressPage.orders.getOrderStatus(secondOrderNumber);
 
@@ -115,13 +119,13 @@ public class WaiterOrderStatusTest extends BaseTest    {
         logger = extent.createTest("Waiter order status test 6.04");
         String orderStatus;
 
-        waiterMainPage = waiterMainPage.waiterHeader.waiterMainPageAccess();
+        waiterMainPage = waiterMainPage.waiterHeader.waiterMainPageAccess(duration);
 
         waiterMainPage.orders.expandOrder(secondOrderNumber).closeOrderBtnClick();
 
         WaiterHistoryPage waiterHistoryPage = waiterMainPage
                 .waiterHeader
-                .waiterHistoryPageAccess();
+                .waiterHistoryPageAccess(duration);
 
         orderStatus = waiterHistoryPage.orders.getOrderStatus(secondOrderNumber);
 
@@ -138,6 +142,6 @@ public class WaiterOrderStatusTest extends BaseTest    {
 
     @AfterClass
     public void postconditions()    {
-        driver.get(ConfProperties.getProperty("mainPage"));
+
     }
 }
