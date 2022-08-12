@@ -12,8 +12,8 @@
             </class>-->
             <class name="tests.moderator.ModeratorClientStatusTest">
             </class>
-            <class name="tests.moderator.ModeratorOwnerStatusTest">
-            </class>
+            <!--<class name="tests.moderator.ModeratorOwnerStatusTest">
+            </class>-->
         </classes>
     </test>
 </suite>

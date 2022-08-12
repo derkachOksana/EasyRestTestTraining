@@ -18,7 +18,7 @@ public class BaseTest {
     public static ExtentReports extent;
     public static ExtentTest logger;
 
-    Faker faker;
+    public Faker faker = new Faker();
 
     @BeforeSuite
     public void setUpReport()   {
