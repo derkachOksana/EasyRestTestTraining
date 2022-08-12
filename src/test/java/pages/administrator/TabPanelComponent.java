@@ -4,7 +4,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class TabPanelPage {
+public class TabPanelComponent {
 
     private final WebElement tabDiv;
 
@@ -14,17 +14,24 @@ public class TabPanelPage {
     @FindBy(xpath = ".//button[contains(.,'Accepted')]")
     private WebElement acceptedTab;
 
-    public TabPanelPage(WebElement tabDiv ) {
+    @FindBy(xpath = ".//button[contains(.,'Assigned waiter')]")
+    private WebElement assignedWaiterTab;
+
+    public TabPanelComponent(WebElement tabDiv ) {
         this.tabDiv = tabDiv;
         PageFactory.initElements(this.tabDiv, this);
     }
 
-    public void waitingForConfirmAccess() {
+    public void switchToWaitingForConfirmTab() {
         waitingForConfirmTab.click();
     }
 
-    public void clickAcceptedTab() {
+    public void switchToAcceptedTab() {
         acceptedTab.click();
+    }
+
+    public void switchToAssignedWaiterTab() {
+        assignedWaiterTab.click();
     }
 
 }
