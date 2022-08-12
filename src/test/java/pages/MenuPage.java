@@ -58,7 +58,7 @@ public class MenuPage {
         showCartBtn.click();
     }
 
-    public void deleteBtnClick() throws InterruptedException {
+    public void deleteBtnClick() {
 
         wait = new WebDriverWait(driver, Duration.ofSeconds(15));
         for (int i = 0; i <= 2; i++) {

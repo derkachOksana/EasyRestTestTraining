@@ -46,7 +46,7 @@ public class CreateOrderTest extends BaseTest {
     }
 
     @AfterClass
-    public void clientLogOut() throws InterruptedException {
+    public void clientLogOut() {
         menuPage.orderConfirmation.cancelOrder();
         /*We need to write method active/unactive button Cart*/
         //menuPage.showCartBtnClick();
