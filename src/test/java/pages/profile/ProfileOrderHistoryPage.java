@@ -11,13 +11,10 @@ public class ProfileOrderHistoryPage {
     protected WebDriver driver;
     public final HeaderGeneralPageComponent headerGeneralPageComponent;
     public final ClientHeaderPageComponent clientHeader;
-   // public final ProfileCurrentOrdersPage currentOrdersPage;
-
 
     public ProfileOrderHistoryPage(WebDriver driver) {
         this.driver = driver;
         headerGeneralPageComponent = new HeaderGeneralPageComponent(driver);
         clientHeader = new ClientHeaderPageComponent(driver);
-       // currentOrdersPage = new ProfileCurrentOrdersPage(driver);
     }
 }

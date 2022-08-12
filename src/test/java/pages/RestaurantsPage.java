@@ -11,9 +11,10 @@ import java.util.List;
 
 public class RestaurantsPage {
     private final WebDriver driver;
-    public HeaderGeneralPageComponent getHeaderGeneralPageComponent() {
+    /*public HeaderGeneralPageComponent getHeaderGeneralPageComponent() {
+
         return new HeaderGeneralPageComponent(driver);
-    }
+    }*/
 
     public final HeaderGeneralPageComponent headerGlobal;
 
