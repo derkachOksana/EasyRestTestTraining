@@ -32,33 +32,27 @@ public class CreateOrderTest extends BaseTest {
         restaurantsPage = new RestaurantsPage(driver);
     }
 
-
     @Test
     public void verifyAddToCartButton714() throws InterruptedException {
         logger = extent.createTest("Verify Add to cart button 7.14");
         menuPage = restaurantsPage.watchMenuByRestName(restaurantName);
-
         menuPage.menuItems.getFoodMassByItemName(menuItem1);
-
         menuPage.menuItems.addToCartByItemName(menuItem1);
         Assert.assertTrue(menuPage.submitOrderEnable(), "The button Submit order is not enable");
     }
 
-
-
     @Test
     public void verifySubmitOrderBtn716() throws InterruptedException {
         logger = extent.createTest("Verify Submit Order button 7.16");
-
         menuPage.submitOrder();
         Assert.assertEquals(menuPage.orderConfirmation.orderConfirmationFieldVisible(), "Order confirmation");
     }
 
-
-   /* @AfterClass
+    @AfterClass
     public void clientLogOut() throws InterruptedException {
+        menuPage.orderConfirmation.cancelOrder();
         menuPage.deleteBtnClick();
         signInPage = restaurantsPage.getHeaderGeneralPageComponent().
                 userMenu().logOut();
-    }*/
+    }
 }

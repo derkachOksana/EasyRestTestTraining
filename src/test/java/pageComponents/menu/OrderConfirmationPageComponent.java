@@ -65,6 +65,7 @@ public class OrderConfirmationPageComponent {
     public void submitOrder()    {
         submitBtn.click();
     }
+
     public String orderConfirmationFieldVisible() {
         return orderConfirmationField.getText();
     }

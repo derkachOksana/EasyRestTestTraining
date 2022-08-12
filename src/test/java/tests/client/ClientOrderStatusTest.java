@@ -106,7 +106,6 @@ public class ClientOrderStatusTest extends BaseTest {
 
     }
 
-
     @AfterMethod
     public void clientLogOut()  {
         signInPage = restaurantsPage.getHeaderGeneralPageComponent()

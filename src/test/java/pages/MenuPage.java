@@ -3,13 +3,18 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pageComponents.HeaderGeneralPageComponent;
 import pageComponents.menu.MenuItemsPageComponent;
 import pageComponents.menu.OrderConfirmationPageComponent;
 
+import javax.swing.*;
+import java.time.Duration;
 import java.util.List;
 
 public class MenuPage {
@@ -17,20 +22,25 @@ public class MenuPage {
     public final HeaderGeneralPageComponent headerGlobal;
     public final OrderConfirmationPageComponent orderConfirmation;
     public final MenuItemsPageComponent menuItems;
+    private final WebDriver driver;
+    private final Actions action;
 
     @FindBy(xpath = "//span[contains(text(), 'Submit order')]")
     private WebElement submitOrder;
 
     @FindBy(xpath = "//button[contains(@aria-label, 'Remove')]")
-    private List <WebElement> deleteItems;
+    private WebElement deleteItem;
 
-
+    @FindBy(xpath = "//button[contains(@aria-label, 'Show cart')]")
+    private WebElement showCartBtn;
 
     public MenuPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
+        this.driver = driver;
         headerGlobal = new HeaderGeneralPageComponent(driver);
         orderConfirmation = new OrderConfirmationPageComponent(driver);
         menuItems = new MenuItemsPageComponent(driver);
+        action = new Actions(driver);
     }
 
     public void submitOrder() {
@@ -43,15 +53,11 @@ public class MenuPage {
             return false;
         }
     }
+    public void showCartBtnClick() {
+        showCartBtn.click();
+    }
     public void deleteBtnClick() throws InterruptedException {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        for (int i = 0; i < deleteItems.size(); i++) {
-            Thread.sleep(1000);
-            if(deleteItems.get(i).isEnabled()) {
-                deleteItems.get(i).click();
-            } else {
-                break;
-            }
-        }
+       action.moveToElement(deleteItem);
+       deleteItem.click();
     }
 }
