@@ -17,18 +17,15 @@ public class CreateOrderTest extends BaseTest {
     private RestaurantsPage restaurantsPage;
     private MenuPage menuPage;
 
-
     @BeforeClass
     public void preconditions() throws InterruptedException {
         HomePage homePage = new HomePage(driver);
         signInPage = homePage
                 .getHeaderGeneralPageComponent()
                 .signInAccess();
-        Thread.sleep(1000);
         signInPage.setUserEmailInputField(clientEmail);
         signInPage.setUserPasswordInputField(clientPassword);
         signInPage.clickSignInBtn();
-        Thread.sleep(1000);
         restaurantsPage = new RestaurantsPage(driver);
     }
 
@@ -42,7 +39,7 @@ public class CreateOrderTest extends BaseTest {
     }
 
     @Test
-    public void verifySubmitOrderBtn716() throws InterruptedException {
+    public void verifySubmitOrderBtn716() {
         logger = extent.createTest("Verify Submit Order button 7.16");
         menuPage.submitOrder();
         Assert.assertEquals(menuPage.orderConfirmation.orderConfirmationFieldVisible(), "Order confirmation");
@@ -50,9 +47,12 @@ public class CreateOrderTest extends BaseTest {
 
     @AfterClass
     public void clientLogOut() throws InterruptedException {
+        Thread.sleep(500);
         menuPage.orderConfirmation.cancelOrder();
+        /*We need to write method active/unactive button Cart*/
+        //menuPage.showCartBtnClick();
         menuPage.deleteBtnClick();
-        signInPage = restaurantsPage.getHeaderGeneralPageComponent().
+        signInPage = restaurantsPage.headerGlobal.
                 userMenu().logOut();
     }
 }

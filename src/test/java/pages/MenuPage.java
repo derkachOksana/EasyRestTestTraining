@@ -6,9 +6,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pageComponents.HeaderGeneralPageComponent;
 import pageComponents.menu.MenuItemsPageComponent;
 import pageComponents.menu.OrderConfirmationPageComponent;
+
+import java.time.Duration;
 
 public class MenuPage {
 
@@ -17,6 +21,7 @@ public class MenuPage {
     public final MenuItemsPageComponent menuItems;
     private final WebDriver driver;
     private final Actions action;
+    private WebDriverWait wait;
 
     @FindBy(xpath = "//span[contains(text(), 'Submit order')]")
     private WebElement submitOrder;
@@ -34,11 +39,13 @@ public class MenuPage {
         orderConfirmation = new OrderConfirmationPageComponent(driver);
         menuItems = new MenuItemsPageComponent(driver);
         action = new Actions(driver);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }
 
     public void submitOrder() {
         submitOrder.click();
     }
+
     public boolean submitOrderEnable() {
         if (submitOrder.isEnabled()) {
             return true;
@@ -46,11 +53,23 @@ public class MenuPage {
             return false;
         }
     }
+
     public void showCartBtnClick() {
         showCartBtn.click();
     }
+
     public void deleteBtnClick() throws InterruptedException {
-       action.moveToElement(deleteItem);
-       deleteItem.click();
+
+        wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        for (int i = 0; i <= 2; i++) {
+            try {
+                action.moveToElement(deleteItem).perform();
+                wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(@aria-label, 'Remove')]")));
+                break;
+            } catch (Exception e) {
+
+            }
+            deleteItem.click();
+        }
     }
 }
