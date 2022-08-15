@@ -9,8 +9,7 @@ import java.util.stream.Collectors;
 
 public class OrderAcceptedComponent {
 
-    private WebElement orderSummaryDiv;
-    //private List<WaiterComponent> waiterComponentList;
+    private final WebElement orderSummaryDiv;
 
     @FindBy(xpath = "./div/div/div/div/div/div/button")
     private WebElement assignBtn;
