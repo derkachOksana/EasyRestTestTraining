@@ -18,7 +18,7 @@ public class CreateOrderTest extends BaseTest {
     private MenuPage menuPage;
 
     @BeforeClass
-    public void preconditions() throws InterruptedException {
+    public void preconditions() {
         HomePage homePage = new HomePage(driver);
         signInPage = homePage
                 .getHeaderGeneralPageComponent()
@@ -30,7 +30,7 @@ public class CreateOrderTest extends BaseTest {
     }
 
     @Test
-    public void verifyAddToCartButton714() throws InterruptedException {
+    public void verifyAddToCartButton714() {
         logger = extent.createTest("Verify Add to cart button 7.14");
         menuPage = restaurantsPage.watchMenuByRestName(restaurantName);
         menuPage.menuItems.getFoodMassByItemName(menuItem1);

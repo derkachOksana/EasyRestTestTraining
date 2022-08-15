@@ -26,16 +26,16 @@ public class ClientOrdersContainerComponent {
     @FindBy(xpath = "//main//header/following-sibling::div/div")
     private List <WebElement> ordersList;
 
-    public WebElement neededOrder() throws InterruptedException {
+    private WebElement neededOrder() {
         return ordersList.get(0);
     }
 
-    public String getOrderId () throws InterruptedException {
+    public String getOrderId () {
         return neededOrder().findElement(By.xpath(
                         ".//div/div/div/div[1]/p")).getText();
     }
 
-    public ClientOrderInfoComponent expandOrder() throws InterruptedException {
+    public ClientOrderInfoComponent expandOrder() {
         neededOrder().click();
         return new ClientOrderInfoComponent(driver);
     }

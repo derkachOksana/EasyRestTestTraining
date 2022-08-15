@@ -33,6 +33,7 @@ public class ClientOrderInfoComponent {
             }
         }
     }
+
     public void reorderBtnClick() {
         for(WebElement reorderBtn : setOfReordersBtns) {
             try {
