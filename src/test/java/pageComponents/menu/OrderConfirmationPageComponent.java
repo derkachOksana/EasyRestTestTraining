@@ -1,3 +1,10 @@
+/*  *************************************************************
+    *                                                           *
+    *   Take out setDate and setTime methods to Facade classes  *
+    *                                                           *
+    *************************************************************
+*/
+
 package pageComponents.menu;
 
 import org.openqa.selenium.WebDriver;
