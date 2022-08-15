@@ -3,7 +3,6 @@ package pageComponents.moderator;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.devtools.v85.page.Page;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -19,7 +18,7 @@ public class ModeratorUsersTablePageComponent {
     }
 
     private WebElement getNeededUser(String userEmail)  {
-        WebElement neededUser = users.get(0);
+        WebElement neededUser = null;
         for(WebElement user : users)    {
             String currentUserEmail = user.findElement(By.xpath(
                     "./td")).getText();

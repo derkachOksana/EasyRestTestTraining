@@ -1,10 +1,8 @@
 package pageComponents.moderator;
 
-import com.beust.jcommander.IStringConverter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.devtools.v85.page.Page;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -20,7 +18,7 @@ public class ModeratorOwnersTablePageComponent {
     }
 
     private WebElement getNeededOwner(String ownerEmail) {
-        WebElement neededOwner = owners.get(0);
+        WebElement neededOwner = null;
         for(WebElement owner : owners)    {
             String currentOwnerEmail = owner.findElement(By.xpath(
                     "./td")).getText();

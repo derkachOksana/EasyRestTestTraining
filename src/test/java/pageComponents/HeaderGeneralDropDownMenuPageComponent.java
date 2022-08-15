@@ -1,11 +1,12 @@
 package pageComponents;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import pages.AdminPage;
 import pages.SignInPage;
+import pages.moderator.ModeratorBasePage;
 import pages.waiter.WaiterMainPage;
 
 public class HeaderGeneralDropDownMenuPageComponent {
@@ -20,12 +21,28 @@ public class HeaderGeneralDropDownMenuPageComponent {
     @FindBy(xpath = "//*[text()='Waiter panel']")
     private WebElement waiterPanelBtn;
 
+    @FindBy(xpath = "//*[text()='Moderator panel']")
+    private WebElement moderatorPanelBtn;
+
+    @FindBy(xpath = "//*[text()='Admin Panel']")
+    private WebElement adminPanelBtn;
+
     @FindBy(xpath = "//*[text()='Log Out']")
     private WebElement logOutBtn;
 
     public WaiterMainPage waiterPanelAccess() {
         waiterPanelBtn.click();
         return new WaiterMainPage(driver);
+    }
+
+    public ModeratorBasePage moderatorPanelAccess() {
+        moderatorPanelBtn.click();
+        return new ModeratorBasePage(driver);
+    }
+
+    public AdminPage adminPanelAccess() {
+        adminPanelBtn.click();
+        return new AdminPage(driver);
     }
 
     public SignInPage logOut()    {
