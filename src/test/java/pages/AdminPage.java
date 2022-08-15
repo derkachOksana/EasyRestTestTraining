@@ -1,3 +1,7 @@
+
+//      Need refactoring
+//      This page added for usage in moderator tests
+
 package pages;
 
 import org.openqa.selenium.By;
