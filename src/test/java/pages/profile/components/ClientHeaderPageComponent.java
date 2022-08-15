@@ -37,7 +37,7 @@ public class ClientHeaderPageComponent {
     @FindBy(xpath = "//header//button/*[@role = 'presentation']")
     private List<WebElement> presentationStatusBtns;
 
-    public void presentationStatusBtnAccessByIndex(int index) throws IllegalArgumentException{
+    public void presentationStatusBtnAccessByIndex(int index) {
         int size = presentationStatusBtns.size();
         if(index >= size) {
             throw new IllegalArgumentException("Unexpected index [" + index + "]. Expect index should not be grater then " + size);
