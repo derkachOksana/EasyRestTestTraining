@@ -12,8 +12,6 @@ import java.util.List;
 
 public class ModeratorOwnersTablePageComponent {
 
-    private String ownerEmail;
-
     @FindBy(xpath = "//table/tbody/tr")
     private List<WebElement> owners;
 
@@ -21,7 +19,7 @@ public class ModeratorOwnersTablePageComponent {
         PageFactory.initElements(driver, this);
     }
 
-    private WebElement getNeededOwner() {
+    private WebElement getNeededOwner(String ownerEmail) {
         WebElement neededOwner = owners.get(0);
         for(WebElement owner : owners)    {
             String currentOwnerEmail = owner.findElement(By.xpath(
@@ -34,17 +32,13 @@ public class ModeratorOwnersTablePageComponent {
         return neededOwner;
     }
 
-    public void setOwnerEmail(String ownerEmail)    {
-        this.ownerEmail = ownerEmail;
-    }
-
-    public String getOwnerStatus()  {
-        return getNeededOwner().findElement(By.xpath(
+    public String getOwnerStatus(String ownerEmail)  {
+        return getNeededOwner(ownerEmail).findElement(By.xpath(
                 "./td[5]/p")).getText();
     }
 
-    public void changeOwnerStatus() {
-        getNeededOwner().findElement(By.xpath(
+    public void changeOwnerStatus(String ownerEmail) {
+        getNeededOwner(ownerEmail).findElement(By.xpath(
                 "./td[6]")).click();
     }
 }
