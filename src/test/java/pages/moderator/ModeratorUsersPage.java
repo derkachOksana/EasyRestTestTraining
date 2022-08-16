@@ -1,14 +1,14 @@
 package pages.moderator;
 
 import org.openqa.selenium.WebDriver;
-import pageComponents.moderator.ModeratorUsersTablePageComponent;
+import pageComponents.UsersTablePageComponent;
 
 public class ModeratorUsersPage extends ModeratorBasePage {
 
-    public final ModeratorUsersTablePageComponent usersTable;
+    public final UsersTablePageComponent usersTable;
 
     public ModeratorUsersPage (WebDriver driver)    {
         super(driver);
-        usersTable = new ModeratorUsersTablePageComponent(driver);
+        usersTable = new UsersTablePageComponent(driver);
     }
 }

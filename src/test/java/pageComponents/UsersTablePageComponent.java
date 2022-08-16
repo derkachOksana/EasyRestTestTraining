@@ -1,4 +1,4 @@
-package pageComponents.moderator;
+package pageComponents;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -8,12 +8,12 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
-public class ModeratorUsersTablePageComponent {
+public class UsersTablePageComponent {
 
     @FindBy(xpath = "//table/tbody/tr")
     private List<WebElement> users;
 
-    public ModeratorUsersTablePageComponent(WebDriver driver)   {
+    public UsersTablePageComponent(WebDriver driver)   {
         PageFactory.initElements(driver, this);
     }
 

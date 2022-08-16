@@ -10,7 +10,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import pageComponents.HeaderGeneralPageComponent;
-import pageComponents.moderator.ModeratorUsersTablePageComponent;
+import pageComponents.UsersTablePageComponent;
 
 import java.util.List;
 
@@ -48,9 +48,9 @@ public class AdminPage {
         return new AdminPage(driver);
     }
 
-    public ModeratorUsersTablePageComponent usersTable()    {
+    public UsersTablePageComponent usersTable()    {
         userSheetAccess.click();
-        return new ModeratorUsersTablePageComponent(driver);
+        return new UsersTablePageComponent(driver);
     }
 
     private WebElement getNeededModerator(String userEmail)  {
