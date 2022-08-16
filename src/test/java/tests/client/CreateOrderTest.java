@@ -35,7 +35,7 @@ public class CreateOrderTest extends BaseTest {
         menuPage = restaurantsPage.watchMenuByRestName(restaurantName);
         menuPage.menuItems.getFoodMassByItemName(menuItem1);
         menuPage.menuItems.addToCartByItemName(menuItem1);
-        Assert.assertTrue(menuPage.submitOrderEnable(), "The button Submit order is not enable");
+        Assert.assertTrue(menuPage.submitOrderEnable(), "The button Submit order is not enabled");
     }
 
     @Test
