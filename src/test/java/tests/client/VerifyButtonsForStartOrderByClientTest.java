@@ -8,7 +8,7 @@ import pages.RestaurantsPage;
 import pages.SignInPage;
 import tests.BaseTest;
 
-public class CreateOrderTest extends BaseTest {
+public class VerifyButtonsForStartOrderByClientTest extends BaseTest {
     private final String restaurantName = "Gray Group";
     private final String clientEmail = "nathansmith@test.com";
     private final String clientPassword = "1111";

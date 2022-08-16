@@ -87,6 +87,16 @@ public class OrderConfirmationPageComponent {
     }
 
     public void submitOrder()    {
+        wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        for (int i = 0; i <= 2; i++) {
+            try {
+                wait.until(ExpectedConditions.elementToBeClickable(By
+                        .xpath("//button/span[text()='Submit']")));
+                break;
+            } catch (Exception e) {
+
+            }
+        }
         submitBtn.click();
     }
 

@@ -5,15 +5,20 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.HomePage;
 import pages.RestaurantsPage;
 import pages.SignInPage;
 import pages.SignUpPage;
 import pages.waiter.WaiterMainPage;
 
+import java.time.Duration;
+
 public class HeaderGeneralPageComponent {
 
     private final WebDriver driver;
+    private WebDriverWait wait;
 
     public HeaderGeneralPageComponent(WebDriver driver) {
         PageFactory.initElements(driver, this);
@@ -36,6 +41,15 @@ public class HeaderGeneralPageComponent {
     private WebElement signUpBtn;
 
     public HeaderGeneralDropDownMenuPageComponent userMenu()   {
+        wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        for (int i = 0; i <= 2; i++) {
+            try {
+                wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(@class, 'UserMenu')]/*[button]")));
+                break;
+            } catch (Exception e) {
+
+            }
+        }
         userMenuBtn.click();
         return new HeaderGeneralDropDownMenuPageComponent(driver);
     }
