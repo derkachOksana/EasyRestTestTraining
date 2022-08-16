@@ -32,6 +32,14 @@ public class MenuPage {
     @FindBy(xpath = "//button[contains(@aria-label, 'Show cart')]")
     private WebElement showCartBtn;
 
+    @FindBy(xpath = "//*[@aria-label ='Show cart'][@aria-expanded='true']")
+    private WebElement showCartActive;
+
+    @FindBy(xpath = "//*[@aria-label ='Show cart'][@aria-expanded='false']")
+    private WebElement showCartNotActive;
+
+
+
     public MenuPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
@@ -39,7 +47,6 @@ public class MenuPage {
         orderConfirmation = new OrderConfirmationPageComponent(driver);
         menuItems = new MenuItemsPageComponent(driver);
         action = new Actions(driver);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }
 
     public void submitOrder() {
@@ -65,11 +72,12 @@ public class MenuPage {
             try {
                 action.moveToElement(deleteItem).perform();
                 wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(@aria-label, 'Remove')]")));
+
                 break;
             } catch (Exception e) {
 
             }
-            deleteItem.click();
         }
+        deleteItem.click();
     }
 }

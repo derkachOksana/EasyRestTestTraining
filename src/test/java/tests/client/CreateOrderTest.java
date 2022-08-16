@@ -27,12 +27,19 @@ public class CreateOrderTest extends BaseTest {
         signInPage.setUserPasswordInputField(clientPassword);
         signInPage.clickSignInBtn();
         restaurantsPage = new RestaurantsPage(driver);
+        menuPage = restaurantsPage.watchMenuByRestName(restaurantName);
     }
 
     @Test
-    public void verifyAddToCartButton714() {
-        logger = extent.createTest("Verify Add to cart button 7.14");
-        menuPage = restaurantsPage.watchMenuByRestName(restaurantName);
+    public void verifyWatchMenuButton714() {
+        logger = extent.createTest("Verify Watch menu button 7.14");
+        String actualRestaurantMenuField = menuPage.menuItems.getRestaurantMenuField();
+        Assert.assertEquals(actualRestaurantMenuField, "Gray Group menu:");
+    }
+
+    @Test
+    public void verifyAddToCartButton715() {
+        logger = extent.createTest("Verify Add to cart button 7.15");
         menuPage.menuItems.getFoodMassByItemName(menuItem1);
         menuPage.menuItems.addToCartByItemName(menuItem1);
         Assert.assertTrue(menuPage.submitOrderEnable(), "The button Submit order is not enabled");
@@ -48,8 +55,6 @@ public class CreateOrderTest extends BaseTest {
     @AfterClass
     public void clientLogOut() {
         menuPage.orderConfirmation.cancelOrder();
-        /*We need to write method active/unactive button Cart*/
-        //menuPage.showCartBtnClick();
         menuPage.deleteBtnClick();
         signInPage = restaurantsPage.headerGlobal.
                 userMenu().logOut();
