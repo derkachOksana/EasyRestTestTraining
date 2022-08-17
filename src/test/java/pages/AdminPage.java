@@ -5,6 +5,7 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -26,9 +27,6 @@ public class AdminPage {
     @FindBy(xpath = "//a[@href='/admin/users']")
     private WebElement userSheetAccess;
 
-    @FindBy(xpath = "//*[text()='Add moderator']")
-    private WebElement moderatorAddBtn;
-
     @FindBy(xpath = "//table/tbody/tr")
     private List<WebElement> moderators;
 
@@ -38,17 +36,14 @@ public class AdminPage {
         headerGlobal = new HeaderGeneralPageComponent(driver);
     }
 
-    public SignUpPage createModeratorAccount() {
-        moderatorAddBtn.click();
-        return new SignUpPage(driver);
-    }
-
     public AdminPage moderatorSheetAccess() {
         moderatorSheetAccess.click();
         return new AdminPage(driver);
     }
 
     public UsersTablePageComponent usersTable()    {
+        JavascriptExecutor js = (JavascriptExecutor)driver;
+        js.executeScript("window.scrollTo(0,0)");
         userSheetAccess.click();
         return new UsersTablePageComponent(driver);
     }

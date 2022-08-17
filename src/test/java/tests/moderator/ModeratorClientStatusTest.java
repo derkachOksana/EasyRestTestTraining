@@ -1,19 +1,15 @@
 package tests.moderator;
 
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import pages.AdminPage;
-import pages.HomePage;
 import pages.SignInPage;
-import pages.SignUpPage;
 import pages.moderator.ModeratorBasePage;
 import pages.moderator.ModeratorUsersPage;
 import tests.BaseTest;
 import utility.ConfProperties;
-import utility.RegDataBuilder;
 import utility.RegistrationData;
+import utility.RegistrationFacade;
 
 import java.time.Duration;
 
@@ -22,61 +18,24 @@ public class ModeratorClientStatusTest extends BaseTest {
     private ModeratorUsersPage moderatorUsersPage;
     private RegistrationData clientRegistrationData;
     private RegistrationData moderatorRegistrationData;
-    private final Duration duration = Duration.ofSeconds
-            (Integer.parseInt(ConfProperties.getProperty("duration")));
-
     private String userStatus;
 
     @BeforeClass
     public void preconditions() {
-        WebDriverWait wait = new WebDriverWait(driver, duration);
+        Duration duration = Duration.ofSeconds(Integer.parseInt(ConfProperties.getProperty("duration")));
+
         logger = extent.createTest("Setup preconditions to moderator client tests.");
 
-        RegDataBuilder regDataBuilder = new RegDataBuilder();
-        clientRegistrationData = regDataBuilder
-                .name(faker.name().username())
-                .email(faker.internet().emailAddress())
-                .password(faker.superhero().name() + faker.superhero().power())
-                .build();
-
-        moderatorRegistrationData = regDataBuilder
-                .name(faker.name().username())
-                .email(faker.internet().emailAddress())
-                .password(faker.superhero().name() + faker.superhero().power())
-                .build();
-
-        HomePage homePage = new HomePage(driver);
-        SignUpPage signUpPage = homePage.getHeaderGeneralPageComponent().signUpAccess();
-
-        signUpPage.inputName(clientRegistrationData.getName());
-        signUpPage.inputEmail(clientRegistrationData.getEmail());
-        signUpPage.inputPassword(clientRegistrationData.getPassword());
-        signUpPage.inputRepeatedPassword(clientRegistrationData.getPassword());
+        clientRegistrationData = RegistrationFacade.registerNewClient(driver, duration);
 
         logger.info("Client registered.");
 
-        signInPage = signUpPage.createAccountAccept();
-
-        wait.until(ExpectedConditions.urlToBe(ConfProperties.getProperty("logInPage")));
-
-        signInPage.setUserEmailInputField(ConfProperties.getProperty("adminLogin"));
-        signInPage.setUserPasswordInputField(ConfProperties.getProperty("adminPassword"));
-        signInPage.clickSignInBtn();
-
-        AdminPage adminPage = new AdminPage(driver);
-
-        adminPage = adminPage.moderatorSheetAccess();
-        signUpPage = adminPage.createModeratorAccount();
-
-        signUpPage.inputName(moderatorRegistrationData.getName());
-        signUpPage.inputEmail(moderatorRegistrationData.getEmail());
-        signUpPage.inputPassword(moderatorRegistrationData.getPassword());
-        signUpPage.inputRepeatedPassword(moderatorRegistrationData.getPassword());
-        signUpPage.createAccountAccept();
+        moderatorRegistrationData = RegistrationFacade.registerNewModerator(driver, duration);
 
         logger.info("Moderator registered.");
 
-        signInPage = adminPage.headerGlobal.userMenu().logOut();
+        driver.get(ConfProperties.getProperty("logInPage"));
+        signInPage = new SignInPage(driver);
     }
 
     @BeforeMethod
