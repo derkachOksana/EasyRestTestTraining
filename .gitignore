@@ -2,6 +2,6 @@
 target/
 *.iml
 .idea/*
-resources/
+src/test/resources/*
 
 src/test/reports/*
