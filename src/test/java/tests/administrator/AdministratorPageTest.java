@@ -1,5 +1,6 @@
 package tests.administrator;
 
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -19,18 +20,21 @@ public class AdministratorPageTest extends BaseTest {
 
     private final String administratorEmail = "eringonzales@test.com";
     private final String administratorPassword = "1";
-    private final String orderId = "177";
-    private final String ADMIN_URL = "http://miniserver:8880/administrator-panel";
+    private final String orderId = "231";
+    private final String ADMINISTRATOR_URL = "http://miniserver:8880/administrator-panel";
 
     private SignInPage signInPage;
     private AdministratorPage administratorPage;
     private WebDriverWait wait;
+    private String orderStatus;
+    private JavascriptExecutor js;
 
     @BeforeClass
     public void precondition() {
         HomePage homePage = new HomePage(driver);
         driver.get("http://miniserver:8880/");
-        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        js = (JavascriptExecutor) driver;
         signInPage = homePage
                 .getHeaderGeneralPageComponent()
                 .signInAccess();
@@ -42,36 +46,46 @@ public class AdministratorPageTest extends BaseTest {
         signInPage.setUserPasswordInputField(administratorPassword);
         signInPage.clickSignInBtn();
         administratorPage = new AdministratorPage(driver);
-        wait.until(ExpectedConditions.urlContains(ADMIN_URL));
+        wait.until(ExpectedConditions.urlContains(ADMINISTRATOR_URL));
     }
 
     @Test
     public void checkAccessToAdministratorPageTest501() {
         logger = extent.createTest("Administrator page test 5.01");
 
-        Assert.assertEquals(driver.getCurrentUrl(), ADMIN_URL);
-
+        Assert.assertEquals(driver.getCurrentUrl(), ADMINISTRATOR_URL);
     }
 
     @Test
-    public void checkOrderConfirmationByAdministrator502() {
+    public void checkOrderConfirmationByAdministratorTest502() throws InterruptedException {
         logger = extent.createTest("Administrator page test 5.02");
         OrderComponent orderToConfirm = administratorPage.getOrderById(orderId);
         orderToConfirm.clickDropDownBtn();
         orderToConfirm.acceptOrder();
+        js.executeScript("window.scrollTo(0,0)");
         administratorPage.getTabPanelPage().switchToAcceptedTab();
+        AdministratorPage acceptedTab = new AdministratorPage(driver);
+        OrderComponent acceptedOrder = acceptedTab.getOrderById(orderId);
+        orderStatus = acceptedOrder.getOrderStatus();
+        Assert.assertEquals(orderStatus, "Accepted");
+    }
+
+    @Test
+    public void checkPossibilityToAssignWaiterTest503() throws InterruptedException {
+        logger = extent.createTest("Administrator page Test 5.03");
+        AdministratorPage acceptedTab = new AdministratorPage(driver);
+        acceptedTab.getTabPanelPage().switchToAcceptedTab();
         OrderComponent acceptedOrder = administratorPage.getOrderById(orderId);
+        acceptedOrder.clickDropDownBtn();
+        acceptedOrder.selectWaiter(1);
+        acceptedOrder.assignWaiter();
+        js.executeScript("window.scrollTo(0,0)");
         wait.until(ExpectedConditions.invisibilityOfAllElements());
-        Assert.assertEquals(orderToConfirm, acceptedOrder);
-
-
-
-
-
-
-
-
-
+        acceptedTab.getTabPanelPage().switchToAssignedWaiterTab();
+        AdministratorPage assignedWaiterTab = new AdministratorPage(driver);
+        OrderComponent assignedWaiterOrder = assignedWaiterTab.getOrderById(orderId);
+        orderStatus = assignedWaiterOrder.getOrderStatus();
+        Assert.assertEquals(orderStatus, "Assigned waiter");
     }
 
     @AfterMethod
@@ -81,5 +95,4 @@ public class AdministratorPageTest extends BaseTest {
                .userMenu()
                .logOut();
     }
-
 }

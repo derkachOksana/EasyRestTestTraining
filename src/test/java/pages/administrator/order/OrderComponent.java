@@ -8,7 +8,7 @@ import java.util.List;
 
 public class OrderComponent {
 
-    private WebElement orderDiv;
+    private final WebElement orderDiv;
 
     private OrderConfirmationComponent orderConfirmationComponent;
 
@@ -45,9 +45,12 @@ public class OrderComponent {
         orderConfirmationComponent.clickAcceptBtn();
     }
 
-    public void assignWaiter() {
+    public void assignWaiter() throws InterruptedException {
         initAcceptedComponent();
         orderAcceptedComponent.clickAssignBtn();
+
+        //There is no other way to resolve this action, there is no UI element we can use for waiter.
+        Thread.sleep(500);
     }
 
     public List<WaiterComponent> getWaiterList() {
