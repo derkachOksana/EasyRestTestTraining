@@ -29,7 +29,19 @@ public class RestaurantsPage {
     private List<WebElement> restaurants;
 
     private WebElement neededRestaurant(String restName) {
-        wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebElement neededRestaurant = restaurants.get(0);
+        for (WebElement restaurant : restaurants) {
+            if (restaurant.findElement(By.xpath(
+                            ".//div/div"))
+                    .getAttribute("title").equals(restName)) {
+                neededRestaurant = restaurant;
+            }
+        }
+        return neededRestaurant;
+    }
+
+    private WebElement neededRestaurant(String restName, Duration duration) {
+        wait = new WebDriverWait(driver, duration);
         // Using for loop, it tries for 3 times.
         // If the element is located for the first time then it breaks from the for loop nad comeout of the loop
         for (int i = 0; i <= 2; i++) {
@@ -40,8 +52,6 @@ public class RestaurantsPage {
 
             }
         }
-
-
         WebElement neededRestaurant = restaurants.get(0);
         for (WebElement restaurant : restaurants) {
             if (restaurant.findElement(By.xpath(
@@ -58,6 +68,12 @@ public class RestaurantsPage {
                     ".//*[text()='Watch Menu']")).click();
         return new MenuPage(driver);
         }
+
+    public MenuPage watchMenuByRestName(String restName, Duration duration) {
+        neededRestaurant(restName, duration).findElement(By.xpath(
+                ".//*[text()='Watch Menu']")).click();
+        return new MenuPage(driver);
+    }
 
     }
 

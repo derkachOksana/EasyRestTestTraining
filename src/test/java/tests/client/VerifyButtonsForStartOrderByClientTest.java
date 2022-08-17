@@ -7,6 +7,8 @@ import pages.MenuPage;
 import pages.RestaurantsPage;
 import pages.SignInPage;
 import tests.BaseTest;
+import utility.ConfProperties;
+import java.time.Duration;
 
 public class VerifyButtonsForStartOrderByClientTest extends BaseTest {
     private final String restaurantName = "Gray Group";
@@ -16,6 +18,7 @@ public class VerifyButtonsForStartOrderByClientTest extends BaseTest {
     private SignInPage signInPage;
     private RestaurantsPage restaurantsPage;
     private MenuPage menuPage;
+    private final Duration duration = Duration.ofSeconds(Integer.parseInt(ConfProperties.getProperty("duration")));
 
     @BeforeClass
     public void preconditions() {
@@ -27,7 +30,7 @@ public class VerifyButtonsForStartOrderByClientTest extends BaseTest {
         signInPage.setUserPasswordInputField(clientPassword);
         signInPage.clickSignInBtn();
         restaurantsPage = new RestaurantsPage(driver);
-        menuPage = restaurantsPage.watchMenuByRestName(restaurantName);
+        menuPage = restaurantsPage.watchMenuByRestName(restaurantName, duration);
     }
 
     @Test
@@ -40,7 +43,7 @@ public class VerifyButtonsForStartOrderByClientTest extends BaseTest {
     @Test
     public void verifyAddToCartButton715() {
         logger = extent.createTest("Verify Add to cart button 7.15");
-        menuPage.menuItems.getFoodMassByItemName(menuItem1);
+        //menuPage.menuItems.getFoodMassByItemName(menuItem1);
         menuPage.menuItems.addToCartByItemName(menuItem1);
         Assert.assertTrue(menuPage.submitOrderEnable(), "The button Submit order is not enabled");
     }
@@ -54,8 +57,8 @@ public class VerifyButtonsForStartOrderByClientTest extends BaseTest {
 
     @AfterClass
     public void clientLogOut() {
-        menuPage.orderConfirmation.cancelOrder();
-        menuPage.deleteBtnClick();
+        menuPage.orderConfirmation.cancelOrder(duration);
+        menuPage.deleteBtnClick(duration);
         signInPage = restaurantsPage.headerGlobal.
                 userMenu().logOut();
     }

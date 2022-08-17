@@ -23,6 +23,8 @@ public class MenuPage {
     private final Actions action;
     private WebDriverWait wait;
 
+    private Duration duration;
+
     @FindBy(xpath = "//span[contains(text(), 'Submit order')]")
     private WebElement submitOrder;
 
@@ -66,8 +68,12 @@ public class MenuPage {
     }
 
     public void deleteBtnClick() {
+        deleteItem.click();
+    }
 
-        wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+    public void deleteBtnClick(Duration duration) {
+
+        wait = new WebDriverWait(driver, duration);
         for (int i = 0; i <= 2; i++) {
             try {
                 action.moveToElement(deleteItem).perform();

@@ -10,9 +10,7 @@ import pages.profile.MyProfilePage;
 import pages.waiter.WaiterMainPage;
 
 public class HeaderGeneralDropDownMenuPageComponent {
-
     private final WebDriver driver;
-
     public HeaderGeneralDropDownMenuPageComponent(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;

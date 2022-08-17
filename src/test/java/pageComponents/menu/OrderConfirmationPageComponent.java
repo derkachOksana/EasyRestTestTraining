@@ -22,8 +22,9 @@ public class OrderConfirmationPageComponent {
     private final WebDriver driver;
     private WebDriverWait wait;
 
+    private Duration duration;
+
     public OrderSummaryPageComponent orderSummary;
-    //private WebDriverWait wait;
 
     public OrderConfirmationPageComponent(WebDriver driver)  {
         PageFactory.initElements(driver, this);
@@ -72,8 +73,12 @@ public class OrderConfirmationPageComponent {
         return datePickerField.getAttribute("value");
     }
 
-    public void cancelOrder()    {
-        wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+    public void cancelOrder() {
+        cancelBtn.click();
+    }
+
+    public void cancelOrder(Duration duration) {
+        wait = new WebDriverWait(driver, duration);
         for (int i = 0; i <= 2; i++) {
             try {
                 wait.until(ExpectedConditions.elementToBeClickable(By
@@ -86,8 +91,8 @@ public class OrderConfirmationPageComponent {
         cancelBtn.click();
     }
 
-    public void submitOrder()    {
-        wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+    public void submitOrder(Duration duration) {
+        wait = new WebDriverWait(driver, duration);
         for (int i = 0; i <= 2; i++) {
             try {
                 wait.until(ExpectedConditions.elementToBeClickable(By
@@ -97,6 +102,10 @@ public class OrderConfirmationPageComponent {
 
             }
         }
+        submitBtn.click();
+    }
+
+    public void submitOrder() {
         submitBtn.click();
     }
 
