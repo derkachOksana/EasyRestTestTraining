@@ -6,7 +6,6 @@ import utility.ConfProperties;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
-import com.github.javafaker.Faker;
 import org.openqa.selenium.WebDriver;
 import utility.DateHandler;
 
@@ -17,8 +16,6 @@ public class BaseTest {
     protected WebDriver driver;
     public static ExtentReports extent;
     public static ExtentTest logger;
-
-    Faker faker;
 
     @BeforeSuite
     public void setUpReport()   {

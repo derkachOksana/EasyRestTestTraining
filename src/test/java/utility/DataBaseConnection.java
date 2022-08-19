@@ -1,6 +1,7 @@
 package utility;
 
 import org.apache.ibatis.jdbc.ScriptRunner;
+import org.openqa.selenium.WebDriver;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -35,6 +36,39 @@ public final class DataBaseConnection {
             Reader reader = new BufferedReader(new FileReader(sqlScriptPath));
             sr.runScript(reader);
         } catch (SQLException | FileNotFoundException sqlException) {
+            sqlException.printStackTrace();
+        }
+    }
+
+    public RegistrationData createAccByRole(WebDriver driver, int role)    {
+        RegistrationData moderator = RegistrationFacade.registerUserAccount(driver);
+
+        try(Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD))  {
+            String sql = "UPDATE users" +
+                    " SET role_id=?" +
+                    " WHERE email=?";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, role);
+            preparedStatement.setString(2, moderator.getEmail());
+            preparedStatement.execute();
+
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+        return moderator;
+    }
+
+    public void deleteUserByEmail(String email) {
+        try(Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD))  {
+            String sql = "DELETE FROM users" +
+                    " WHERE email=?";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, email);
+            preparedStatement.execute();
+
+        } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }
     }
