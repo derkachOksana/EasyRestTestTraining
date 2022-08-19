@@ -1,6 +1,4 @@
 package tests.administrator;
-
-import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -13,6 +11,7 @@ import pages.SignInPage;
 import pages.administrator.AdministratorPage;
 import pages.administrator.order.OrderComponent;
 import tests.BaseTest;
+import utility.DataBaseConnection;
 
 import java.time.Duration;
 
@@ -20,21 +19,20 @@ public class AdministratorPageTest extends BaseTest {
 
     private final String administratorEmail = "eringonzales@test.com";
     private final String administratorPassword = "1";
-    private final String orderId = "231";
+    private final String orderId = "1";
     private final String ADMINISTRATOR_URL = "http://miniserver:8880/administrator-panel";
+    private final String SQL_FILE = "src/test/resources/datasource/administrator/administrator_datasource.sql";
 
     private SignInPage signInPage;
     private AdministratorPage administratorPage;
     private WebDriverWait wait;
     private String orderStatus;
-    private JavascriptExecutor js;
 
     @BeforeClass
     public void precondition() {
+        DataBaseConnection.getInstance().execute(SQL_FILE);
         HomePage homePage = new HomePage(driver);
-        driver.get("http://miniserver:8880/");
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        js = (JavascriptExecutor) driver;
         signInPage = homePage
                 .getHeaderGeneralPageComponent()
                 .signInAccess();
@@ -62,7 +60,6 @@ public class AdministratorPageTest extends BaseTest {
         OrderComponent orderToConfirm = administratorPage.getOrderById(orderId);
         orderToConfirm.clickDropDownBtn();
         orderToConfirm.acceptOrder();
-        js.executeScript("window.scrollTo(0,0)");
         administratorPage.getTabPanelPage().switchToAcceptedTab();
         AdministratorPage acceptedTab = new AdministratorPage(driver);
         OrderComponent acceptedOrder = acceptedTab.getOrderById(orderId);
@@ -79,7 +76,6 @@ public class AdministratorPageTest extends BaseTest {
         acceptedOrder.clickDropDownBtn();
         acceptedOrder.selectWaiter(1);
         acceptedOrder.assignWaiter();
-        js.executeScript("window.scrollTo(0,0)");
         wait.until(ExpectedConditions.invisibilityOfAllElements());
         acceptedTab.getTabPanelPage().switchToAssignedWaiterTab();
         AdministratorPage assignedWaiterTab = new AdministratorPage(driver);
