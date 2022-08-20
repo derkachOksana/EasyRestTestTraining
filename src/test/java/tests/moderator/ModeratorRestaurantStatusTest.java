@@ -1,55 +1,53 @@
 package tests.moderator;
 
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.*;
-import pages.HomePage;
 import pages.SignInPage;
 import pages.moderator.ModeratorBasePage;
 import pages.moderator.ModeratorRestaurantsPage;
 import tests.BaseTest;
+import utility.ConfProperties;
+import utility.DataBaseConnection;
+import utility.RegistrationData;
+
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ModeratorRestaurantStatusTest extends BaseTest {
-
-    /*
-    ***************************************************
-
-            Fields used without preconditions
-
-    ***************************************************
-    */
-
-    private final String moderatorEmail = "petermoderator@test.com";
-    private final String moderatorPassword = "1";
-
-    private final String firstRestaurant = "Edwards-Silva";
-    private final String secondRestaurant = "Gray Group";
-    private final String thirdRestaurant = "Hardy Group";
-    private final String fourthRestaurant = "Chapman PLC";
-
-    /*
-    ************************************************
-        End of fields used without preconditions
-    ************************************************
-    */
 
     private SignInPage signInPage;
     private ModeratorRestaurantsPage moderatorRestaurantsPage;
 
     private String restaurantStatus;
 
+    private RegistrationData moderator;
+    private final List<RegistrationData> restaurants = new ArrayList<>();
+
+    private final Duration duration = Duration.ofSeconds(Integer.parseInt(ConfProperties.getProperty("duration")));
+
     @BeforeClass
     public void preconditions() {
-        HomePage homePage = new HomePage(driver);
-        signInPage = homePage
-                .getHeaderGeneralPageComponent()
-                .signInAccess();
+        final int MODERATOR_ROLE_ID = 3;
+        moderator = DataBaseConnection.getInstance().createAccByRole(driver, MODERATOR_ROLE_ID);
+        for(int i = 0; i < 4; i++)  {
+            restaurants.add(DataBaseConnection.getInstance().createRestaurant());
+        }
+
+        signInPage = new SignInPage(driver);
     }
 
     @BeforeMethod
     public void moderatorLogIn()    {
-        signInPage.setUserEmailInputField(moderatorEmail);
-        signInPage.setUserPasswordInputField(moderatorPassword);
+        WebDriverWait wait = new WebDriverWait(driver, duration);
+        wait.until(ExpectedConditions.urlToBe(ConfProperties.getProperty("signInPage")));
+
+        signInPage.setUserEmailInputField(moderator.getEmail());
+        signInPage.setUserPasswordInputField(moderator.getPassword());
         signInPage.clickSignInBtn();
+
         ModeratorBasePage moderatorBasePage = new ModeratorBasePage(driver);
         moderatorRestaurantsPage = moderatorBasePage.restaurantsPageAccess();
     }
@@ -59,10 +57,10 @@ public class ModeratorRestaurantStatusTest extends BaseTest {
         logger = extent.createTest("Moderator restaurant status test 3.01");
 
         moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorUnapprovedRestaurantsTabAccess();
-        moderatorRestaurantsPage.restaurants.approveRestaurant(firstRestaurant);
+        moderatorRestaurantsPage.restaurants.approveRestaurant(restaurants.get(0).getName());
         moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorApprovedRestaurantsTabAccess();
 
-        restaurantStatus = moderatorRestaurantsPage.restaurants.getRestaurantStatus(firstRestaurant);
+        restaurantStatus = moderatorRestaurantsPage.restaurants.getRestaurantStatus(restaurants.get(0).getName());
 
         Assert.assertEquals(restaurantStatus, "Approved");
     }
@@ -72,10 +70,10 @@ public class ModeratorRestaurantStatusTest extends BaseTest {
         logger = extent.createTest("Moderator restaurant status test 3.02");
 
         moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorApprovedRestaurantsTabAccess();
-        moderatorRestaurantsPage.restaurants.deleteRestaurant(firstRestaurant);
+        moderatorRestaurantsPage.restaurants.deleteRestaurant(restaurants.get(0).getName());
         moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorArchivedRestaurantsTabAccess();
 
-        restaurantStatus = moderatorRestaurantsPage.restaurants.getRestaurantStatus(firstRestaurant);
+        restaurantStatus = moderatorRestaurantsPage.restaurants.getRestaurantStatus(restaurants.get(0).getName());
 
         Assert.assertEquals(restaurantStatus, "Archived");
     }
@@ -85,10 +83,10 @@ public class ModeratorRestaurantStatusTest extends BaseTest {
         logger = extent.createTest("Moderator restaurant status test 3.03");
 
         moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorUnapprovedRestaurantsTabAccess();
-        moderatorRestaurantsPage.restaurants.disapproveRestaurant(secondRestaurant);
+        moderatorRestaurantsPage.restaurants.disapproveRestaurant(restaurants.get(1).getName());
         moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorArchivedRestaurantsTabAccess();
 
-        restaurantStatus = moderatorRestaurantsPage.restaurants.getRestaurantStatus(secondRestaurant);
+        restaurantStatus = moderatorRestaurantsPage.restaurants.getRestaurantStatus(restaurants.get(1).getName());
 
         Assert.assertEquals(restaurantStatus, "Archived");
     }
@@ -98,10 +96,10 @@ public class ModeratorRestaurantStatusTest extends BaseTest {
         logger = extent.createTest("Moderator restaurant status test 3.04");
 
         moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorArchivedRestaurantsTabAccess();
-        moderatorRestaurantsPage.restaurants.restoreRestaurant(secondRestaurant);
+        moderatorRestaurantsPage.restaurants.restoreRestaurant(restaurants.get(1).getName());
         moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorApprovedRestaurantsTabAccess();
 
-        restaurantStatus = moderatorRestaurantsPage.restaurants.getRestaurantStatus(secondRestaurant);
+        restaurantStatus = moderatorRestaurantsPage.restaurants.getRestaurantStatus(restaurants.get(1).getName());
 
         Assert.assertEquals(restaurantStatus, "Approved");
     }
@@ -111,10 +109,10 @@ public class ModeratorRestaurantStatusTest extends BaseTest {
         logger = extent.createTest("Moderator restaurant status test 3.05");
 
         moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorAllRestaurantsTabAccess();
-        moderatorRestaurantsPage.restaurants.approveRestaurant(thirdRestaurant);
+        moderatorRestaurantsPage.restaurants.approveRestaurant(restaurants.get(2).getName());
         moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorApprovedRestaurantsTabAccess();
 
-        restaurantStatus = moderatorRestaurantsPage.restaurants.getRestaurantStatus(thirdRestaurant);
+        restaurantStatus = moderatorRestaurantsPage.restaurants.getRestaurantStatus(restaurants.get(2).getName());
 
         Assert.assertEquals(restaurantStatus, "Approved");
     }
@@ -124,10 +122,10 @@ public class ModeratorRestaurantStatusTest extends BaseTest {
         logger = extent.createTest("Moderator restaurant status test 3.06");
 
         moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorAllRestaurantsTabAccess();
-        moderatorRestaurantsPage.restaurants.deleteRestaurant(thirdRestaurant);
+        moderatorRestaurantsPage.restaurants.deleteRestaurant(restaurants.get(2).getName());
         moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorArchivedRestaurantsTabAccess();
 
-        restaurantStatus = moderatorRestaurantsPage.restaurants.getRestaurantStatus(thirdRestaurant);
+        restaurantStatus = moderatorRestaurantsPage.restaurants.getRestaurantStatus(restaurants.get(2).getName());
 
         Assert.assertEquals(restaurantStatus, "Archived");
     }
@@ -137,10 +135,10 @@ public class ModeratorRestaurantStatusTest extends BaseTest {
         logger = extent.createTest("Moderator restaurant status test 3.07");
 
         moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorAllRestaurantsTabAccess();
-        moderatorRestaurantsPage.restaurants.disapproveRestaurant(fourthRestaurant);
+        moderatorRestaurantsPage.restaurants.disapproveRestaurant(restaurants.get(3).getName());
         moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorArchivedRestaurantsTabAccess();
 
-        restaurantStatus = moderatorRestaurantsPage.restaurants.getRestaurantStatus(thirdRestaurant);
+        restaurantStatus = moderatorRestaurantsPage.restaurants.getRestaurantStatus(restaurants.get(3).getName());
 
         Assert.assertEquals(restaurantStatus, "Archived");
     }
@@ -150,10 +148,10 @@ public class ModeratorRestaurantStatusTest extends BaseTest {
         logger = extent.createTest("Moderator restaurant status test 3.08");
 
         moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorAllRestaurantsTabAccess();
-        moderatorRestaurantsPage.restaurants.restoreRestaurant(fourthRestaurant);
+        moderatorRestaurantsPage.restaurants.restoreRestaurant(restaurants.get(3).getName());
         moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorApprovedRestaurantsTabAccess();
 
-        restaurantStatus = moderatorRestaurantsPage.restaurants.getRestaurantStatus(fourthRestaurant);
+        restaurantStatus = moderatorRestaurantsPage.restaurants.getRestaurantStatus(restaurants.get(3).getName());
 
         Assert.assertEquals(restaurantStatus, "Approved");
     }
@@ -169,6 +167,9 @@ public class ModeratorRestaurantStatusTest extends BaseTest {
     @AfterClass
     public void postonditions()
     {
-
+        DataBaseConnection.getInstance().deleteUserByEmail(moderator.getEmail());
+        for (int i = 0; i < 4; i++) {
+            DataBaseConnection.getInstance().deleteRestaurantByName(restaurants.get(i).getName());
+        }
     }
 }

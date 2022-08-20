@@ -2,7 +2,6 @@ package tests.waiter;
 
 import org.testng.Assert;
 import org.testng.annotations.*;
-import pages.HomePage;
 import pages.SignInPage;
 import pages.waiter.WaiterAssignedWaiterPage;
 import pages.waiter.WaiterHistoryPage;
@@ -10,48 +9,35 @@ import pages.waiter.WaiterInProgressPage;
 import pages.waiter.WaiterMainPage;
 import tests.BaseTest;
 import utility.ConfProperties;
+import utility.DataBaseConnection;
+import utility.RegistrationData;
 
 import java.time.Duration;
 
 public class WaiterOrderStatusTest extends BaseTest    {
 
-    /*
-    ***************************************************
-
-            Fields used without preconditions
-
-    ***************************************************
-    */
-
-    private final String waiterEmail = "alexandriawright@test.com";
-    private final String waiterPassword = "1";
-
-    private final String firstOrderNumber = "№138";
-    private final String secondOrderNumber = "№123";
-
-    /*
-    ************************************************
-        End of fields used without preconditions
-    ************************************************
-    */
-
     private SignInPage signInPage;
     private WaiterMainPage waiterMainPage;
 
-    private final Duration duration = Duration.ofSeconds(Integer.parseInt(ConfProperties.getProperty("duration")));
+    private RegistrationData waiter;
+    private int firstOrderNumber;
+    private int secondOrderNumber;
+
+    private final Duration DURATION = Duration.ofSeconds(Integer.parseInt(ConfProperties.getProperty("duration")));
 
     @BeforeClass
     public void preconditions() {
-        HomePage homePage = new HomePage(driver);
-        signInPage = homePage
-                .getHeaderGeneralPageComponent()
-                .signInAccess();
+        final int WAITER_ROLE_ID = 6;
+        waiter = DataBaseConnection.getInstance().createAccByRole(driver, WAITER_ROLE_ID);
+        firstOrderNumber = DataBaseConnection.getInstance().createOrderID(waiter);
+        secondOrderNumber = DataBaseConnection.getInstance().createOrderID(waiter);
+        signInPage = new SignInPage(driver);
     }
 
     @BeforeMethod
     public void waiterLogIn()    {
-        signInPage.setUserEmailInputField(waiterEmail);
-        signInPage.setUserPasswordInputField(waiterPassword);
+        signInPage.setUserEmailInputField(waiter.getEmail());
+        signInPage.setUserPasswordInputField(waiter.getPassword());
         signInPage.clickSignInBtn();
         waiterMainPage = new WaiterMainPage(driver);
     }
@@ -63,13 +49,13 @@ public class WaiterOrderStatusTest extends BaseTest    {
 
         WaiterAssignedWaiterPage waiterAssignedWaiter = waiterMainPage
                 .waiterHeader
-                .waiterAssignedWaiterPageAccess(duration);
+                .waiterAssignedWaiterPageAccess(DURATION);
 
         waiterAssignedWaiter.orders.expandOrder(firstOrderNumber).startOrderBtnClick();
 
         WaiterInProgressPage waiterInProgressPage = waiterAssignedWaiter
                 .waiterHeader
-                .waiterInProgressPageAccess(duration);
+                .waiterInProgressPageAccess(DURATION);
 
         orderStatus = waiterInProgressPage.orders.getOrderStatus(firstOrderNumber);
 
@@ -83,13 +69,13 @@ public class WaiterOrderStatusTest extends BaseTest    {
 
         WaiterInProgressPage waiterInProgressPage = waiterMainPage
                 .waiterHeader
-                .waiterInProgressPageAccess(duration);
+                .waiterInProgressPageAccess(DURATION);
 
         waiterInProgressPage.orders.expandOrder(firstOrderNumber).closeOrderBtnClick();
 
         WaiterHistoryPage waiterHistoryPage = waiterInProgressPage
                 .waiterHeader
-                .waiterHistoryPageAccess(duration);
+                .waiterHistoryPageAccess(DURATION);
 
         orderStatus = waiterHistoryPage.orders.getOrderStatus(firstOrderNumber);
 
@@ -101,13 +87,13 @@ public class WaiterOrderStatusTest extends BaseTest    {
         logger = extent.createTest("Waiter order status test 6.03");
         String orderStatus;
 
-        waiterMainPage = waiterMainPage.waiterHeader.waiterMainPageAccess(duration);
+        waiterMainPage = waiterMainPage.waiterHeader.waiterMainPageAccess(DURATION);
 
         waiterMainPage.orders.expandOrder(secondOrderNumber).startOrderBtnClick();
 
         WaiterInProgressPage waiterInProgressPage = waiterMainPage
                 .waiterHeader
-                .waiterInProgressPageAccess(duration);
+                .waiterInProgressPageAccess(DURATION);
 
         orderStatus = waiterInProgressPage.orders.getOrderStatus(secondOrderNumber);
 
@@ -119,13 +105,13 @@ public class WaiterOrderStatusTest extends BaseTest    {
         logger = extent.createTest("Waiter order status test 6.04");
         String orderStatus;
 
-        waiterMainPage = waiterMainPage.waiterHeader.waiterMainPageAccess(duration);
+        waiterMainPage = waiterMainPage.waiterHeader.waiterMainPageAccess(DURATION);
 
         waiterMainPage.orders.expandOrder(secondOrderNumber).closeOrderBtnClick();
 
         WaiterHistoryPage waiterHistoryPage = waiterMainPage
                 .waiterHeader
-                .waiterHistoryPageAccess(duration);
+                .waiterHistoryPageAccess(DURATION);
 
         orderStatus = waiterHistoryPage.orders.getOrderStatus(secondOrderNumber);
 
@@ -142,6 +128,8 @@ public class WaiterOrderStatusTest extends BaseTest    {
 
     @AfterClass
     public void postconditions()    {
-
+        DataBaseConnection.getInstance().deleteUserByEmail(waiter.getEmail());
+        DataBaseConnection.getInstance().deleteOrderByID(firstOrderNumber);
+        DataBaseConnection.getInstance().deleteOrderByID(secondOrderNumber);
     }
 }

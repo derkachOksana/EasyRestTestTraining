@@ -2,13 +2,18 @@ package utility;
 
 import com.github.javafaker.Faker;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.SignUpPage;
 
-public class RegistrationFacade {
-    public static RegistrationData registerUserAccount(WebDriver driver) {
-        Faker faker = new Faker();
+import java.time.Duration;
 
-        RegDataBuilder regDataBuilder = new RegDataBuilder();
+public class RegistrationFacade {
+    private final static Faker faker = new Faker();
+    private final static RegDataBuilder regDataBuilder = new RegDataBuilder();
+    public static RegistrationData registerUserAccount(WebDriver driver) {
+        Duration duration = Duration.ofSeconds(Integer.parseInt(ConfProperties.getProperty("duration")));
+        WebDriverWait wait = new WebDriverWait(driver, duration);
         RegistrationData user = regDataBuilder
                 .name(faker.name().name())
                 .email(faker.internet().emailAddress())
@@ -23,6 +28,7 @@ public class RegistrationFacade {
         signUpPage.inputPassword(user.getPassword());
         signUpPage.inputRepeatedPassword(user.getPassword());
         signUpPage.createAccountAccept();
+        wait.until(ExpectedConditions.urlToBe(ConfProperties.getProperty("signInPage")));
 
         return user;
     }

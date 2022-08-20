@@ -9,6 +9,8 @@ public class RegDataBuilder {
     private Date birthDate;
     private String password;
 
+    private String address;
+
     public String getName() {
         return name;
     }
@@ -27,6 +29,8 @@ public class RegDataBuilder {
     public String getPassword() {
         return password;
     }
+
+    public String getAddress()  {return address;}
 
     public RegDataBuilder name(String val) {
         name = val;
@@ -50,6 +54,11 @@ public class RegDataBuilder {
 
     public RegDataBuilder password(String val) {
         password = val;
+        return this;
+    }
+
+    public RegDataBuilder address(String val)   {
+        address = val;
         return this;
     }
 
