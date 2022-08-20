@@ -67,15 +67,14 @@ public class RestaurantsPage {
         neededRestaurant(restName).findElement(By.xpath(
                     ".//*[text()='Watch Menu']")).click();
         return new MenuPage(driver);
-        }
+    }
 
     public MenuPage watchMenuByRestName(String restName, Duration duration) {
         neededRestaurant(restName, duration).findElement(By.xpath(
                 ".//*[text()='Watch Menu']")).click();
         return new MenuPage(driver);
     }
-
-    }
+}
 
 
 

@@ -43,7 +43,6 @@ public class VerifyButtonsForStartOrderByClientTest extends BaseTest {
     @Test
     public void verifyAddToCartButton715() {
         logger = extent.createTest("Verify Add to cart button 7.15");
-        //menuPage.menuItems.getFoodMassByItemName(menuItem1);
         menuPage.menuItems.addToCartByItemName(menuItem1);
         Assert.assertTrue(menuPage.submitOrderEnable(), "The button Submit order is not enabled");
     }
