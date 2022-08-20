@@ -45,13 +45,19 @@ public class ClientHeaderPageComponent {
         presentationStatusBtns.get(index).click();
     }
 
-    public void allTabAccess() {
+    public  ClientOrdersContainerComponent allTabAccess() {
+        ClientOrdersContainerComponent ordersContainer= new ClientOrdersContainerComponent(driver);
         allTab.click();
+        return ordersContainer;
     }
     public ClientOrdersContainerComponent waitingForConfirmTabAccess() {
-
         ClientOrdersContainerComponent ordersContainer= new ClientOrdersContainerComponent(driver);
         waitingForConfirmTab.click();
+        return ordersContainer;
+    }
+    public ClientOrdersContainerComponent declinedTabAccess() {
+        ClientOrdersContainerComponent ordersContainer= new ClientOrdersContainerComponent(driver);
+        declinedTab.click();
         return ordersContainer;
     }
     public void acceptedTabAccess() {
@@ -66,5 +72,5 @@ public class ClientHeaderPageComponent {
     public void historyTabAccess() {
         historyTab.click();
     }
-    public void declinedTabAccess() { declinedTab.click(); }
+
 }

@@ -10,8 +10,6 @@ import pages.profile.MyProfilePage;
 import tests.BaseTest;
 import utility.ConfProperties;
 import java.time.Duration;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
 public class VerifyStatusOrderByClientTest extends BaseTest {
     private final String restaurantName = "Johnson PLC";
@@ -33,78 +31,67 @@ public class VerifyStatusOrderByClientTest extends BaseTest {
         signInPage.clickSignInBtn();
         restaurantsPage = new RestaurantsPage(driver);
     }
-    /*@Test
+    @Test
     public void changeOrderStatusToDeclinedTest171() {
-        logger = extent.createTest("Check posibility change order from status Waiting for confirm to Declined in My Profile/Order History/Declined 1.7.1");
+        logger = extent.createTest("Check posibility change order from status Waiting for " +
+                "confirm to Declined in My Profile/Order History/Declined 1.7.1");
         MenuPage menuPage = restaurantsPage.watchMenuByRestName(restaurantName, duration);
-
         menuPage.menuItems.addToCartByItemName(menuItem1);
-
         menuPage.submitOrder();
-
         menuPage.orderConfirmation.submitOrder(duration);
-
         MyProfilePage myProfilePage = menuPage.headerGlobal.userMenu().myProfileAccess();
-
-        String actualOrderId = myProfilePage.currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().getOrderId();
-
+        int actualOrderId = myProfilePage.currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().getOrderIdInt();
         myProfilePage.currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().expandOrder().declineBtnClick();
-
-        myProfilePage.orderHistoryAccess().clientHeader.declinedTabAccess();
-
-        boolean resultId = menuPage.headerGlobal.userMenu().myProfileAccess().orderHistoryAccess()
-                .clientHeader.ordersContainer.matchOrderById(actualOrderId);
-
-        Assert.assertTrue(resultId, "The order is not appeared in My Profile/Order History/Declined");
+        int expectedOrderId = myProfilePage.orderHistoryAccess().clientHeader.declinedTabAccess().getOrderIdInt();
+        Assert.assertEquals(actualOrderId, expectedOrderId);
     }
 
     @Test
     public void changeOrderStatusToDeclinedTest172() {
-        logger = extent.createTest("Check posibility change order from status Waiting for confirm to Declined in My Profile/Order History/All 1.7.2");
-
+        logger = extent.createTest("Check posibility change order from status Waiting for " +
+                "confirm to Declined in My Profile/Order History/All 1.7.2");
         MenuPage menuPage = restaurantsPage.watchMenuByRestName(restaurantName);
-
         menuPage.menuItems.addToCartByItemName(menuItem1);
-
         menuPage.submitOrder();
-
         menuPage.orderConfirmation.submitOrder(duration);
-
         MyProfilePage myProfilePage = menuPage.headerGlobal.userMenu().myProfileAccess();
-
-        String actualOrderId = myProfilePage.currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().getOrderId();
-
+        int actualOrderId = myProfilePage.currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().getOrderIdInt();
         myProfilePage.currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().expandOrder().declineBtnClick();
+        int expectedOrderId = myProfilePage.orderHistoryAccess().clientHeader.allTabAccess().getOrderIdInt();
+        Assert.assertEquals(actualOrderId, expectedOrderId);
+    }
 
-        myProfilePage.orderHistoryAccess().clientHeader.allTabAccess();
-
-        boolean resultId = menuPage.headerGlobal.userMenu().myProfileAccess().orderHistoryAccess()
-                .clientHeader.ordersContainer.matchOrderById(actualOrderId);
-
-        Assert.assertTrue(resultId, "The order is not appeared in My Profile/Order History/Declined");
-    }*/
-
-    @Test
+   /* @Test
     public void verifyOrderWaitingForConfirmStatus181() {
-        logger = extent.createTest("Verify that order is appeared with status Waiting for confirm in My profile/Current orders/Waiting for confirm 1.8.1");
+        logger = extent.createTest("Verify that order is appeared with status Waiting for " +
+                "confirm in My profile/Current orders/Waiting for confirm 1.8.1");
+        int expectedOrderId = restaurantsPage.headerGlobal.userMenu(duration)
+                .myProfileAccess().currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().getOrderIdInt() + 1;
 
         MenuPage menuPage = restaurantsPage.watchMenuByRestName(restaurantName, duration);
-
         menuPage.menuItems.addToCartByItemName(menuItem1);
-
         menuPage.submitOrder();
-
-        menuPage.orderConfirmation.submitOrder();
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
-        LocalTime localTime = LocalTime.now();
-        String currentTime = dtf.format(localTime);
-
-        MyProfilePage myProfilePage = menuPage.headerGlobal.userMenu(duration).myProfileAccess();
-
-        String timeCreatedOrder = myProfilePage.currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().timeCreatedOrder();
-
-        Assert.assertEquals(timeCreatedOrder, currentTime);
+        menuPage.orderConfirmation.submitOrder(duration);
+        MyProfilePage myProfilePage = menuPage.headerGlobal.userMenu().myProfileAccess();
+        int lastOrderIdAfterTest = myProfilePage.currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().getOrderIdInt();
+        Assert.assertEquals(lastOrderIdAfterTest, expectedOrderId);
     }
+
+    @Test
+    public void verifyOrderWaitingForConfirmStatus182() {
+        logger = extent.createTest("Verify that order is appeared with status Waiting for " +
+                "confirm in My profile/Current orders/All 1.8.2");
+        int expectedOrderId = restaurantsPage.headerGlobal.userMenu(duration)
+                .myProfileAccess().currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().getOrderIdInt() + 1;
+
+        MenuPage menuPage = restaurantsPage.watchMenuByRestName(restaurantName, duration);
+        menuPage.menuItems.addToCartByItemName(menuItem1);
+        menuPage.submitOrder();
+        menuPage.orderConfirmation.submitOrder(duration);
+        MyProfilePage myProfilePage = menuPage.headerGlobal.userMenu().myProfileAccess();
+        int lastOrderIdAfterTest = myProfilePage.currentOrdersAccess().clientHeader.allTabAccess().getOrderIdInt();
+        Assert.assertEquals(lastOrderIdAfterTest, expectedOrderId);
+    }*/
 
     @AfterMethod
     public void goToStartPage()  {

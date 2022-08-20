@@ -31,15 +31,16 @@ public class ClientOrdersContainerComponent {
         return ordersList.get(0);
     }
 
-    public String getOrderId () {
-        return neededOrder().findElement(By.xpath(
-                        ".//div/div/div/div[1]/p")).getText();
-    }
-
     public String getTotalPrice() {
         String fullInfo = neededOrder().findElement(By.xpath(".//div/div/div/div[5]/p")).getText();
         String totalPriceOrder = new String(fullInfo.toCharArray(), 13, 5);
         return totalPriceOrder;
+    }
+
+    public String getOrderCreatedDate() {
+        String fullInfo = neededOrder().findElement(By.xpath(
+                        "./div/div/div/div[3]/p[contains(., 'Created')]")).getText();
+        return new String(fullInfo.toCharArray(), 20, 5);
     }
 
     public ClientOrderInfoComponent expandOrder() {
@@ -47,48 +48,13 @@ public class ClientOrdersContainerComponent {
         return new ClientOrderInfoComponent(driver);
     }
 
-    public boolean matchOrderById (String orderId) {
-        for(WebElement order : ordersList)  {
-            if (order.findElement(By.xpath(".//div/div/div/div[1]/p")).getText().equals(orderId)) {
-                return true;
-            }
-        }
-        return false;
+    public int getOrderIdInt () {
+        String id = neededOrder().findElement(By.xpath(
+                ".//div/div/div/div[1]/p")).getText();
+        String result = new String(id.toCharArray(),1, 3);
+        int idOnlyNumber = Integer.parseInt (result);
+        return idOnlyNumber;
     }
-
-    public String timeCreatedOrder() {
-        ;
-        for (WebElement order : ordersList) {
-            String fullInfo = order.findElement(By.xpath(
-                            "./div/div/div/div[3]/p[contains(., 'Created')]"))
-                    .getText();
-            timeCreatedOrder = new String(fullInfo.toCharArray(), 20, 5);
-        }
-        return timeCreatedOrder;
-    }
-
-    /*public String orderId(String currentTime) throws InterruptedException {
-        for(WebElement order : ordersList)  {
-            String fullInfo = order.findElement(By.xpath(
-                            "./div/div/div/div/div[3]/p[contains(., 'Created')]"))
-                    .getText();
-            String rezult = new String(fullInfo.toCharArray(), 20, 5);
-            if(rezult.equals(currentTime)) {
-                System.out.println(rezult.equals(currentTime));
-
-                return order.findElement(By.xpath("./div/div/div/div/div[1]/p")).getText();
-            } else {
-                System.out.println("Order not found");
-            }
-        }
-        return null;
-    }*/
-
-
-
-
-
-
 
 }
 

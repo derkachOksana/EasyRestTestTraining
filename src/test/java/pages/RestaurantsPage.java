@@ -74,6 +74,22 @@ public class RestaurantsPage {
                 ".//*[text()='Watch Menu']")).click();
         return new MenuPage(driver);
     }
+   /* public MenuPage watchMenuByRestName(String restName, Duration duration) {
+        for (int i = 0; i <= 2; i++) {
+            try {
+                wait.until(ExpectedConditions.elementToBeClickable(neededRestaurant(restName, duration).findElement(By.xpath(
+                        ".//*[text()='Watch Menu']"))));
+
+                break;
+            } catch (Exception e) {
+
+            }
+        }
+        neededRestaurant(restName, duration).findElement(By.xpath(
+                ".//*[text()='Watch Menu']")).click();
+        return new MenuPage(driver);
+    }*/
+
 
     }
 

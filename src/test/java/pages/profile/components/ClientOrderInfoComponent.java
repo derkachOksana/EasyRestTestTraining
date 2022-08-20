@@ -21,6 +21,9 @@ public class ClientOrderInfoComponent {
     @FindBy(xpath = "//span[contains(text(), 'Reorder')]")
     private List<WebElement> setOfReordersBtns;
 
+    @FindBy(xpath = "//th/p[1]")
+    private WebElement itemName;
+
     public void declineBtnClick() {
         for(WebElement declineBtn : setOfDeclineBtns) {
                 if (declineBtn.isDisplayed()) {
@@ -37,5 +40,9 @@ public class ClientOrderInfoComponent {
                     break;
                 }
         }
+    }
+    public String itemNameOrder () {
+        System.out.println(itemName.getText());
+        return itemName.getText();
     }
 }
