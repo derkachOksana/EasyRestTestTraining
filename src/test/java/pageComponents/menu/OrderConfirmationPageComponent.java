@@ -7,19 +7,24 @@
 
 package pageComponents.menu;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.Date;
 
 public class OrderConfirmationPageComponent {
     private final WebDriver driver;
+    private WebDriverWait wait;
+
+    private Duration duration;
 
     public OrderSummaryPageComponent orderSummary;
-    //private WebDriverWait wait;
 
     public OrderConfirmationPageComponent(WebDriver driver)  {
         PageFactory.initElements(driver, this);
@@ -35,10 +40,8 @@ public class OrderConfirmationPageComponent {
     @FindBy(xpath = "//button/span[text()='Submit']")
     private WebElement submitBtn;
 
-   /* @FindBy(xpath = "//button/span[text()='Cancel']")
-    private WebElement cancelBtn;*/
-   @FindBy(xpath = "//button/span[text()='Cancel']/ancestor::button")
-   private WebElement cancelBtn;
+    @FindBy(xpath = "//button/span[text()='Cancel']/ancestor::button")
+    private WebElement cancelBtn;
 
 
     @FindBy(xpath = "//h6[contains(., 'Order confirmation')]")
@@ -70,11 +73,39 @@ public class OrderConfirmationPageComponent {
         return datePickerField.getAttribute("value");
     }
 
-    public void cancelOrder()    {
+    public void cancelOrder() {
         cancelBtn.click();
     }
 
-    public void submitOrder()    {
+    public void cancelOrder(Duration duration) {
+        wait = new WebDriverWait(driver, duration);
+        for (int i = 0; i <= 2; i++) {
+            try {
+                wait.until(ExpectedConditions.elementToBeClickable(By
+                        .xpath("//button/span[text()='Cancel']/ancestor::button")));
+                break;
+            } catch (Exception e) {
+
+            }
+        }
+        cancelBtn.click();
+    }
+
+    public void submitOrder(Duration duration) {
+        wait = new WebDriverWait(driver, duration);
+        for (int i = 0; i <= 2; i++) {
+            try {
+                wait.until(ExpectedConditions.elementToBeClickable(By
+                        .xpath("//button/span[text()='Submit']")));
+                break;
+            } catch (Exception e) {
+
+            }
+        }
+        submitBtn.click();
+    }
+
+    public void submitOrder() {
         submitBtn.click();
     }
 
