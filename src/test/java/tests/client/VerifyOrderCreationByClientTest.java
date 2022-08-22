@@ -39,26 +39,23 @@ public class VerifyOrderCreationByClientTest extends BaseTest {
     public void verifyOrderWaitingForConfirmStatus181() {
         logger = extent.createTest("Verify that order is appeared with status Waiting for " +
                 "confirm in My profile/Current orders/Waiting for confirm 1.8.1");
-        int expectedOrderId = restaurantsPage.headerGlobal.userMenu(duration)
+        int orderId_expected = restaurantsPage.headerGlobal.userMenu(duration)
                 .myProfileAccess().currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().getOrderIdInt() + 1;
         currentOrdersPage.headerGeneralPageComponent.restaurantsListAccess(driver);
-
         MenuPage menuPage = restaurantsPage.watchMenuByRestName(restaurantName);
         menuPage.menuItems.addToCartByItemName(menuItem1);
         menuPage.submitOrder();
         menuPage.orderConfirmation.submitOrder(duration);
         MyProfilePage myProfilePage = menuPage.headerGlobal.userMenu().myProfileAccess();
-        int lastOrderIdAfterTest = myProfilePage.currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().getOrderIdInt();
-        System.out.println(lastOrderIdAfterTest + "Order 181");
-        System.out.println(expectedOrderId + "Order 181");
-        Assert.assertEquals(lastOrderIdAfterTest, expectedOrderId);
+        int orderId_actual = myProfilePage.currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().getOrderIdInt();
+        Assert.assertEquals(orderId_actual, orderId_expected);
     }
 
     @Test
     public void verifyOrderWaitingForConfirmStatus182() {
         logger = extent.createTest("Verify that order is appeared with status Waiting for " +
                 "confirm in My profile/Current orders/All 1.8.2");
-        int expectedOrderId = restaurantsPage.headerGlobal.userMenu(duration)
+        int orderId_expected = restaurantsPage.headerGlobal.userMenu(duration)
                 .myProfileAccess().currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().getOrderIdInt() + 1;
         currentOrdersPage.headerGeneralPageComponent.restaurantsListAccess(driver);
         MenuPage menuPage = restaurantsPage.watchMenuByRestName(restaurantName);
@@ -66,10 +63,8 @@ public class VerifyOrderCreationByClientTest extends BaseTest {
         menuPage.submitOrder();
         menuPage.orderConfirmation.submitOrder(duration);
         MyProfilePage myProfilePage = menuPage.headerGlobal.userMenu().myProfileAccess();
-        int lastOrderIdAfterTest = myProfilePage.currentOrdersAccess().clientHeader.allTabAccess().getOrderIdInt();
-        System.out.println(lastOrderIdAfterTest + "Order 182");
-        System.out.println(expectedOrderId + "Order 182");
-        Assert.assertEquals(lastOrderIdAfterTest, expectedOrderId);
+        int orderId_actual = myProfilePage.currentOrdersAccess().clientHeader.allTabAccess().getOrderIdInt();
+        Assert.assertEquals(orderId_actual, orderId_expected);
     }
 
     @AfterMethod

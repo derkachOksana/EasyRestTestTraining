@@ -23,6 +23,8 @@
     <extentreports.version>5.0.9</extentreports.version>
     <javafaker.version>1.0.2</javafaker.version>
     <webdrivermanager.version>5.2.1</webdrivermanager.version>
+    <postgresql.version>42.4.1</postgresql.version>
+    <mybatis.version>3.5.10</mybatis.version>
 
     <!--plugins-->
     <maven-clean.version>3.1.0</maven-clean.version>
@@ -70,6 +72,20 @@
       <artifactId>webdrivermanager</artifactId>
       <version>${webdrivermanager.version}</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>${postgresql.version}</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis</artifactId>
+      <version>${mybatis.version}</version>
+    </dependency>
+
+
   </dependencies>
 
   <build>

@@ -36,43 +36,6 @@ public class VerifyChangeOrderStatusByClientTest extends BaseTest {
     }
 
     @Test
-    public void verifyOrderWaitingForConfirmStatus181() {
-        logger = extent.createTest("Verify that order is appeared with status Waiting for " +
-                "confirm in My profile/Current orders/Waiting for confirm 1.8.1");
-        int expectedOrderId = restaurantsPage.headerGlobal.userMenu(duration)
-                .myProfileAccess().currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().getOrderIdInt() + 1;
-        currentOrdersPage.headerGeneralPageComponent.restaurantsListAccess(driver);
-
-        MenuPage menuPage = restaurantsPage.watchMenuByRestName(restaurantName);
-        menuPage.menuItems.addToCartByItemName(menuItem1);
-        menuPage.submitOrder();
-        menuPage.orderConfirmation.submitOrder(duration);
-        MyProfilePage myProfilePage = menuPage.headerGlobal.userMenu().myProfileAccess();
-        int lastOrderIdAfterTest = myProfilePage.currentOrdersAccess().clientHeader.waitingForConfirmTabAccess(duration).getOrderIdInt();
-        System.out.println(lastOrderIdAfterTest + "Order 181");
-        System.out.println(expectedOrderId + "Order 181");
-        Assert.assertEquals(lastOrderIdAfterTest, expectedOrderId);
-    }
-
-    @Test
-    public void verifyOrderWaitingForConfirmStatus182() {
-        logger = extent.createTest("Verify that order is appeared with status Waiting for " +
-                "confirm in My profile/Current orders/All 1.8.2");
-        int expectedOrderId = restaurantsPage.headerGlobal.userMenu(duration)
-                .myProfileAccess().currentOrdersAccess().clientHeader.waitingForConfirmTabAccess(duration).getOrderIdInt() + 1;
-        currentOrdersPage.headerGeneralPageComponent.restaurantsListAccess(driver);
-
-        MenuPage menuPage = restaurantsPage.watchMenuByRestName(restaurantName);
-        menuPage.menuItems.addToCartByItemName(menuItem1);
-        menuPage.submitOrder();
-        menuPage.orderConfirmation.submitOrder(duration);
-        MyProfilePage myProfilePage = menuPage.headerGlobal.userMenu().myProfileAccess();
-        int lastOrderIdAfterTest = myProfilePage.currentOrdersAccess().clientHeader.allTabAccess().getOrderIdInt();
-        System.out.println(lastOrderIdAfterTest + "Order 182");
-        System.out.println(expectedOrderId + "Order 182");
-        Assert.assertEquals(lastOrderIdAfterTest, expectedOrderId);
-    }
-    @Test
     public void changeOrderStatusToDeclinedTest171() {
         logger = extent.createTest("Check posibility change order from status Waiting for " +
                 "confirm to Declined in My Profile/Order History/Declined 1.7.1");
@@ -81,11 +44,9 @@ public class VerifyChangeOrderStatusByClientTest extends BaseTest {
         menuPage.submitOrder();
         menuPage.orderConfirmation.submitOrder(duration);
         MyProfilePage myProfilePage = menuPage.headerGlobal.userMenu().myProfileAccess();
-        int actualOrderId = myProfilePage.currentOrdersAccess().clientHeader.waitingForConfirmTabAccess(duration).getOrderIdInt();
-        myProfilePage.currentOrdersAccess().clientHeader.waitingForConfirmTabAccess(duration).expandOrder().declineBtnClick();
+        int actualOrderId = myProfilePage.currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().getOrderIdInt();
+        myProfilePage.currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().expandOrder().declineBtnClick();
         int expectedOrderId = myProfilePage.orderHistoryAccess().clientHeader.declinedTabAccess().getOrderIdInt();
-        System.out.println(actualOrderId + "Order 171");
-        System.out.println(expectedOrderId + "Order 171");
         Assert.assertEquals(actualOrderId, expectedOrderId);
     }
 
@@ -98,11 +59,9 @@ public class VerifyChangeOrderStatusByClientTest extends BaseTest {
         menuPage.submitOrder();
         menuPage.orderConfirmation.submitOrder(duration);
         MyProfilePage myProfilePage = menuPage.headerGlobal.userMenu().myProfileAccess();
-        int actualOrderId = myProfilePage.currentOrdersAccess().clientHeader.waitingForConfirmTabAccess(duration).getOrderIdInt();
-        myProfilePage.currentOrdersAccess().clientHeader.waitingForConfirmTabAccess(duration).expandOrder().declineBtnClick();
+        int actualOrderId = myProfilePage.currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().getOrderIdInt();
+        myProfilePage.currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().expandOrder().declineBtnClick();
         int expectedOrderId = myProfilePage.orderHistoryAccess().clientHeader.allTabAccess().getOrderIdInt();
-        System.out.println(actualOrderId + "Order 172");
-        System.out.println(expectedOrderId + "Order 172");
         Assert.assertEquals(actualOrderId, expectedOrderId);
     }
     @AfterMethod

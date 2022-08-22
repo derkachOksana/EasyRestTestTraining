@@ -23,8 +23,6 @@ public class MenuPage {
     private final Actions action;
     private WebDriverWait wait;
 
-    private Duration duration;
-
     @FindBy(xpath = "//span[contains(text(), 'Submit order')]")
     private WebElement submitOrder;
 
