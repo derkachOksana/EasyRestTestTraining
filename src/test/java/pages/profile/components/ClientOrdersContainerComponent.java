@@ -55,6 +55,5 @@ public class ClientOrdersContainerComponent {
         int idOnlyNumber = Integer.parseInt (result);
         return idOnlyNumber;
     }
-
 }
 

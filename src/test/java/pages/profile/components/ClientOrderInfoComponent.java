@@ -42,7 +42,6 @@ public class ClientOrderInfoComponent {
         }
     }
     public String itemNameOrder () {
-        System.out.println(itemName.getText());
         return itemName.getText();
     }
 }
