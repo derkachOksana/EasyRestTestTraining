@@ -7,9 +7,11 @@ import pages.MenuPage;
 import pages.RestaurantsPage;
 import pages.SignInPage;
 import pages.profile.MyProfilePage;
-import pages.profile.ProfileCurrentOrdersPage;
+import pages.profile.components.FacadeAccessToMyProfileForClient;
+import pages.profile.components.FacadeCreateOrder;
 import tests.BaseTest;
 import utility.ConfProperties;
+import utility.DataBaseConnection;
 import java.time.Duration;
 
 public class VerifyChangeOrderStatusByClientTest extends BaseTest {
@@ -19,7 +21,8 @@ public class VerifyChangeOrderStatusByClientTest extends BaseTest {
     private final String menuItem1 = "Chicken & broccoli pasta bake";
     private SignInPage signInPage;
     private RestaurantsPage restaurantsPage;
-    private ProfileCurrentOrdersPage currentOrdersPage;
+    private MyProfilePage myProfilePage;
+    private MenuPage menuPage;
     private final Duration duration = Duration.ofSeconds(Integer.parseInt(ConfProperties.getProperty("duration")));
 
     @BeforeClass
@@ -31,38 +34,37 @@ public class VerifyChangeOrderStatusByClientTest extends BaseTest {
         signInPage.setUserEmailInputField(clientEmail);
         signInPage.setUserPasswordInputField(clientPassword);
         signInPage.clickSignInBtn();
+    }
+
+    @BeforeMethod
+    public void startTest () {
+        DataBaseConnection.getInstance().deleteAllOrdersFrom_order_associations();
+        DataBaseConnection.getInstance().deleteAllOrdersFrom_orders();
         restaurantsPage = new RestaurantsPage(driver);
-        currentOrdersPage = new ProfileCurrentOrdersPage(driver);
+        menuPage = new MenuPage(driver);
+        FacadeCreateOrder facadeCreateOrder = new FacadeCreateOrder(restaurantsPage,menuPage);
+        facadeCreateOrder.createOrder(restaurantName,menuItem1, duration);
+        FacadeAccessToMyProfileForClient facadeAccessToMyProfile = new FacadeAccessToMyProfileForClient(menuPage);
+        myProfilePage = facadeAccessToMyProfile.accessToMyProfile();
     }
 
     @Test
     public void changeOrderStatusToDeclinedTest171() {
-        logger = extent.createTest("Check posibility change order from status Waiting for " +
+        logger = extent.createTest("Check possibility change order from status Waiting for " +
                 "confirm to Declined in My Profile/Order History/Declined 1.7.1");
-        MenuPage menuPage = restaurantsPage.watchMenuByRestName(restaurantName, duration);
-        menuPage.menuItems.addToCartByItemName(menuItem1);
-        menuPage.submitOrder();
-        menuPage.orderConfirmation.submitOrder(duration);
-        MyProfilePage myProfilePage = menuPage.headerGlobal.userMenu().myProfileAccess();
-        int actualOrderId = myProfilePage.currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().getOrderIdInt();
-        myProfilePage.currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().expandOrder().declineBtnClick();
-        int expectedOrderId = myProfilePage.orderHistoryAccess().clientHeader.declinedTabAccess().getOrderIdInt();
-        Assert.assertEquals(actualOrderId, expectedOrderId);
+        myProfilePage.currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().expandOrder(duration).declineBtnClick(duration);
+        String orderStatus_actual = myProfilePage.orderHistoryAccess().clientHeader.declinedTabAccess().getStatusOrder();
+        Assert.assertEquals(orderStatus_actual, "Declined");
     }
 
     @Test
     public void changeOrderStatusToDeclinedTest172() {
-        logger = extent.createTest("Check posibility change order from status Waiting for " +
+        logger = extent.createTest("Check possibility change order from status Waiting for " +
                 "confirm to Declined in My Profile/Order History/All 1.7.2");
-        MenuPage menuPage = restaurantsPage.watchMenuByRestName(restaurantName);
-        menuPage.menuItems.addToCartByItemName(menuItem1);
-        menuPage.submitOrder();
-        menuPage.orderConfirmation.submitOrder(duration);
-        MyProfilePage myProfilePage = menuPage.headerGlobal.userMenu().myProfileAccess();
-        int actualOrderId = myProfilePage.currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().getOrderIdInt();
-        myProfilePage.currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().expandOrder().declineBtnClick();
-        int expectedOrderId = myProfilePage.orderHistoryAccess().clientHeader.allTabAccess().getOrderIdInt();
-        Assert.assertEquals(actualOrderId, expectedOrderId);
+        myProfilePage.currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().expandOrder(duration).declineBtnClick(duration);
+        String orderStatus_actual = myProfilePage.orderHistoryAccess().clientHeader.allTabAccess().getStatusOrder();
+        Assert.assertEquals(orderStatus_actual, "Declined");
+
     }
     @AfterMethod
     public void goToStartPage()  {
@@ -70,6 +72,8 @@ public class VerifyChangeOrderStatusByClientTest extends BaseTest {
     }
     @AfterClass
     public void clientLogOut() {
+        DataBaseConnection.getInstance().deleteAllOrdersFrom_order_associations();
+        DataBaseConnection.getInstance().deleteAllOrdersFrom_orders();
         signInPage = restaurantsPage.headerGlobal.
                 userMenu().logOut();
     }
