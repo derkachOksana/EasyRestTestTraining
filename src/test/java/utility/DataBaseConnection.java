@@ -3,6 +3,7 @@ package utility;
 import com.github.javafaker.Faker;
 import org.apache.ibatis.jdbc.ScriptRunner;
 import org.openqa.selenium.WebDriver;
+import pages.SignUpPage;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -42,7 +43,8 @@ public final class DataBaseConnection {
     }
 
     public RegistrationData createAccByRole(WebDriver driver, int role)    {
-        RegistrationData user = RegistrationFacade.registerUserAccount(driver);
+        RegistrationFacade registrationFacade = new RegistrationFacade(new Faker(), new RegDataBuilder(), new SignUpPage(driver));
+        RegistrationData user = registrationFacade.registerUserAccount(driver);
 
         try(Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD))  {
             String sql = "UPDATE users" +

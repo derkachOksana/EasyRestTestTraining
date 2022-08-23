@@ -1,17 +1,16 @@
 package tests.moderator;
 
+import com.github.javafaker.Faker;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import pages.SignInPage;
+import pages.SignUpPage;
 import pages.moderator.ModeratorBasePage;
 import pages.moderator.ModeratorUsersPage;
 import tests.BaseTest;
-import utility.ConfProperties;
-import utility.DataBaseConnection;
-import utility.RegistrationData;
-import utility.RegistrationFacade;
+import utility.*;
 
 import java.time.Duration;
 
@@ -29,9 +28,10 @@ public class ModeratorClientStatusTest extends BaseTest {
 
     @BeforeClass
     public void preconditions() {
+        RegistrationFacade registrationFacade = new RegistrationFacade(new Faker(), new RegDataBuilder(), new SignUpPage(driver));
         final int MODERATOR_ROLE_ID = 3;
         moderator = DataBaseConnection.getInstance().createAccByRole(driver, MODERATOR_ROLE_ID);
-        client = RegistrationFacade.registerUserAccount(driver);
+        client = registrationFacade.registerUserAccount(driver);
 
         signInPage = new SignInPage(driver);
     }

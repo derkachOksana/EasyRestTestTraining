@@ -9,9 +9,16 @@ import pages.SignUpPage;
 import java.time.Duration;
 
 public class RegistrationFacade {
-    private final static Faker faker = new Faker();
-    private final static RegDataBuilder regDataBuilder = new RegDataBuilder();
-    public static RegistrationData registerUserAccount(WebDriver driver) {
+
+    public RegistrationFacade(Faker faker, RegDataBuilder regDataBuilder, SignUpPage signUpPage) {
+        this.faker = faker;
+        this.signUpPage = signUpPage;
+        this.regDataBuilder = regDataBuilder;
+    }
+    private final Faker faker;
+    private final RegDataBuilder regDataBuilder;
+    private final SignUpPage signUpPage;
+    public RegistrationData registerUserAccount(WebDriver driver) {
         Duration duration = Duration.ofSeconds(Integer.parseInt(ConfProperties.getProperty("duration")));
         WebDriverWait wait = new WebDriverWait(driver, duration);
         RegistrationData user = regDataBuilder
@@ -22,7 +29,6 @@ public class RegistrationFacade {
 
         driver.get(ConfProperties.getProperty("signUpPage"));
 
-        SignUpPage signUpPage = new SignUpPage(driver);
         signUpPage.inputName(user.getName());
         signUpPage.inputEmail(user.getEmail());
         signUpPage.inputPassword(user.getPassword());
