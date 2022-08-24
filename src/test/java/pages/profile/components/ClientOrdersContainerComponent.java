@@ -17,6 +17,7 @@ import java.util.NoSuchElementException;
 public class ClientOrdersContainerComponent {
     private final WebDriver driver;
     public final ClientOrderInfoComponent orderInfo;
+    String timeCreatedOrder;
 
     public ClientOrdersContainerComponent(WebDriver driver) {
         this.driver = driver;
@@ -30,9 +31,16 @@ public class ClientOrdersContainerComponent {
         return ordersList.get(0);
     }
 
-    public String getOrderId () {
-        return neededOrder().findElement(By.xpath(
-                        ".//div/div/div/div[1]/p")).getText();
+    public String getTotalPrice() {
+        String fullInfo = neededOrder().findElement(By.xpath(".//div/div/div/div[5]/p")).getText();
+        String totalPriceOrder = new String(fullInfo.toCharArray(), 13, 5);
+        return totalPriceOrder;
+    }
+
+    public String getOrderCreatedDate() {
+        String fullInfo = neededOrder().findElement(By.xpath(
+                        "./div/div/div/div[3]/p[contains(., 'Created')]")).getText();
+        return new String(fullInfo.toCharArray(), 20, 5);
     }
 
     public ClientOrderInfoComponent expandOrder() {
@@ -40,13 +48,12 @@ public class ClientOrdersContainerComponent {
         return new ClientOrderInfoComponent(driver);
     }
 
-    public boolean matchOrderById (String orderId) {
-        for(WebElement order : ordersList)  {
-            if (order.findElement(By.xpath(".//div/div/div/div[1]/p")).getText().equals(orderId)) {
-                return true;
-            }
-        }
-        return false;
+    public int getOrderIdInt () {
+        String id = neededOrder().findElement(By.xpath(
+                ".//div/div/div/div[1]/p")).getText();
+        String result = new String(id.toCharArray(),1, 3);
+        int idOnlyNumber = Integer.parseInt (result);
+        return idOnlyNumber;
     }
 }
 

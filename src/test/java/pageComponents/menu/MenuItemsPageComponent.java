@@ -5,12 +5,16 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
 
 public class MenuItemsPageComponent {
-
     private WebElement neededItemBlock;
+    private WebDriverWait wait;
+    private WebDriver driver;
     private List<WebElement> itemAttributeList;
 
     public MenuItemsPageComponent(WebDriver driver) {
@@ -35,7 +39,6 @@ public class MenuItemsPageComponent {
             }
         }
     }
-
 
     public String getFoodMassByItemName(String itemName) {
         getBlockByItemName(itemName);
