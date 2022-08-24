@@ -23,8 +23,4 @@ public class FacadeCreateOrder {
         menuPage.submitOrder();
         menuPage.orderConfirmation.submitOrder(duration);
     }
-
-    /*public MyProfilePage accessToMyProfile () {
-        return menuPage.headerGlobal.userMenu().myProfileAccess();
-    }*/
 }
