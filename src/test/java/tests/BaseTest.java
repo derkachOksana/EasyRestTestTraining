@@ -22,7 +22,7 @@ public class BaseTest {
 
     @BeforeSuite
     public void setUpReport()   {
-        ExtentSparkReporter spark = new ExtentSparkReporter(ConfProperties.getProperty("reports.dir")
+        ExtentSparkReporter spark = new ExtentSparkReporter(ConfProperties.getProperty("reportsFolder")
                 + DateHandler.getCurrentDateTime() + ".html");
         extent = new ExtentReports();
         extent.attachReporter(spark);
