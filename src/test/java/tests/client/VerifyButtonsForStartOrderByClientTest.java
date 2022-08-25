@@ -7,8 +7,10 @@ import pages.MenuPage;
 import pages.RestaurantsPage;
 import pages.SignInPage;
 import tests.BaseTest;
+import utility.ConfProperties;
+import java.time.Duration;
 
-public class CreateOrderTest extends BaseTest {
+public class VerifyButtonsForStartOrderByClientTest extends BaseTest {
     private final String restaurantName = "Gray Group";
     private final String clientEmail = "nathansmith@test.com";
     private final String clientPassword = "1111";
@@ -16,6 +18,7 @@ public class CreateOrderTest extends BaseTest {
     private SignInPage signInPage;
     private RestaurantsPage restaurantsPage;
     private MenuPage menuPage;
+    private final Duration duration = Duration.ofSeconds(Integer.parseInt(ConfProperties.getProperty("duration")));
 
     @BeforeClass
     public void preconditions() {
@@ -27,13 +30,19 @@ public class CreateOrderTest extends BaseTest {
         signInPage.setUserPasswordInputField(clientPassword);
         signInPage.clickSignInBtn();
         restaurantsPage = new RestaurantsPage(driver);
+        menuPage = restaurantsPage.watchMenuByRestName(restaurantName, duration);
     }
 
     @Test
-    public void verifyAddToCartButton714() {
-        logger = extent.createTest("Verify Add to cart button 7.14");
-        menuPage = restaurantsPage.watchMenuByRestName(restaurantName);
-        menuPage.menuItems.getFoodMassByItemName(menuItem1);
+    public void verifyWatchMenuButton714() {
+        logger = extent.createTest("Verify Watch menu button 7.14");
+        String actualRestaurantMenuField = menuPage.menuItems.getRestaurantMenuField();
+        Assert.assertEquals(actualRestaurantMenuField, "Gray Group menu:");
+    }
+
+    @Test
+    public void verifyAddToCartButton715() {
+        logger = extent.createTest("Verify Add to cart button 7.15");
         menuPage.menuItems.addToCartByItemName(menuItem1);
         Assert.assertTrue(menuPage.submitOrderEnable(), "The button Submit order is not enabled");
     }
@@ -47,10 +56,8 @@ public class CreateOrderTest extends BaseTest {
 
     @AfterClass
     public void clientLogOut() {
-        menuPage.orderConfirmation.cancelOrder();
-        /*We need to write method active/unactive button Cart*/
-        //menuPage.showCartBtnClick();
-        menuPage.deleteBtnClick();
+        menuPage.orderConfirmation.cancelOrder(duration);
+        menuPage.deleteBtnClick(duration);
         signInPage = restaurantsPage.headerGlobal.
                 userMenu().logOut();
     }

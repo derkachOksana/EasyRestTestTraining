@@ -5,12 +5,16 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
 
 public class MenuItemsPageComponent {
-
     private WebElement neededItemBlock;
+    private WebDriverWait wait;
+    private WebDriver driver;
     private List<WebElement> itemAttributeList;
 
     public MenuItemsPageComponent(WebDriver driver) {
@@ -19,6 +23,9 @@ public class MenuItemsPageComponent {
 
     @FindBy(xpath = "//div[contains(@class, 'direction')]/div/div")
     private List<WebElement> itemList;
+
+    @FindBy(xpath = "//main/div/div/h5")
+    private WebElement restaurantMenuField;
 
 
     private void getBlockByItemName(String itemName)  {
@@ -32,7 +39,6 @@ public class MenuItemsPageComponent {
             }
         }
     }
-
 
     public String getFoodMassByItemName(String itemName) {
         getBlockByItemName(itemName);
@@ -60,5 +66,9 @@ public class MenuItemsPageComponent {
         neededItemBlock.findElement(By.xpath(
                         ".//button[contains(@class, 'addButton')]"))
                 .click();
+    }
+
+    public String getRestaurantMenuField() {
+        return restaurantMenuField.getText();
     }
 }
