@@ -5,7 +5,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
 
 public class ClientHeaderPageComponent {
@@ -44,14 +47,19 @@ public class ClientHeaderPageComponent {
         }
         presentationStatusBtns.get(index).click();
     }
-
-    public void allTabAccess() {
+    public  ClientOrdersContainerComponent allTabAccess() {
+        ClientOrdersContainerComponent ordersContainer= new ClientOrdersContainerComponent(driver);
         allTab.click();
+        return ordersContainer;
     }
     public ClientOrdersContainerComponent waitingForConfirmTabAccess() {
-
         ClientOrdersContainerComponent ordersContainer= new ClientOrdersContainerComponent(driver);
         waitingForConfirmTab.click();
+        return ordersContainer;
+    }
+    public ClientOrdersContainerComponent declinedTabAccess() {
+        ClientOrdersContainerComponent ordersContainer= new ClientOrdersContainerComponent(driver);
+        declinedTab.click();
         return ordersContainer;
     }
     public void acceptedTabAccess() {
@@ -66,5 +74,4 @@ public class ClientHeaderPageComponent {
     public void historyTabAccess() {
         historyTab.click();
     }
-    public void declinedTabAccess() { declinedTab.click(); }
 }
