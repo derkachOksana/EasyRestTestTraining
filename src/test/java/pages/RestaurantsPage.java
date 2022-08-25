@@ -73,7 +73,8 @@ public class RestaurantsPage {
         wait = new WebDriverWait(driver, duration);
         for (int i = 0; i <= 2; i++) {
             try {
-                wait.until(ExpectedConditions.elementToBeClickable(neededRestaurant(restName, duration).findElement(By.xpath(
+                wait.until(ExpectedConditions.elementToBeClickable(neededRestaurant(restName, duration)
+                        .findElement(By.xpath(
                         ".//*[text()='Watch Menu']"))));
                 break;
             } catch (Exception e) {

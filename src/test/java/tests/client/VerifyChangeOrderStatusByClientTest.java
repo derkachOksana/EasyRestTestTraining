@@ -24,6 +24,7 @@ public class VerifyChangeOrderStatusByClientTest extends BaseTest {
     private MyProfilePage myProfilePage;
     private MenuPage menuPage;
     private final Duration duration = Duration.ofSeconds(Integer.parseInt(ConfProperties.getProperty("duration")));
+    private FacadeAccessToMyProfileForClient facadeAccessToMyProfile;
 
     @BeforeClass
     public void preconditions() {
@@ -44,7 +45,7 @@ public class VerifyChangeOrderStatusByClientTest extends BaseTest {
         menuPage = new MenuPage(driver);
         FacadeCreateOrder facadeCreateOrder = new FacadeCreateOrder(restaurantsPage,menuPage);
         facadeCreateOrder.createOrder(restaurantName,menuItem1, duration);
-        FacadeAccessToMyProfileForClient facadeAccessToMyProfile = new FacadeAccessToMyProfileForClient(menuPage);
+        facadeAccessToMyProfile = new FacadeAccessToMyProfileForClient(menuPage);
         myProfilePage = facadeAccessToMyProfile.accessToMyProfile();
     }
 
@@ -70,6 +71,7 @@ public class VerifyChangeOrderStatusByClientTest extends BaseTest {
     public void goToStartPage()  {
         restaurantsPage.headerGlobal.restaurantsListAccess(driver);
     }
+
     @AfterClass
     public void clientLogOut() {
         DataBaseConnection.getInstance().deleteAllOrdersFrom_order_associations();

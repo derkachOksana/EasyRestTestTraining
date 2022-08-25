@@ -110,7 +110,7 @@ public class VerifyOrderConfirmationWindowTest extends BaseTest {
         Assert.assertEquals(volumeItemInOrderConfirmation, volumeItemInWatchMenuPage);
     }
 
-    /*@Test
+    @Test
     public void verifyPricePerItemInWatchMenu711 () {
         logger = extent.createTest("Verify that price per item position in page Watch menu is appeared in column Price per item of window Order confirmation 7.11");
         menuPage = restaurantsPage.watchMenuByRestName(restaurantName);
@@ -121,7 +121,7 @@ public class VerifyOrderConfirmationWindowTest extends BaseTest {
         menuPage.orderConfirmation.cancelOrder(duration);
         menuPage.deleteBtnClick(duration);
         Assert.assertEquals(pricePerItemInOrderConfirmation, pricePerItemInWatchMenuPage);
-    }*/
+    }
 
     @Test
     public void verifyQuantityPerItemInWatchMenu712 () {
@@ -141,6 +141,7 @@ public class VerifyOrderConfirmationWindowTest extends BaseTest {
         DataBaseConnection.getInstance().deleteAllOrdersFrom_orders();
         currentOrdersPage.headerGeneralPageComponent.restaurantsListAccess(driver);
     }
+
     @AfterClass
     public void clientLogOut() {
         signInPage = restaurantsPage.headerGlobal.

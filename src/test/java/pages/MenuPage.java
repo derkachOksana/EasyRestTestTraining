@@ -64,13 +64,11 @@ public class MenuPage {
     public void showCartBtnClick() {
         showCartBtn.click();
     }
-
     public void deleteBtnClick() {
         deleteItem.click();
     }
 
     public void deleteBtnClick(Duration duration) {
-
         wait = new WebDriverWait(driver, duration);
         for (int i = 0; i <= 2; i++) {
             try {
