@@ -2,14 +2,19 @@ package tests.client;
 
 import org.testng.Assert;
 import org.testng.annotations.*;
+import pageComponents.HeaderGeneralPageComponent;
 import pages.HomePage;
 import pages.MenuPage;
 import pages.RestaurantsPage;
 import pages.SignInPage;
 import pages.profile.MyProfilePage;
 import pages.profile.ProfileCurrentOrdersPage;
+import pages.profile.components.FacadeAccessToMyProfileForClient;
+import pages.profile.components.FacadeCreateOrder;
 import tests.BaseTest;
 import utility.ConfProperties;
+import utility.DataBaseConnection;
+
 import java.time.Duration;
 
 public class VerifyOrderConfirmationWindowTest extends BaseTest {
@@ -34,26 +39,38 @@ public class VerifyOrderConfirmationWindowTest extends BaseTest {
         signInPage.clickSignInBtn();
         restaurantsPage = new RestaurantsPage(driver);
         currentOrdersPage = new ProfileCurrentOrdersPage(driver);
+        menuPage = new MenuPage(driver);
+    }
+
+    @BeforeMethod
+    public void startMethod () {
+        DataBaseConnection.getInstance().deleteAllOrdersFrom_order_associations();
+        DataBaseConnection.getInstance().deleteAllOrdersFrom_orders();
     }
     @Test
     public void verifyNameOfPosition702 () {
         logger = extent.createTest("Verify that name of position in Order Confirmation window " +
                 "is matched with name of position in Current orders/ Waiting for confirm/# order 7.02");
+
+        HeaderGeneralPageComponent header = new HeaderGeneralPageComponent(driver);
+        header.restaurantsListAccess(driver);
         menuPage = restaurantsPage.watchMenuByRestName(restaurantName);
 
         menuPage.menuItems.addToCartByItemName(menuItem1);
 
         menuPage.submitOrder();
-        String itemNameOrderConfirmation = menuPage.orderConfirmation.orderSummary.itemName(menuItem1);
+        String itemNameOrderConfirmation_expected = menuPage.orderConfirmation.orderSummary.itemName(menuItem1);
         menuPage.orderConfirmation.submitOrder(duration);
-        MyProfilePage myProfilePage = menuPage.headerGlobal.userMenu().myProfileAccess();
-        String itemNameOrder = myProfilePage.currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().expandOrder().itemNameOrder();
-        Assert.assertEquals(itemNameOrder, itemNameOrderConfirmation);
+        String itemNameOrder_actual = menuPage.headerGlobal.userMenu(duration).myProfileAccess().currentOrdersAccess().clientHeader
+                .waitingForConfirmTabAccess().expandOrder(duration).itemNameOrder(duration);
+        Assert.assertEquals(itemNameOrder_actual, itemNameOrderConfirmation_expected);
     }
 
     @Test
     public void verifyCancelBtnInOrderConfirmation705 () {
         logger = extent.createTest("Verify that user can Cancel order in window Order Confirmation 7.05");
+        FacadeCreateOrder createOrder = new FacadeCreateOrder(restaurantsPage, menuPage);
+        createOrder.createOrder(restaurantName, menuItem1, duration);
         int orderId_expected = restaurantsPage.headerGlobal.userMenu()
                 .myProfileAccess().currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().getOrderIdInt();
         currentOrdersPage.headerGeneralPageComponent.restaurantsListAccess(driver);
@@ -120,8 +137,11 @@ public class VerifyOrderConfirmationWindowTest extends BaseTest {
     }
     @AfterMethod
     public void goToStartPage () {
+        DataBaseConnection.getInstance().deleteAllOrdersFrom_order_associations();
+        DataBaseConnection.getInstance().deleteAllOrdersFrom_orders();
         currentOrdersPage.headerGeneralPageComponent.restaurantsListAccess(driver);
     }
+
     @AfterClass
     public void clientLogOut() {
         signInPage = restaurantsPage.headerGlobal.

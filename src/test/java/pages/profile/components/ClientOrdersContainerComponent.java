@@ -1,13 +1,17 @@
 package pages.profile.components;
 
+import freemarker.template.utility.DateUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pageComponents.waiter.WaiterOrderInfoPageComponent;
 import pages.administrator.order.OrderComponent;
 
+import java.time.Duration;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -17,7 +21,8 @@ import java.util.NoSuchElementException;
 public class ClientOrdersContainerComponent {
     private final WebDriver driver;
     public final ClientOrderInfoComponent orderInfo;
-    String timeCreatedOrder;
+    private WebDriverWait wait;
+
 
     public ClientOrdersContainerComponent(WebDriver driver) {
         this.driver = driver;
@@ -28,6 +33,19 @@ public class ClientOrdersContainerComponent {
     private List <WebElement> ordersList;
 
     private WebElement neededOrder() {
+        return ordersList.get(0);
+    }
+
+    private WebElement neededOrder(Duration duration) {
+        wait = new WebDriverWait(driver, duration);
+        for (int i = 0; i <= 2; i++) {
+            try {
+                wait.until(ExpectedConditions.elementToBeClickable(ordersList.get(0)));
+                break;
+            } catch (Exception e) {
+
+            }
+        }
         return ordersList.get(0);
     }
 
@@ -43,8 +61,10 @@ public class ClientOrdersContainerComponent {
         return new String(fullInfo.toCharArray(), 20, 5);
     }
 
-    public ClientOrderInfoComponent expandOrder() {
-        neededOrder().click();
+    public ClientOrderInfoComponent expandOrder(Duration duration) {
+        wait = new WebDriverWait(driver, duration);
+        wait.until(ExpectedConditions.elementToBeClickable(ordersList.get(0)));
+        neededOrder(duration).click();
         return new ClientOrderInfoComponent(driver);
     }
 
@@ -54,6 +74,16 @@ public class ClientOrdersContainerComponent {
         String result = new String(id.toCharArray(),1, 3);
         int idOnlyNumber = Integer.parseInt (result);
         return idOnlyNumber;
+    }
+
+    public String getStatusOrder () {
+        return neededOrder().findElement(By.xpath(
+                ".//div/div/div/div[6]/p")).getText();
+    }
+
+    public String getNameRestaurantByOrder () {
+        return neededOrder().findElement(By.xpath(
+                ".//div/div/div/div[2]/p")).getText();
     }
 }
 

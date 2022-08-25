@@ -10,16 +10,18 @@ import pages.profile.MyProfilePage;
 import pages.profile.ProfileCurrentOrdersPage;
 import tests.BaseTest;
 import utility.ConfProperties;
+import utility.DataBaseConnection;
 import java.time.Duration;
 
 public class VerifyOrderCreationByClientTest extends BaseTest {
-    private final String restaurantName = "Johnson PLC";
+    private final String restaurantName = "Ball-Logan";
     private final String clientEmail = "nathansmith@test.com";
     private final String clientPassword = "1111";
-    private final String menuItem1 = "Chicken & broccoli pasta bake";
+    private final String menuItem1 = "Avocado & strawberry smoothie";
     private SignInPage signInPage;
     private RestaurantsPage restaurantsPage;
     private ProfileCurrentOrdersPage currentOrdersPage;
+    private MenuPage menuPage;
     private final Duration duration = Duration.ofSeconds(Integer.parseInt(ConfProperties.getProperty("duration")));
 
     @BeforeClass
@@ -33,42 +35,40 @@ public class VerifyOrderCreationByClientTest extends BaseTest {
         signInPage.clickSignInBtn();
         restaurantsPage = new RestaurantsPage(driver);
         currentOrdersPage = new ProfileCurrentOrdersPage(driver);
+        DataBaseConnection.getInstance().deleteAllOrdersFrom_order_associations();
+        DataBaseConnection.getInstance().deleteAllOrdersFrom_orders();
     }
 
     @Test
     public void verifyOrderWaitingForConfirmStatus181() {
         logger = extent.createTest("Verify that order is appeared with status Waiting for " +
                 "confirm in My profile/Current orders/Waiting for confirm 1.8.1");
-        int orderId_expected = restaurantsPage.headerGlobal.userMenu(duration)
-                .myProfileAccess().currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().getOrderIdInt() + 1;
-        currentOrdersPage.headerGeneralPageComponent.restaurantsListAccess(driver);
-        MenuPage menuPage = restaurantsPage.watchMenuByRestName(restaurantName);
+        menuPage = restaurantsPage.watchMenuByRestName(restaurantName);
         menuPage.menuItems.addToCartByItemName(menuItem1);
         menuPage.submitOrder();
         menuPage.orderConfirmation.submitOrder(duration);
         MyProfilePage myProfilePage = menuPage.headerGlobal.userMenu().myProfileAccess();
-        int orderId_actual = myProfilePage.currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().getOrderIdInt();
-        Assert.assertEquals(orderId_actual, orderId_expected);
+        String statusOrder_actual = myProfilePage.currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().getStatusOrder();
+        Assert.assertEquals(statusOrder_actual, "Waiting for confirm");
     }
 
     @Test
     public void verifyOrderWaitingForConfirmStatus182() {
         logger = extent.createTest("Verify that order is appeared with status Waiting for " +
                 "confirm in My profile/Current orders/All 1.8.2");
-        int orderId_expected = restaurantsPage.headerGlobal.userMenu(duration)
-                .myProfileAccess().currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().getOrderIdInt() + 1;
-        currentOrdersPage.headerGeneralPageComponent.restaurantsListAccess(driver);
-        MenuPage menuPage = restaurantsPage.watchMenuByRestName(restaurantName);
+        menuPage = restaurantsPage.watchMenuByRestName(restaurantName);
         menuPage.menuItems.addToCartByItemName(menuItem1);
         menuPage.submitOrder();
         menuPage.orderConfirmation.submitOrder(duration);
         MyProfilePage myProfilePage = menuPage.headerGlobal.userMenu().myProfileAccess();
-        int orderId_actual = myProfilePage.currentOrdersAccess().clientHeader.allTabAccess().getOrderIdInt();
-        Assert.assertEquals(orderId_actual, orderId_expected);
+        String statusOrder_actual = myProfilePage.currentOrdersAccess().clientHeader.allTabAccess().getStatusOrder();
+        Assert.assertEquals(statusOrder_actual, "Waiting for confirm");
     }
 
     @AfterMethod
-    public void goToStartPage()  {
+    public void goToStartPage() {
+        DataBaseConnection.getInstance().deleteAllOrdersFrom_order_associations();
+        DataBaseConnection.getInstance().deleteAllOrdersFrom_orders();
         restaurantsPage.headerGlobal.restaurantsListAccess(driver);
     }
 

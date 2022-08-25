@@ -5,11 +5,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
 
 public class ClientOrderInfoComponent {
     private final WebDriver driver;
+    private WebDriverWait wait;
 
     public ClientOrderInfoComponent(WebDriver driver)   {
         this.driver = driver;
@@ -24,8 +28,10 @@ public class ClientOrderInfoComponent {
     @FindBy(xpath = "//th/p[1]")
     private WebElement itemName;
 
-    public void declineBtnClick() {
+    public void declineBtnClick(Duration duration) {
+        wait = new WebDriverWait(driver, duration);
         for(WebElement declineBtn : setOfDeclineBtns) {
+            wait.until(ExpectedConditions.elementToBeClickable(declineBtn));
                 if (declineBtn.isDisplayed()) {
                     declineBtn.click();
                     break;
@@ -41,7 +47,9 @@ public class ClientOrderInfoComponent {
                 }
         }
     }
-    public String itemNameOrder () {
+    public String itemNameOrder (Duration duration) {
+        wait = new WebDriverWait(driver, duration);
+        wait.until(ExpectedConditions.visibilityOf(itemName));
         return itemName.getText();
     }
 }
