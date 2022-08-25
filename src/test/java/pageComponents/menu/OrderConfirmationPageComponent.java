@@ -1,10 +1,3 @@
-/*  *************************************************************
-    *                                                           *
-    *   Take out setDate and setTime methods to Facade classes  *
-    *                                                           *
-    *************************************************************
-*/
-
 package pageComponents.menu;
 
 import org.openqa.selenium.By;
@@ -16,13 +9,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.Date;
 
 public class OrderConfirmationPageComponent {
     private final WebDriver driver;
     private WebDriverWait wait;
-
-    private Duration duration;
 
     public OrderSummaryPageComponent orderSummary;
 
@@ -43,27 +33,8 @@ public class OrderConfirmationPageComponent {
     @FindBy(xpath = "//button/span[text()='Cancel']/ancestor::button")
     private WebElement cancelBtn;
 
-
     @FindBy(xpath = "//h6[contains(., 'Order confirmation')]")
     private WebElement orderConfirmationField;
-
-    public OrderConfirmationPageComponent setDate(Date desiredDate) {
-        DatePickerPageComponent datePicker = new DatePickerPageComponent(driver, desiredDate);
-        datePickerField.click();
-        datePicker.setDesiredYear();
-        datePicker.setDesiredMonth();
-        datePicker.setDesiredDay();
-        return datePicker.confirmDate();
-    }
-
-    public OrderConfirmationPageComponent setTime(Date desiredDate) {
-        TimePickerPageComponent timePicker = new TimePickerPageComponent(driver, desiredDate);
-        timePickerField.click();
-        timePicker.setAmPm();
-        timePicker.setHours();
-        timePicker.setMinutes();
-        return timePicker.confirmTime();
-    }
 
     public String getTime() {
         return timePickerField.getAttribute("value");
