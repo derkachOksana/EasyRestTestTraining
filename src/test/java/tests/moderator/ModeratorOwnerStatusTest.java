@@ -1,50 +1,48 @@
 package tests.moderator;
 
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.*;
-import pages.HomePage;
 import pages.SignInPage;
 import pages.moderator.ModeratorBasePage;
 import pages.moderator.ModeratorOwnersPage;
 import tests.BaseTest;
+import utility.ConfProperties;
+import utility.DataBaseConnection;
+import utility.RegistrationData;
+
+import java.time.Duration;
 
 public class ModeratorOwnerStatusTest extends BaseTest  {
-
-    /*
-    ***************************************************
-
-            Fields used without preconditions
-
-    ***************************************************
-    */
-
-    private final String moderatorEmail = "petermoderator@test.com";
-    private final String moderatorPassword = "1";
-    private final String ownerEmail = "jasonbrown@test.com";
-
-    /*
-    ************************************************
-        End of fields used without preconditions
-    ************************************************
-    */
 
     private SignInPage signInPage;
     private ModeratorOwnersPage moderatorOwnersPage;
 
     private String ownerStatus;
 
+    private RegistrationData moderator;
+    private RegistrationData owner;
+
+    private final Duration duration = Duration.ofSeconds(Integer.parseInt(ConfProperties.getProperty("duration")));
+
     @BeforeClass
     public void preconditions() {
-        HomePage homePage = new HomePage(driver);
-        signInPage = homePage
-                .getHeaderGeneralPageComponent()
-                .signInAccess();
+        final int MODERATOR_ROLE_ID = 3;
+        final int OWNER_ROLE_ID = 2;
+        moderator = DataBaseConnection.getInstance().createAccByRole(driver, MODERATOR_ROLE_ID);
+        owner = DataBaseConnection.getInstance().createAccByRole(driver, OWNER_ROLE_ID);
+
+        signInPage = new SignInPage(driver);
     }
 
     @BeforeMethod
     public void moderatorLogIn()    {
-        signInPage.setUserEmailInputField(moderatorEmail);
-        signInPage.setUserPasswordInputField(moderatorPassword);
+        WebDriverWait wait = new WebDriverWait(driver, duration);
+        wait.until(ExpectedConditions.urlToBe(ConfProperties.getProperty("signInPage")));
+
+        signInPage.setUserEmailInputField(moderator.getEmail());
+        signInPage.setUserPasswordInputField(moderator.getPassword());
         signInPage.clickSignInBtn();
         ModeratorBasePage moderatorBasePage = new ModeratorBasePage(driver);
         moderatorOwnersPage = moderatorBasePage.ownersPageAccess();
@@ -55,10 +53,10 @@ public class ModeratorOwnerStatusTest extends BaseTest  {
         logger = extent.createTest("Moderator owner status test 3.13");
 
         moderatorOwnersPage = moderatorOwnersPage.header.moderatorActiveOwnersTabAccess();
-        moderatorOwnersPage.ownersTable.changeOwnerStatus(ownerEmail);
+        moderatorOwnersPage.ownersTable.changeOwnerStatus(owner.getEmail());
         moderatorOwnersPage = moderatorOwnersPage.header.moderatorBannedOwnersTabAccess();
 
-        ownerStatus = moderatorOwnersPage.ownersTable.getOwnerStatus(ownerEmail);
+        ownerStatus = moderatorOwnersPage.ownersTable.getOwnerStatus(owner.getEmail());
 
         Assert.assertEquals(ownerStatus, "Banned");
     }
@@ -68,10 +66,10 @@ public class ModeratorOwnerStatusTest extends BaseTest  {
         logger = extent.createTest("Moderator owner status test 3.14");
 
         moderatorOwnersPage = moderatorOwnersPage.header.moderatorBannedOwnersTabAccess();
-        moderatorOwnersPage.ownersTable.changeOwnerStatus(ownerEmail);
+        moderatorOwnersPage.ownersTable.changeOwnerStatus(owner.getEmail());
         moderatorOwnersPage = moderatorOwnersPage.header.moderatorActiveOwnersTabAccess();
 
-        ownerStatus = moderatorOwnersPage.ownersTable.getOwnerStatus(ownerEmail);
+        ownerStatus = moderatorOwnersPage.ownersTable.getOwnerStatus(owner.getEmail());
 
         Assert.assertEquals(ownerStatus, "Active");
     }
@@ -81,10 +79,10 @@ public class ModeratorOwnerStatusTest extends BaseTest  {
         logger = extent.createTest("Moderator owner status test 3.15");
 
         moderatorOwnersPage = moderatorOwnersPage.header.moderatorAllOwnersTabAccess();
-        moderatorOwnersPage.ownersTable.changeOwnerStatus(ownerEmail);
+        moderatorOwnersPage.ownersTable.changeOwnerStatus(owner.getEmail());
         moderatorOwnersPage = moderatorOwnersPage.header.moderatorBannedOwnersTabAccess();
 
-        ownerStatus = moderatorOwnersPage.ownersTable.getOwnerStatus(ownerEmail);
+        ownerStatus = moderatorOwnersPage.ownersTable.getOwnerStatus(owner.getEmail());
 
         Assert.assertEquals(ownerStatus, "Banned");
     }
@@ -94,10 +92,10 @@ public class ModeratorOwnerStatusTest extends BaseTest  {
         logger = extent.createTest("Moderator owner status test 3.16");
 
         moderatorOwnersPage = moderatorOwnersPage.header.moderatorAllOwnersTabAccess();
-        moderatorOwnersPage.ownersTable.changeOwnerStatus(ownerEmail);
+        moderatorOwnersPage.ownersTable.changeOwnerStatus(owner.getEmail());
         moderatorOwnersPage = moderatorOwnersPage.header.moderatorActiveOwnersTabAccess();
 
-        ownerStatus = moderatorOwnersPage.ownersTable.getOwnerStatus(ownerEmail);
+        ownerStatus = moderatorOwnersPage.ownersTable.getOwnerStatus(owner.getEmail());
 
         Assert.assertEquals(ownerStatus, "Active");
     }
@@ -113,6 +111,7 @@ public class ModeratorOwnerStatusTest extends BaseTest  {
     @AfterClass
     public void postonditions()
     {
-
+        DataBaseConnection.getInstance().deleteUserByEmail(moderator.getEmail());
+        DataBaseConnection.getInstance().deleteUserByEmail(owner.getEmail());
     }
 }

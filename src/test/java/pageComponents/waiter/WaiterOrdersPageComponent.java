@@ -20,13 +20,14 @@ public class WaiterOrdersPageComponent {
         this.driver = driver;
     }
 
-    private WebElement getNeededOrder(String orderNumber) {
+    private WebElement getNeededOrder(int orderNumber) {
         WebElement neededOrder = null;
+        String fullOrderNumber = "№" + orderNumber;
         for(WebElement order : orders)  {
             String fullInfo = order.findElement(By.xpath(
                             ".//span[contains(@class, 'subheader')]"))
                     .getAttribute("textContent");
-            if(fullInfo.split(" ")[0].equals(orderNumber))    {
+            if(fullInfo.split(" ")[0].equals(fullOrderNumber))    {
                 neededOrder = order;
                 break;
             }
@@ -34,13 +35,13 @@ public class WaiterOrdersPageComponent {
         return neededOrder;
     }
 
-    public String getOrderStatus(String orderNumber)    {
+    public String getOrderStatus(int orderNumber)    {
         return getNeededOrder(orderNumber).findElement(By.xpath(
                 ".//*[@role='button']"))
                 .getAttribute("textContent");
     }
 
-    public WaiterOrderInfoPageComponent expandOrder(String orderNumber)   {
+    public WaiterOrderInfoPageComponent expandOrder(int orderNumber)   {
         getNeededOrder(orderNumber).findElement(By.xpath(
                 ".//*[button]"))
                 .click();

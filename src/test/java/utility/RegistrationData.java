@@ -9,6 +9,8 @@ public class RegistrationData {
     private final Date birthDate;
     private final String password;
 
+    private final String address;
+
     public String getName() {
         return name;
     }
@@ -29,11 +31,14 @@ public class RegistrationData {
         return phoneNumber;
     }
 
+    public String getAddress()  {return address;}
+
     public RegistrationData(RegDataBuilder builder)   {
         name = builder.getName();
         email = builder.getEmail();
         phoneNumber = builder.getPhoneNumber();
         birthDate = builder.getBirthDate();
         password = builder.getPassword();
+        address = builder.getAddress();
     }
 }
