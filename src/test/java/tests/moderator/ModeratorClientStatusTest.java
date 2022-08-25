@@ -1,50 +1,48 @@
 package tests.moderator;
 
+import com.github.javafaker.Faker;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.*;
-import pages.HomePage;
 import pages.SignInPage;
+import pages.SignUpPage;
 import pages.moderator.ModeratorBasePage;
 import pages.moderator.ModeratorUsersPage;
 import tests.BaseTest;
+import utility.*;
+
+import java.time.Duration;
 
 public class ModeratorClientStatusTest extends BaseTest {
-
-    /*
-    ***************************************************
-
-            Fields used without preconditions
-
-    ***************************************************
-    */
-
-    private final String moderatorEmail = "petermoderator@test.com";
-    private final String moderatorPassword = "1";
-    private final String clientEmail = "angelabrewer@test.com";
-
-    /*
-    ************************************************
-        End of fields used without preconditions
-    ************************************************
-    */
 
     private SignInPage signInPage;
     private ModeratorUsersPage moderatorUsersPage;
 
     private String userStatus;
 
+    private RegistrationData moderator;
+    private RegistrationData client;
+
+    private final Duration duration = Duration.ofSeconds(Integer.parseInt(ConfProperties.getProperty("duration")));
+
     @BeforeClass
     public void preconditions() {
-        HomePage homePage = new HomePage(driver);
-        signInPage = homePage
-                .getHeaderGeneralPageComponent()
-                .signInAccess();
+        RegistrationFacade registrationFacade = new RegistrationFacade(new Faker(), new RegDataBuilder(), new SignUpPage(driver));
+        final int MODERATOR_ROLE_ID = 3;
+        moderator = DataBaseConnection.getInstance().createAccByRole(driver, MODERATOR_ROLE_ID);
+        client = registrationFacade.registerUserAccount(driver);
+
+        signInPage = new SignInPage(driver);
     }
 
     @BeforeMethod
     public void moderatorLogIn()    {
-        signInPage.setUserEmailInputField(moderatorEmail);
-        signInPage.setUserPasswordInputField(moderatorPassword);
+        WebDriverWait wait = new WebDriverWait(driver, duration);
+        wait.until(ExpectedConditions.urlToBe(ConfProperties.getProperty("signInPage")));
+
+        signInPage.setUserEmailInputField(moderator.getEmail());
+        signInPage.setUserPasswordInputField(moderator.getPassword());
         signInPage.clickSignInBtn();
         ModeratorBasePage moderatorBasePage = new ModeratorBasePage(driver);
         moderatorUsersPage = moderatorBasePage.usersPageAccess();
@@ -55,10 +53,10 @@ public class ModeratorClientStatusTest extends BaseTest {
         logger = extent.createTest("Moderator client status test 3.09");
 
         moderatorUsersPage = moderatorUsersPage.header.moderatorActiveUsersTabAccess();
-        moderatorUsersPage.usersTable.changeUserStatus(clientEmail);
+        moderatorUsersPage.usersTable.changeUserStatus(client.getEmail());
         moderatorUsersPage = moderatorUsersPage.header.moderatorBannedUsersTabAccess();
 
-        userStatus = moderatorUsersPage.usersTable.getUserStatus(clientEmail);
+        userStatus = moderatorUsersPage.usersTable.getUserStatus(client.getEmail());
 
         Assert.assertEquals(userStatus, "Banned");
     }
@@ -68,10 +66,10 @@ public class ModeratorClientStatusTest extends BaseTest {
         logger = extent.createTest("Moderator client status test 3.10");
 
         moderatorUsersPage = moderatorUsersPage.header.moderatorBannedUsersTabAccess();
-        moderatorUsersPage.usersTable.changeUserStatus(clientEmail);
+        moderatorUsersPage.usersTable.changeUserStatus(client.getEmail());
         moderatorUsersPage = moderatorUsersPage.header.moderatorActiveUsersTabAccess();
 
-        userStatus = moderatorUsersPage.usersTable.getUserStatus(clientEmail);
+        userStatus = moderatorUsersPage.usersTable.getUserStatus(client.getEmail());
 
         Assert.assertEquals(userStatus, "Active");
     }
@@ -81,10 +79,10 @@ public class ModeratorClientStatusTest extends BaseTest {
         logger = extent.createTest("Moderator client status test 3.11");
 
         moderatorUsersPage = moderatorUsersPage.header.moderatorAllUsersTabAccess();
-        moderatorUsersPage.usersTable.changeUserStatus(clientEmail);
+        moderatorUsersPage.usersTable.changeUserStatus(client.getEmail());
         moderatorUsersPage = moderatorUsersPage.header.moderatorBannedUsersTabAccess();
 
-        userStatus = moderatorUsersPage.usersTable.getUserStatus(clientEmail);
+        userStatus = moderatorUsersPage.usersTable.getUserStatus(client.getEmail());
 
         Assert.assertEquals(userStatus, "Banned");
     }
@@ -94,10 +92,10 @@ public class ModeratorClientStatusTest extends BaseTest {
         logger = extent.createTest("Moderator client status test 3.12");
 
         moderatorUsersPage = moderatorUsersPage.header.moderatorAllUsersTabAccess();
-        moderatorUsersPage.usersTable.changeUserStatus(clientEmail);
+        moderatorUsersPage.usersTable.changeUserStatus(client.getEmail());
         moderatorUsersPage = moderatorUsersPage.header.moderatorActiveUsersTabAccess();
 
-        userStatus = moderatorUsersPage.usersTable.getUserStatus(clientEmail);
+        userStatus = moderatorUsersPage.usersTable.getUserStatus(client.getEmail());
 
         Assert.assertEquals(userStatus, "Active");
     }
@@ -113,6 +111,7 @@ public class ModeratorClientStatusTest extends BaseTest {
     @AfterClass
     public void postonditions()
     {
-
+        DataBaseConnection.getInstance().deleteUserByEmail(moderator.getEmail());
+        DataBaseConnection.getInstance().deleteUserByEmail(client.getEmail());
     }
 }
