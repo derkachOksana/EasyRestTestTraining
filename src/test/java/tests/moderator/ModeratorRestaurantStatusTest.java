@@ -54,8 +54,6 @@ public class ModeratorRestaurantStatusTest extends BaseTest {
 
     @Test
     public void moderatorRestaurantStatusTest301()  {
-        logger = extent.createTest("Moderator restaurant status test 3.01");
-
         moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorUnapprovedRestaurantsTabAccess();
         moderatorRestaurantsPage.restaurants.approveRestaurant(restaurants.get(0).getName());
         moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorApprovedRestaurantsTabAccess();
@@ -67,8 +65,6 @@ public class ModeratorRestaurantStatusTest extends BaseTest {
 
     @Test
     public void moderatorRestaurantStatusTest302()  {
-        logger = extent.createTest("Moderator restaurant status test 3.02");
-
         moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorApprovedRestaurantsTabAccess();
         moderatorRestaurantsPage.restaurants.deleteRestaurant(restaurants.get(0).getName());
         moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorArchivedRestaurantsTabAccess();
@@ -80,8 +76,6 @@ public class ModeratorRestaurantStatusTest extends BaseTest {
 
     @Test
     public void moderatorRestaurantStatusTest303()  {
-        logger = extent.createTest("Moderator restaurant status test 3.03");
-
         moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorUnapprovedRestaurantsTabAccess();
         moderatorRestaurantsPage.restaurants.disapproveRestaurant(restaurants.get(1).getName());
         moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorArchivedRestaurantsTabAccess();
@@ -93,8 +87,6 @@ public class ModeratorRestaurantStatusTest extends BaseTest {
 
     @Test
     public void moderatorRestaurantStatusTest304()  {
-        logger = extent.createTest("Moderator restaurant status test 3.04");
-
         moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorArchivedRestaurantsTabAccess();
         moderatorRestaurantsPage.restaurants.restoreRestaurant(restaurants.get(1).getName());
         moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorApprovedRestaurantsTabAccess();
@@ -106,8 +98,6 @@ public class ModeratorRestaurantStatusTest extends BaseTest {
 
     @Test
     public void moderatorRestaurantStatusTest305()  {
-        logger = extent.createTest("Moderator restaurant status test 3.05");
-
         moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorAllRestaurantsTabAccess();
         moderatorRestaurantsPage.restaurants.approveRestaurant(restaurants.get(2).getName());
         moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorApprovedRestaurantsTabAccess();
@@ -119,8 +109,6 @@ public class ModeratorRestaurantStatusTest extends BaseTest {
 
     @Test
     public void moderatorRestaurantStatusTest306()  {
-        logger = extent.createTest("Moderator restaurant status test 3.06");
-
         moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorAllRestaurantsTabAccess();
         moderatorRestaurantsPage.restaurants.deleteRestaurant(restaurants.get(2).getName());
         moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorArchivedRestaurantsTabAccess();
@@ -132,8 +120,6 @@ public class ModeratorRestaurantStatusTest extends BaseTest {
 
     @Test
     public void moderatorRestaurantStatusTest307()  {
-        logger = extent.createTest("Moderator restaurant status test 3.07");
-
         moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorAllRestaurantsTabAccess();
         moderatorRestaurantsPage.restaurants.disapproveRestaurant(restaurants.get(3).getName());
         moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorArchivedRestaurantsTabAccess();
@@ -145,8 +131,6 @@ public class ModeratorRestaurantStatusTest extends BaseTest {
 
     @Test
     public void moderatorRestaurantStatusTest308()  {
-        logger = extent.createTest("Moderator restaurant status test 3.08");
-
         moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorAllRestaurantsTabAccess();
         moderatorRestaurantsPage.restaurants.restoreRestaurant(restaurants.get(3).getName());
         moderatorRestaurantsPage = moderatorRestaurantsPage.header.moderatorApprovedRestaurantsTabAccess();

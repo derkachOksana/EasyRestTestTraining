@@ -49,14 +49,14 @@ public class AdministratorPageTest extends BaseTest {
 
     @Test
     public void checkAccessToAdministratorPageTest501() {
-        logger = extent.createTest("Administrator page test 5.01");
+        /*logger = extent.createTest("Administrator page test 5.01");*/
 
         Assert.assertEquals(driver.getCurrentUrl(), ADMINISTRATOR_URL);
     }
 
     @Test
     public void checkOrderConfirmationByAdministratorTest502() throws InterruptedException {
-        logger = extent.createTest("Administrator page test 5.02");
+        /*logger = extent.createTest("Administrator page test 5.02");*/
         OrderComponent orderToConfirm = administratorPage.getOrderById(orderId);
         orderToConfirm.clickDropDownBtn();
         orderToConfirm.acceptOrder();
@@ -69,7 +69,7 @@ public class AdministratorPageTest extends BaseTest {
 
     @Test
     public void checkPossibilityToAssignWaiterTest503() throws InterruptedException {
-        logger = extent.createTest("Administrator page Test 5.03");
+        /*logger = extent.createTest("Administrator page Test 5.03");*/
         AdministratorPage acceptedTab = new AdministratorPage(driver);
         acceptedTab.getTabPanelPage().switchToAcceptedTab();
         OrderComponent acceptedOrder = administratorPage.getOrderById(orderId);

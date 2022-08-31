@@ -50,8 +50,6 @@ public class ModeratorOwnerStatusTest extends BaseTest  {
 
     @Test
     public void moderatorOwnerStatusTest313()  {
-        logger = extent.createTest("Moderator owner status test 3.13");
-
         moderatorOwnersPage = moderatorOwnersPage.header.moderatorActiveOwnersTabAccess();
         moderatorOwnersPage.ownersTable.changeOwnerStatus(owner.getEmail());
         moderatorOwnersPage = moderatorOwnersPage.header.moderatorBannedOwnersTabAccess();
@@ -63,8 +61,6 @@ public class ModeratorOwnerStatusTest extends BaseTest  {
 
     @Test
     public void moderatorOwnerStatusTest314()  {
-        logger = extent.createTest("Moderator owner status test 3.14");
-
         moderatorOwnersPage = moderatorOwnersPage.header.moderatorBannedOwnersTabAccess();
         moderatorOwnersPage.ownersTable.changeOwnerStatus(owner.getEmail());
         moderatorOwnersPage = moderatorOwnersPage.header.moderatorActiveOwnersTabAccess();
@@ -76,8 +72,6 @@ public class ModeratorOwnerStatusTest extends BaseTest  {
 
     @Test
     public void moderatorOwnerStatusTest315()  {
-        logger = extent.createTest("Moderator owner status test 3.15");
-
         moderatorOwnersPage = moderatorOwnersPage.header.moderatorAllOwnersTabAccess();
         moderatorOwnersPage.ownersTable.changeOwnerStatus(owner.getEmail());
         moderatorOwnersPage = moderatorOwnersPage.header.moderatorBannedOwnersTabAccess();
@@ -89,8 +83,6 @@ public class ModeratorOwnerStatusTest extends BaseTest  {
 
     @Test
     public void moderatorOwnerStatusTest316()  {
-        logger = extent.createTest("Moderator owner status test 3.16");
-
         moderatorOwnersPage = moderatorOwnersPage.header.moderatorAllOwnersTabAccess();
         moderatorOwnersPage.ownersTable.changeOwnerStatus(owner.getEmail());
         moderatorOwnersPage = moderatorOwnersPage.header.moderatorActiveOwnersTabAccess();

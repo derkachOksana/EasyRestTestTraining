@@ -3,27 +3,13 @@ package tests;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.testng.annotations.*;
 import utility.ConfProperties;
-import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import org.openqa.selenium.WebDriver;
-import utility.DateHandler;
 
 import java.time.Duration;
 
 public class BaseTest {
 
     protected WebDriver driver;
-    public static ExtentReports extent;
-    public static ExtentTest logger;
-
-    @BeforeSuite
-    public void setUpReport()   {
-        ExtentSparkReporter spark = new ExtentSparkReporter(ConfProperties.getProperty("reports.dir")
-                + DateHandler.getCurrentDateTime() + ".html");
-        extent = new ExtentReports();
-        extent.attachReporter(spark);
-    }
 
     @BeforeClass
     public void setUp()    {
@@ -36,10 +22,5 @@ public class BaseTest {
     @AfterClass
     public void closeDriver()  {
         driver.quit();
-    }
-
-    @AfterSuite
-    public void shutDown()  {
-        extent.flush();
     }
 }

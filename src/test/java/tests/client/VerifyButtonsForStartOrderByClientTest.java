@@ -35,21 +35,21 @@ public class VerifyButtonsForStartOrderByClientTest extends BaseTest {
 
     @Test
     public void verifyWatchMenuButton714() {
-        logger = extent.createTest("Verify Watch menu button 7.14");
+        /*logger = extent.createTest("Verify Watch menu button 7.14");*/
         String actualRestaurantMenuField = menuPage.menuItems.getRestaurantMenuField();
         Assert.assertEquals(actualRestaurantMenuField, "Gray Group menu:");
     }
 
     @Test
     public void verifyAddToCartButton715() {
-        logger = extent.createTest("Verify Add to cart button 7.15");
+        /*logger = extent.createTest("Verify Add to cart button 7.15");*/
         menuPage.menuItems.addToCartByItemName(menuItem1);
         Assert.assertTrue(menuPage.submitOrderEnable(), "The button Submit order is not enabled");
     }
 
     @Test
     public void verifySubmitOrderBtn716() {
-        logger = extent.createTest("Verify Submit Order button 7.16");
+        /*logger = extent.createTest("Verify Submit Order button 7.16");*/
         menuPage.submitOrder();
         Assert.assertEquals(menuPage.orderConfirmation.orderConfirmationFieldVisible(), "Order confirmation");
     }

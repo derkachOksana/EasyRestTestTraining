@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="All Test Suite">
+<suite name="All Test Suite" parallel="classes">
     <listeners>
         <listener class-name="utility.Listener"/>
     </listeners>
-    <test verbose="2" preserve-order="true" name="C:/SoftServe/EasyRestTestTraining">
+    <test verbose="2" name="C:/SoftServe/EasyRestTestTraining">
         <classes>
             <class name="tests.waiter.WaiterOrderStatusTest">
             </class>
@@ -14,8 +14,8 @@
             </class>
             <class name="tests.moderator.ModeratorOwnerStatusTest">
             </class>
-            <class name="tests.client.VerifyOrderCreationByClientTest"> </class>
-            <class name="tests.client.VerifyChangeOrderStatusByClientTest"> </class>
+            <!--<class name="tests.client.VerifyOrderCreationByClientTest"> </class>
+            <class name="tests.client.VerifyChangeOrderStatusByClientTest"> </class>-->
 
         </classes>
     </test>

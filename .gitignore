@@ -4,5 +4,3 @@ target/
 .idea/*
 
 src/test/reports/*
-/src/test/resources/chromedriver
-/src/test/resources/conf.properties

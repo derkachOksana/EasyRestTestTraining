@@ -50,8 +50,6 @@ public class ModeratorClientStatusTest extends BaseTest {
 
     @Test
     public void moderatorClientStatusTest309()  {
-        logger = extent.createTest("Moderator client status test 3.09");
-
         moderatorUsersPage = moderatorUsersPage.header.moderatorActiveUsersTabAccess();
         moderatorUsersPage.usersTable.changeUserStatus(client.getEmail());
         moderatorUsersPage = moderatorUsersPage.header.moderatorBannedUsersTabAccess();
@@ -63,8 +61,6 @@ public class ModeratorClientStatusTest extends BaseTest {
 
     @Test
     public void moderatorClientStatusTest310()  {
-        logger = extent.createTest("Moderator client status test 3.10");
-
         moderatorUsersPage = moderatorUsersPage.header.moderatorBannedUsersTabAccess();
         moderatorUsersPage.usersTable.changeUserStatus(client.getEmail());
         moderatorUsersPage = moderatorUsersPage.header.moderatorActiveUsersTabAccess();
@@ -76,8 +72,6 @@ public class ModeratorClientStatusTest extends BaseTest {
 
     @Test
     public void moderatorClientStatusTest311()  {
-        logger = extent.createTest("Moderator client status test 3.11");
-
         moderatorUsersPage = moderatorUsersPage.header.moderatorAllUsersTabAccess();
         moderatorUsersPage.usersTable.changeUserStatus(client.getEmail());
         moderatorUsersPage = moderatorUsersPage.header.moderatorBannedUsersTabAccess();
@@ -89,8 +83,6 @@ public class ModeratorClientStatusTest extends BaseTest {
 
     @Test
     public void moderatorClientStatusTest312()  {
-        logger = extent.createTest("Moderator client status test 3.12");
-
         moderatorUsersPage = moderatorUsersPage.header.moderatorAllUsersTabAccess();
         moderatorUsersPage.usersTable.changeUserStatus(client.getEmail());
         moderatorUsersPage = moderatorUsersPage.header.moderatorActiveUsersTabAccess();
