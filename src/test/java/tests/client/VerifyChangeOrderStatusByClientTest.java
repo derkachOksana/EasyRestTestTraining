@@ -51,8 +51,8 @@ public class VerifyChangeOrderStatusByClientTest extends BaseTest {
 
     @Test
     public void changeOrderStatusToDeclinedTest171() {
-        logger = extent.createTest("Check possibility change order from status Waiting for " +
-                "confirm to Declined in My Profile/Order History/Declined 1.7.1");
+        /*logger = extent.createTest("Check possibility change order from status Waiting for " +
+                "confirm to Declined in My Profile/Order History/Declined 1.7.1");*/
         myProfilePage.currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().expandOrder(duration).declineBtnClick(duration);
         String orderStatus_actual = myProfilePage.orderHistoryAccess().clientHeader.declinedTabAccess().getStatusOrder();
         Assert.assertEquals(orderStatus_actual, "Declined");
@@ -60,8 +60,8 @@ public class VerifyChangeOrderStatusByClientTest extends BaseTest {
 
     @Test
     public void changeOrderStatusToDeclinedTest172() {
-        logger = extent.createTest("Check possibility change order from status Waiting for " +
-                "confirm to Declined in My Profile/Order History/All 1.7.2");
+        /*logger = extent.createTest("Check possibility change order from status Waiting for " +
+                "confirm to Declined in My Profile/Order History/All 1.7.2");*/
         myProfilePage.currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().expandOrder(duration).declineBtnClick(duration);
         String orderStatus_actual = myProfilePage.orderHistoryAccess().clientHeader.allTabAccess().getStatusOrder();
         Assert.assertEquals(orderStatus_actual, "Declined");

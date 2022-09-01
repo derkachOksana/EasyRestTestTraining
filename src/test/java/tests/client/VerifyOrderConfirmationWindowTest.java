@@ -49,8 +49,8 @@ public class VerifyOrderConfirmationWindowTest extends BaseTest {
     }
     @Test
     public void verifyNameOfPosition702 () {
-        logger = extent.createTest("Verify that name of position in Order Confirmation window " +
-                "is matched with name of position in Current orders/ Waiting for confirm/# order 7.02");
+        /*logger = extent.createTest("Verify that name of position in Order Confirmation window " +
+                "is matched with name of position in Current orders/ Waiting for confirm/# order 7.02");*/
 
         HeaderGeneralPageComponent header = new HeaderGeneralPageComponent(driver);
         header.restaurantsListAccess(driver);
@@ -68,7 +68,7 @@ public class VerifyOrderConfirmationWindowTest extends BaseTest {
 
     @Test
     public void verifyCancelBtnInOrderConfirmation705 () {
-        logger = extent.createTest("Verify that user can Cancel order in window Order Confirmation 7.05");
+        /*logger = extent.createTest("Verify that user can Cancel order in window Order Confirmation 7.05");*/
         FacadeCreateOrder createOrder = new FacadeCreateOrder(restaurantsPage, menuPage);
         createOrder.createOrder(restaurantName, menuItem1, duration);
         int orderId_expected = restaurantsPage.headerGlobal.userMenu()
@@ -86,7 +86,7 @@ public class VerifyOrderConfirmationWindowTest extends BaseTest {
 
     @Test
     public void verifyItemNameInWatchMenuPage709 () {
-        logger = extent.createTest("Verify that chosen position in page Watch menu is appeared in column Item name of window Order confirmation 7.09");
+        /*logger = extent.createTest("Verify that chosen position in page Watch menu is appeared in column Item name of window Order confirmation 7.09");*/
         menuPage = restaurantsPage.watchMenuByRestName(restaurantName);
         menuPage.menuItems.addToCartByItemName(menuItem1);
         menuPage.submitOrder();
@@ -98,7 +98,7 @@ public class VerifyOrderConfirmationWindowTest extends BaseTest {
 
     @Test
     public void verifyVolumeItemInWatchMenu710 () {
-        logger = extent.createTest("Verify that volume position in page Watch menu is appeared in column Volume of window Order confirmation 7.10");
+        /*logger = extent.createTest("Verify that volume position in page Watch menu is appeared in column Volume of window Order confirmation 7.10");*/
         menuPage = restaurantsPage.watchMenuByRestName(restaurantName);
 
         menuPage.menuItems.addToCartByItemName(menuItem1);
@@ -112,7 +112,7 @@ public class VerifyOrderConfirmationWindowTest extends BaseTest {
 
     @Test
     public void verifyPricePerItemInWatchMenu711 () {
-        logger = extent.createTest("Verify that price per item position in page Watch menu is appeared in column Price per item of window Order confirmation 7.11");
+        /*logger = extent.createTest("Verify that price per item position in page Watch menu is appeared in column Price per item of window Order confirmation 7.11");*/
         menuPage = restaurantsPage.watchMenuByRestName(restaurantName);
         menuPage.menuItems.addToCartByItemName(menuItem1);
         String pricePerItemInWatchMenuPage = menuPage.menuItems.getPriceByItemName(menuItem1);
@@ -125,7 +125,7 @@ public class VerifyOrderConfirmationWindowTest extends BaseTest {
 
     @Test
     public void verifyQuantityPerItemInWatchMenu712 () {
-        logger = extent.createTest("Verify that quantity of chosen position in page Watch menu is appeared in column Quantity of window Order confirmation 7.12");
+        /*logger = extent.createTest("Verify that quantity of chosen position in page Watch menu is appeared in column Quantity of window Order confirmation 7.12");*/
         menuPage = restaurantsPage.watchMenuByRestName(restaurantName);
         menuPage.menuItems.addToCartByItemName(menuItem1);
         String quantityPerItemInWatchMenuPage = menuPage.menuItems.getQuantityByItemName(menuItem1);

@@ -44,7 +44,6 @@ public class WaiterOrderStatusTest extends BaseTest    {
 
     @Test
     public void waiterOrderStatusTest601()  {
-        logger = extent.createTest("Waiter order status test 6.01");
         String orderStatus;
 
         WaiterAssignedWaiterPage waiterAssignedWaiter = waiterMainPage
@@ -64,7 +63,6 @@ public class WaiterOrderStatusTest extends BaseTest    {
 
     @Test
     public void waiterOrderStatusTest602()  {
-        logger = extent.createTest("Waiter order status test 6.02");
         String orderStatus;
 
         WaiterInProgressPage waiterInProgressPage = waiterMainPage
@@ -84,7 +82,6 @@ public class WaiterOrderStatusTest extends BaseTest    {
 
     @Test
     public void waiterOrderStatusTest603()  {
-        logger = extent.createTest("Waiter order status test 6.03");
         String orderStatus;
 
         waiterMainPage = waiterMainPage.waiterHeader.waiterMainPageAccess(DURATION);
@@ -102,7 +99,6 @@ public class WaiterOrderStatusTest extends BaseTest    {
 
     @Test
     public void waiterOrderStatusTest604()  {
-        logger = extent.createTest("Waiter order status test 6.04");
         String orderStatus;
 
         waiterMainPage = waiterMainPage.waiterHeader.waiterMainPageAccess(DURATION);
@@ -128,8 +124,8 @@ public class WaiterOrderStatusTest extends BaseTest    {
 
     @AfterClass
     public void postconditions()    {
-        DataBaseConnection.getInstance().deleteUserByEmail(waiter.getEmail());
         DataBaseConnection.getInstance().deleteOrderByID(firstOrderNumber);
         DataBaseConnection.getInstance().deleteOrderByID(secondOrderNumber);
+        DataBaseConnection.getInstance().deleteUserByEmail(waiter.getEmail());
     }
 }

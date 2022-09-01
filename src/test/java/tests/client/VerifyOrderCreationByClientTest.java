@@ -41,8 +41,8 @@ public class VerifyOrderCreationByClientTest extends BaseTest {
 
     @Test
     public void verifyOrderWaitingForConfirmStatus181() {
-        logger = extent.createTest("Verify that order is appeared with status Waiting for " +
-                "confirm in My profile/Current orders/Waiting for confirm 1.8.1");
+        /*logger = extent.createTest("Verify that order is appeared with status Waiting for " +
+                "confirm in My profile/Current orders/Waiting for confirm 1.8.1");*/
         menuPage = restaurantsPage.watchMenuByRestName(restaurantName);
         menuPage.menuItems.addToCartByItemName(menuItem1);
         menuPage.submitOrder();
@@ -54,8 +54,8 @@ public class VerifyOrderCreationByClientTest extends BaseTest {
 
     @Test
     public void verifyOrderWaitingForConfirmStatus182() {
-        logger = extent.createTest("Verify that order is appeared with status Waiting for " +
-                "confirm in My profile/Current orders/All 1.8.2");
+        /*logger = extent.createTest("Verify that order is appeared with status Waiting for " +
+                "confirm in My profile/Current orders/All 1.8.2");*/
         menuPage = restaurantsPage.watchMenuByRestName(restaurantName);
         menuPage.menuItems.addToCartByItemName(menuItem1);
         menuPage.submitOrder();
