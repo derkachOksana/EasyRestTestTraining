@@ -18,6 +18,8 @@
             </class>
             <class name="tests.moderator.ModeratorOwnerStatusTest">
             </class>
+            <class name="tests.administrator.AdministratorPageTest">
+            </class>
         </classes>
     </test>
 </suite>
