@@ -20,7 +20,7 @@ public class AdministratorPageTest extends BaseTest {
     private final String administratorEmail = "eringonzales@test.com";
     private final String administratorPassword = "1";
     private final String orderId = "1";
-    private final String ADMINISTRATOR_URL = "http://miniserver:8880/administrator-panel";
+    private final String ADMINISTRATOR_URL = "http://ec2-13-42-10-104.eu-west-2.compute.amazonaws.com:3000/administrator-panel";
     private final String SQL_FILE = "src/test/resources/datasource/administrator/administrator_datasource.sql";
 
     private SignInPage signInPage;
@@ -55,7 +55,7 @@ public class AdministratorPageTest extends BaseTest {
     }
 
     @Test
-    public void checkOrderConfirmationByAdministratorTest502() throws InterruptedException {
+    public void checkOrderConfirmationByAdministratorTest502() {
         /*logger = extent.createTest("Administrator page test 5.02");*/
         OrderComponent orderToConfirm = administratorPage.getOrderById(orderId);
         orderToConfirm.clickDropDownBtn();
@@ -68,7 +68,7 @@ public class AdministratorPageTest extends BaseTest {
     }
 
     @Test
-    public void checkPossibilityToAssignWaiterTest503() throws InterruptedException {
+    public void checkPossibilityToAssignWaiterTest503() {
         /*logger = extent.createTest("Administrator page Test 5.03");*/
         AdministratorPage acceptedTab = new AdministratorPage(driver);
         acceptedTab.getTabPanelPage().switchToAcceptedTab();
