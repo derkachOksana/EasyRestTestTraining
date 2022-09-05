@@ -45,12 +45,9 @@ public class OrderComponent {
         orderConfirmationComponent.clickAcceptBtn();
     }
 
-    public void assignWaiter() throws InterruptedException {
+    public void assignWaiter() {
         initAcceptedComponent();
         orderAcceptedComponent.clickAssignBtn();
-
-        //There is no other way to resolve this action, there is no UI element we can use for waiter.
-        Thread.sleep(500);
     }
 
     public List<WaiterComponent> getWaiterList() {
