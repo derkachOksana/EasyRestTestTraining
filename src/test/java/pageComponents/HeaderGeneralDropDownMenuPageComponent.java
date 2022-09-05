@@ -5,12 +5,17 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.SignInPage;
 import pages.profile.MyProfilePage;
 import pages.waiter.WaiterMainPage;
 
+import java.time.Duration;
+
 public class HeaderGeneralDropDownMenuPageComponent {
     private final WebDriver driver;
+    private WebDriverWait wait;
     public HeaderGeneralDropDownMenuPageComponent(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
@@ -33,6 +38,21 @@ public class HeaderGeneralDropDownMenuPageComponent {
         logOutBtn.click();
         return new SignInPage(driver);
     }
+    public MyProfilePage myProfileAccess(Duration duration) {
+        wait = new WebDriverWait(driver, duration);
+        for (int i = 0; i <= 2; i++) {
+            try {
+                wait.until(ExpectedConditions.elementToBeClickable(By
+                        .xpath("//*[text()='My Profile']")));
+                break;
+            } catch (Exception e) {
+
+            }
+        }
+        myProfileBtn.click();
+        return new MyProfilePage(driver);
+    }
+
     public MyProfilePage myProfileAccess() {
         myProfileBtn.click();
         return new MyProfilePage(driver);

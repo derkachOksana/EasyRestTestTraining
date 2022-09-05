@@ -18,15 +18,15 @@ import utility.DataBaseConnection;
 import java.time.Duration;
 
 public class VerifyOrderConfirmationWindowTest extends BaseTest {
-    private final String restaurantName = "Gray Group";
+    private final String restaurantName = "Johnson PLC";
     private final String clientEmail = "nathansmith@test.com";
     private final String clientPassword = "1111";
-    private final String menuItem1 = "Mustard-stuffed chicken";
+    private final String menuItem1 = "Chicken & broccoli pasta bake";
     private SignInPage signInPage;
     private RestaurantsPage restaurantsPage;
     private ProfileCurrentOrdersPage currentOrdersPage;
     private MenuPage menuPage;
-    private final Duration duration = Duration.ofSeconds(Integer.parseInt(ConfProperties.getProperty("duration")));
+    private final Duration duration = Duration.ofSeconds(Integer.parseInt(ConfProperties.getProperty("durationForClientTests")));
 
     @BeforeClass
     public void preconditions() {
@@ -49,29 +49,23 @@ public class VerifyOrderConfirmationWindowTest extends BaseTest {
     }
     @Test
     public void verifyNameOfPosition702 () {
-        /*logger = extent.createTest("Verify that name of position in Order Confirmation window " +
-                "is matched with name of position in Current orders/ Waiting for confirm/# order 7.02");*/
-
         HeaderGeneralPageComponent header = new HeaderGeneralPageComponent(driver);
         header.restaurantsListAccess(driver);
         menuPage = restaurantsPage.watchMenuByRestName(restaurantName);
-
         menuPage.menuItems.addToCartByItemName(menuItem1);
-
         menuPage.submitOrder();
         String itemNameOrderConfirmation_expected = menuPage.orderConfirmation.orderSummary.itemName(menuItem1);
         menuPage.orderConfirmation.submitOrder(duration);
-        String itemNameOrder_actual = menuPage.headerGlobal.userMenu(duration).myProfileAccess().currentOrdersAccess().clientHeader
+        String itemNameOrder_actual = menuPage.headerGlobal.userMenu(duration).myProfileAccess(duration).currentOrdersAccess().clientHeader
                 .waitingForConfirmTabAccess().expandOrder(duration).itemNameOrder(duration);
         Assert.assertEquals(itemNameOrder_actual, itemNameOrderConfirmation_expected);
     }
 
     @Test
     public void verifyCancelBtnInOrderConfirmation705 () {
-        /*logger = extent.createTest("Verify that user can Cancel order in window Order Confirmation 7.05");*/
         FacadeCreateOrder createOrder = new FacadeCreateOrder(restaurantsPage, menuPage);
         createOrder.createOrder(restaurantName, menuItem1, duration);
-        int orderId_expected = restaurantsPage.headerGlobal.userMenu()
+        int orderId_expected = restaurantsPage.headerGlobal.userMenu(duration)
                 .myProfileAccess().currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().getOrderIdInt();
         currentOrdersPage.headerGeneralPageComponent.restaurantsListAccess(driver);
         menuPage = restaurantsPage.watchMenuByRestName(restaurantName);
@@ -86,7 +80,6 @@ public class VerifyOrderConfirmationWindowTest extends BaseTest {
 
     @Test
     public void verifyItemNameInWatchMenuPage709 () {
-        /*logger = extent.createTest("Verify that chosen position in page Watch menu is appeared in column Item name of window Order confirmation 7.09");*/
         menuPage = restaurantsPage.watchMenuByRestName(restaurantName);
         menuPage.menuItems.addToCartByItemName(menuItem1);
         menuPage.submitOrder();
@@ -98,9 +91,7 @@ public class VerifyOrderConfirmationWindowTest extends BaseTest {
 
     @Test
     public void verifyVolumeItemInWatchMenu710 () {
-        /*logger = extent.createTest("Verify that volume position in page Watch menu is appeared in column Volume of window Order confirmation 7.10");*/
         menuPage = restaurantsPage.watchMenuByRestName(restaurantName);
-
         menuPage.menuItems.addToCartByItemName(menuItem1);
         String volumeItemInWatchMenuPage = menuPage.menuItems.getFoodMassByItemName(menuItem1);
         menuPage.submitOrder();
@@ -112,7 +103,6 @@ public class VerifyOrderConfirmationWindowTest extends BaseTest {
 
     @Test
     public void verifyPricePerItemInWatchMenu711 () {
-        /*logger = extent.createTest("Verify that price per item position in page Watch menu is appeared in column Price per item of window Order confirmation 7.11");*/
         menuPage = restaurantsPage.watchMenuByRestName(restaurantName);
         menuPage.menuItems.addToCartByItemName(menuItem1);
         String pricePerItemInWatchMenuPage = menuPage.menuItems.getPriceByItemName(menuItem1);
@@ -125,7 +115,6 @@ public class VerifyOrderConfirmationWindowTest extends BaseTest {
 
     @Test
     public void verifyQuantityPerItemInWatchMenu712 () {
-        /*logger = extent.createTest("Verify that quantity of chosen position in page Watch menu is appeared in column Quantity of window Order confirmation 7.12");*/
         menuPage = restaurantsPage.watchMenuByRestName(restaurantName);
         menuPage.menuItems.addToCartByItemName(menuItem1);
         String quantityPerItemInWatchMenuPage = menuPage.menuItems.getQuantityByItemName(menuItem1);
