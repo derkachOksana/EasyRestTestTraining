@@ -43,6 +43,9 @@ public class HeaderGeneralPageComponent {
     @FindBy(xpath = "//span[text()='Sign Up']")
     private WebElement signUpBtn;
 
+    @FindBy(xpath = "//button[@type='button']")
+    private WebElement backToHomePageBtn;
+
 
     public HeaderGeneralDropDownMenuPageComponent userMenu()   {
         userMenuBtn.click();
@@ -80,5 +83,9 @@ public class HeaderGeneralPageComponent {
     public HomePage homeAccess()    {
         homeBtn.click();
         return new HomePage(driver);
+    }
+
+    public void clickBackToHomePageBtn() {
+        backToHomePageBtn.click();
     }
 }
