@@ -17,4 +17,4 @@ jobs:
       - uses: browser-actions/setup-chrome@latest
           
       - name: Build project with Maven
-        run: mvn clean test -Dsuitefile=testngForClient.xml
+        run: mvn clean test
