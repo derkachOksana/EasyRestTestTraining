@@ -26,11 +26,8 @@ public class TabPanelComponent {
         waitingForConfirmTab.click();
     }
 
-    public void switchToAcceptedTab() throws InterruptedException {
+    public void switchToAcceptedTab() {
         acceptedTab.click();
-
-        //There is no other way to resolve this action, there is no UI element we can use for waiter.
-        Thread.sleep(500);
     }
 
     public void switchToAssignedWaiterTab() {
