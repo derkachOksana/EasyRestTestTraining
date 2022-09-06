@@ -11,14 +11,14 @@ import utility.ConfProperties;
 import java.time.Duration;
 
 public class VerifyButtonsForStartOrderByClientTest extends BaseTest {
-    private final String restaurantName = "Gray Group";
+    private final String restaurantName = "Ball-Logan";
     private final String clientEmail = "nathansmith@test.com";
     private final String clientPassword = "1111";
-    private final String menuItem1 = "Mustard-stuffed chicken";
+    private final String menuItem1 = "Avocado & strawberry smoothie";
     private SignInPage signInPage;
     private RestaurantsPage restaurantsPage;
     private MenuPage menuPage;
-    private final Duration duration = Duration.ofSeconds(Integer.parseInt(ConfProperties.getProperty("duration")));
+    private final Duration duration = Duration.ofSeconds(Integer.parseInt(ConfProperties.getProperty("durationForClientTests")));
 
     @BeforeClass
     public void preconditions() {
@@ -30,34 +30,36 @@ public class VerifyButtonsForStartOrderByClientTest extends BaseTest {
         signInPage.setUserPasswordInputField(clientPassword);
         signInPage.clickSignInBtn();
         restaurantsPage = new RestaurantsPage(driver);
-        menuPage = restaurantsPage.watchMenuByRestName(restaurantName, duration);
+        menuPage = new MenuPage(driver);
     }
-
     @Test
     public void verifyWatchMenuButton714() {
-        /*logger = extent.createTest("Verify Watch menu button 7.14");*/
-        String actualRestaurantMenuField = menuPage.menuItems.getRestaurantMenuField();
-        Assert.assertEquals(actualRestaurantMenuField, "Gray Group menu:");
+        boolean watchMenuBtnIsDisplayed = restaurantsPage.watchMenuByRestNameDisplayed(restaurantName, duration);
+        Assert.assertEquals(watchMenuBtnIsDisplayed, true);
     }
 
     @Test
     public void verifyAddToCartButton715() {
-        /*logger = extent.createTest("Verify Add to cart button 7.15");*/
-        menuPage.menuItems.addToCartByItemName(menuItem1);
-        Assert.assertTrue(menuPage.submitOrderEnable(), "The button Submit order is not enabled");
+        menuPage = restaurantsPage.watchMenuByRestName(restaurantName, duration);
+        boolean addToCartBtnIsDisplayed = menuPage.menuItems.addToCartBtnDisplayed(menuItem1);
+        Assert.assertEquals(addToCartBtnIsDisplayed, true);
     }
 
     @Test
     public void verifySubmitOrderBtn716() {
-        /*logger = extent.createTest("Verify Submit Order button 7.16");*/
-        menuPage.submitOrder();
-        Assert.assertEquals(menuPage.orderConfirmation.orderConfirmationFieldVisible(), "Order confirmation");
+        menuPage = restaurantsPage.watchMenuByRestName(restaurantName, duration);
+        menuPage.menuItems.addToCartByItemName(menuItem1);
+        boolean submitOrderEnable_actual = menuPage.submitOrderEnable();
+        menuPage.deleteBtnClick(duration);
+        Assert.assertTrue(submitOrderEnable_actual, "The button Submit order is not enable");
+    }
+    @AfterMethod
+    public void goToStart () {
+        menuPage.headerGlobal.restaurantsListAccess(driver);
     }
 
     @AfterClass
     public void clientLogOut() {
-        menuPage.orderConfirmation.cancelOrder(duration);
-        menuPage.deleteBtnClick(duration);
         signInPage = restaurantsPage.headerGlobal.
                 userMenu().logOut();
     }
