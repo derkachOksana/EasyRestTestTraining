@@ -1,28 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="All tests suite">
+<suite name="GK Test Suite" parallel="classes">
     <listeners>
         <listener class-name="utility.Listener"/>
     </listeners>
     <test verbose="2" name="C:/SoftServe/EasyRestTestTraining">
+        <parameter name="os" value="Windows"/>
+        <parameter name="osVersion" value="10"/>
+        <parameter name="browserName" value="Chrome"/>
+        <parameter name="browserVersion" value="latest"/>
         <classes>
             <class name="tests.waiter.WaiterOrderStatusTest">
+                <parameter name="sessionName" value="WaiterOrderStatusTest"/>
             </class>
             <class name="tests.moderator.ModeratorRestaurantStatusTest">
+                <parameter name="sessionName" value="ModeratorRestaurantStatusTest"/>
             </class>
             <class name="tests.moderator.ModeratorClientStatusTest">
+                <parameter name="sessionName" value="ModeratorClientStatusTest"/>
             </class>
             <class name="tests.moderator.ModeratorOwnerStatusTest">
-            </class>
-            <class name="tests.administrator.AdministratorPageTest">
-            </class>
-            <class name="tests.client.VerifyButtonsForStartOrderByClientTest">
-            </class>
-            <class name="tests.client.VerifyChangeOrderStatusByClientTest">
-            </class>
-            <class name="tests.client.VerifyOrderConfirmationWindowTest">
-            </class>
-            <class name="tests.client.VerifyOrderCreationByClientTest">
+                <parameter name="sessionName" value="ModeratorOwnerStatusTest"/>
             </class>
         </classes>
     </test>

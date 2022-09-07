@@ -55,7 +55,8 @@ public class HeaderGeneralPageComponent {
         wait = new WebDriverWait(driver, duration);
         for (int i = 0; i <= 2; i++) {
             try {
-                wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(@class, 'UserMenu')]/*[button]")));
+                wait.until(ExpectedConditions.elementToBeClickable(By
+                        .xpath("//div[contains(@class, 'UserMenu')]/*[button]")));
                 break;
             } catch (Exception e) {
 

@@ -24,10 +24,6 @@ public class MenuItemsPageComponent {
     @FindBy(xpath = "//div[contains(@class, 'direction')]/div/div")
     private List<WebElement> itemList;
 
-    @FindBy(xpath = "//main/div/div/h5")
-    private WebElement restaurantMenuField;
-
-
     private void getBlockByItemName(String itemName)  {
         for(WebElement item : itemList) {
             if(item.findElement(By.xpath(
@@ -67,8 +63,11 @@ public class MenuItemsPageComponent {
                         ".//button[contains(@class, 'addButton')]"))
                 .click();
     }
-
-    public String getRestaurantMenuField() {
-        return restaurantMenuField.getText();
+    public boolean addToCartBtnDisplayed(String itemName) {
+        getBlockByItemName(itemName);
+        neededItemBlock.findElement(By.xpath(
+                        ".//button[contains(@class, 'addButton')]"))
+                .isDisplayed();
+        return  true;
     }
 }
