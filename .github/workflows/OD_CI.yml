@@ -17,5 +17,7 @@ jobs:
           distribution: 'adopt'
           cache: maven
           
+      - uses: browser-actions/setup-chrome@latest
+          
       - name: Build project with Maven
-        run: xvfb-run --auto-servernum mvn clean package --file pom.xml
+        run: mvn clean test -DsuiteFile='testngForClient.xml'
