@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 public class AdministratorPage {
 
     private final WebDriver driver;
-    private String orderId;
 
     @FindBy(xpath = "//main/div/header")
     private WebElement tabDiv;
@@ -45,7 +44,7 @@ public class AdministratorPage {
 
     public List<OrderComponent> getOrderList() {
         return orderDivList.stream()
-                .map(el -> new OrderComponent(el))
+                .map(el -> new OrderComponent(el, driver))
                 .collect(Collectors.toList());
     }
 }
