@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="ON Test Suite" parallel="classes">
+    <listeners>
+        <listener class-name="utility.Listener"/>
+    </listeners>
+    <test name="Test Suit">
+        <classes>
+            <class name="tests.administrator.AdministratorPageTest">
+            </class>
+            <class name="tests.signin.SignInAsRegisteredUserTest">
+            </class>
+            <class name="tests.signin.SignInPageTest">
+            </class>
+        </classes>
+    </test>
+</suite>
