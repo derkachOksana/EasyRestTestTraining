@@ -16,7 +16,9 @@ jobs:
           distribution: 'temurin'
           
 
+          
+
       - uses: browser-actions/setup-chrome@latest
 
       - name: Build with Maven
-        run: mvn clean test -Dsurefire.suiteFile='testngForClient.xml'
+        run: mvn clean test -DsuiteFile='testngForClient.xml'
