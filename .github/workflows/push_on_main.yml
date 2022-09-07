@@ -23,7 +23,7 @@ jobs:
       - uses: browser-actions/setup-chrome@latest
 
       - name: Build with Maven
-        run: mvn clean test -Dsuitefile=testng.xml
+        run: mvn clean test -DsuiteFile='testng.xml'
 
       - name: Deploy report
         uses: peaceiris/actions-gh-pages@v3
