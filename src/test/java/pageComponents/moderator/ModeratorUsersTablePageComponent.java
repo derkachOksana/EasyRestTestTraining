@@ -38,6 +38,6 @@ public class ModeratorUsersTablePageComponent {
 
     public void changeUserStatus(String userEmail)   {
         getNeededUser(userEmail).findElement(By.xpath(
-                "./td[5]")).click();
+                "./td[5]/button")).click();
     }
 }
