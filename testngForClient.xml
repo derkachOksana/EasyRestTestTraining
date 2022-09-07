@@ -1,27 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Test Suit" >
+<suite name="OD_Test Suit" >
     <listeners>
         <listener class-name="utility.Listener"/>
     </listeners>
     <test verbose="2" name="C:/SoftServe/EasyRestTestTraining">
-        <parameter name="os" value="Windows"/>
-        <parameter name="osVersion" value="10"/>
-        <parameter name="browserName" value="Chrome"/>
-        <parameter name="browserVersion" value="latest"/>
         <classes>
-            <class name="tests.client.VerifyButtonsForStartOrderByClientTest">
-            </class>
-
             <class name="tests.client.VerifyOrderCreationByClientTest">
             </class>
             <class name="tests.client.VerifyChangeOrderStatusByClientTest">
             </class>
             <class name="tests.client.VerifyOrderConfirmationWindowTest">
             </class>
-
-
-
+            <class name="tests.client.VerifyButtonsForStartOrderByClientTest">
+            </class>
         </classes>
     </test>
 </suite>
