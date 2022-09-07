@@ -49,7 +49,6 @@ public class AdministratorPageTest extends BaseTest {
 
     @Test
     public void checkOrderConfirmationByAdministratorTest502() {
-        /*logger = extent.createTest("Administrator page test 5.02");*/
         OrderComponent orderToConfirm = administratorPage.getOrderById(orderId);
         orderToConfirm.clickDropDownBtn();
         orderToConfirm.acceptOrder();
@@ -62,7 +61,6 @@ public class AdministratorPageTest extends BaseTest {
 
     @Test
     public void checkPossibilityToAssignWaiterTest503() {
-        /*logger = extent.createTest("Administrator page Test 5.03");*/
         AdministratorPage acceptedTab = new AdministratorPage(driver);
         acceptedTab.getTabPanelPage().switchToAcceptedTab();
         OrderComponent acceptedOrder = administratorPage.getOrderById(orderId);
