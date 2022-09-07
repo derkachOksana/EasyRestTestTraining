@@ -39,6 +39,6 @@ public class ModeratorOwnersTablePageComponent {
 
     public void changeOwnerStatus(String ownerEmail) {
         getNeededOwner(ownerEmail).findElement(By.xpath(
-                "./td[6]")).click();
+                "./td[6]/button")).click();
     }
 }
