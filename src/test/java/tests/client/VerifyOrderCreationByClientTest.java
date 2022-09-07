@@ -22,7 +22,7 @@ public class VerifyOrderCreationByClientTest extends BaseTest {
     private RestaurantsPage restaurantsPage;
     private ProfileCurrentOrdersPage currentOrdersPage;
     private MenuPage menuPage;
-    private final Duration duration = Duration.ofSeconds(Integer.parseInt(ConfProperties.getProperty("duration")));
+    private final Duration duration = Duration.ofSeconds(Integer.parseInt(ConfProperties.getProperty("durationForClientTests")));
 
     @BeforeClass
     public void preconditions() {
@@ -47,8 +47,8 @@ public class VerifyOrderCreationByClientTest extends BaseTest {
         menuPage.menuItems.addToCartByItemName(menuItem1);
         menuPage.submitOrder();
         menuPage.orderConfirmation.submitOrder(duration);
-        MyProfilePage myProfilePage = menuPage.headerGlobal.userMenu().myProfileAccess();
-        String statusOrder_actual = myProfilePage.currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().getStatusOrder();
+        MyProfilePage myProfilePage = menuPage.headerGlobal.userMenu(duration).myProfileAccess();
+        String statusOrder_actual = myProfilePage.currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().getStatusOrder(duration);
         Assert.assertEquals(statusOrder_actual, "Waiting for confirm");
     }
 
@@ -60,8 +60,8 @@ public class VerifyOrderCreationByClientTest extends BaseTest {
         menuPage.menuItems.addToCartByItemName(menuItem1);
         menuPage.submitOrder();
         menuPage.orderConfirmation.submitOrder(duration);
-        MyProfilePage myProfilePage = menuPage.headerGlobal.userMenu().myProfileAccess();
-        String statusOrder_actual = myProfilePage.currentOrdersAccess().clientHeader.allTabAccess().getStatusOrder();
+        MyProfilePage myProfilePage = menuPage.headerGlobal.userMenu(duration).myProfileAccess();
+        String statusOrder_actual = myProfilePage.currentOrdersAccess().clientHeader.allTabAccess().getStatusOrder(duration);
         Assert.assertEquals(statusOrder_actual, "Waiting for confirm");
     }
 

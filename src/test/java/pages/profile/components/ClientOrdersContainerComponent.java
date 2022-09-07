@@ -63,7 +63,14 @@ public class ClientOrdersContainerComponent {
 
     public ClientOrderInfoComponent expandOrder(Duration duration) {
         wait = new WebDriverWait(driver, duration);
-        wait.until(ExpectedConditions.elementToBeClickable(ordersList.get(0)));
+        for (int i = 0; i <= 2; i++) {
+            try {
+                wait.until(ExpectedConditions.elementToBeClickable(ordersList.get(0)));
+                break;
+            } catch (Exception e) {
+
+            }
+        }
         neededOrder(duration).click();
         return new ClientOrderInfoComponent(driver);
     }
@@ -76,8 +83,8 @@ public class ClientOrdersContainerComponent {
         return idOnlyNumber;
     }
 
-    public String getStatusOrder () {
-        return neededOrder().findElement(By.xpath(
+    public String getStatusOrder (Duration duration) {
+        return neededOrder(duration).findElement(By.xpath(
                 ".//div/div/div/div[6]/p")).getText();
     }
 

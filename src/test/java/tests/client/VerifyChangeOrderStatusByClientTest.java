@@ -18,12 +18,12 @@ public class VerifyChangeOrderStatusByClientTest extends BaseTest {
     private final String restaurantName = "Johnson PLC";
     private final String clientEmail = "nathansmith@test.com";
     private final String clientPassword = "1111";
-    private final String menuItem1 = "Chicken & broccoli pasta bake";
+    private final String menuItem1 = "Jamaican ginger beer & pineapple bundt cake";
     private SignInPage signInPage;
     private RestaurantsPage restaurantsPage;
     private MyProfilePage myProfilePage;
     private MenuPage menuPage;
-    private final Duration duration = Duration.ofSeconds(Integer.parseInt(ConfProperties.getProperty("duration")));
+    private final Duration duration = Duration.ofSeconds(Integer.parseInt(ConfProperties.getProperty("durationForClientTests")));
     private FacadeAccessToMyProfileForClient facadeAccessToMyProfile;
 
     @BeforeClass
@@ -46,24 +46,20 @@ public class VerifyChangeOrderStatusByClientTest extends BaseTest {
         FacadeCreateOrder facadeCreateOrder = new FacadeCreateOrder(restaurantsPage,menuPage);
         facadeCreateOrder.createOrder(restaurantName,menuItem1, duration);
         facadeAccessToMyProfile = new FacadeAccessToMyProfileForClient(menuPage);
-        myProfilePage = facadeAccessToMyProfile.accessToMyProfile();
+        myProfilePage = facadeAccessToMyProfile.accessToMyProfile(duration);
     }
 
     @Test
     public void changeOrderStatusToDeclinedTest171() {
-        /*logger = extent.createTest("Check possibility change order from status Waiting for " +
-                "confirm to Declined in My Profile/Order History/Declined 1.7.1");*/
         myProfilePage.currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().expandOrder(duration).declineBtnClick(duration);
-        String orderStatus_actual = myProfilePage.orderHistoryAccess().clientHeader.declinedTabAccess().getStatusOrder();
+        String orderStatus_actual = myProfilePage.orderHistoryAccess().clientHeader.declinedTabAccess().getStatusOrder(duration);
         Assert.assertEquals(orderStatus_actual, "Declined");
     }
 
     @Test
     public void changeOrderStatusToDeclinedTest172() {
-        /*logger = extent.createTest("Check possibility change order from status Waiting for " +
-                "confirm to Declined in My Profile/Order History/All 1.7.2");*/
         myProfilePage.currentOrdersAccess().clientHeader.waitingForConfirmTabAccess().expandOrder(duration).declineBtnClick(duration);
-        String orderStatus_actual = myProfilePage.orderHistoryAccess().clientHeader.allTabAccess().getStatusOrder();
+        String orderStatus_actual = myProfilePage.orderHistoryAccess().clientHeader.allTabAccess().getStatusOrder(duration);
         Assert.assertEquals(orderStatus_actual, "Declined");
 
     }
