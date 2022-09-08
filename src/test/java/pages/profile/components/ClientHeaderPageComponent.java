@@ -22,19 +22,19 @@ public class ClientHeaderPageComponent {
     }
 
     @FindBy(xpath = "//a[@href='/profile/current_orders/Waiting for confirm']")
-    public WebElement waitingForConfirmTab;
+    private WebElement waitingForConfirmTab;
     @FindBy(xpath = "//a[contains(., 'All')]")
-    public WebElement allTab;
+    private WebElement allTab;
     @FindBy(xpath = "//a[@href = '/profile/current_orders/Accepted']")
-    public WebElement acceptedTab;
+    private WebElement acceptedTab;
     @FindBy(xpath = "//a[@href = '/profile/current_orders/Assigned waiter']")
-    public WebElement assignedWaiterTab;
+    private WebElement assignedWaiterTab;
     @FindBy(xpath = "//a[@href = '/profile/current_orders/In progress']")
-    public WebElement inProgressTab;
+    private WebElement inProgressTab;
     @FindBy(xpath = "//a[@href = '/profile/order_history/History']")
-    public WebElement historyTab;
+    private WebElement historyTab;
     @FindBy(xpath = "//a[@href = '/profile/order_history/Declined']")
-    public WebElement declinedTab;
+    private WebElement declinedTab;
 
     //left or right arrow of the order`s status
     @FindBy(xpath = "//header//button/*[@role = 'presentation']")

@@ -20,7 +20,7 @@ import java.util.NoSuchElementException;
 
 public class ClientOrdersContainerComponent {
     private final WebDriver driver;
-    public final ClientOrderInfoComponent orderInfo;
+    private final ClientOrderInfoComponent orderInfo;
     private WebDriverWait wait;
 
 
