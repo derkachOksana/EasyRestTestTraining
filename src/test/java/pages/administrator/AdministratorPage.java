@@ -45,7 +45,7 @@ public class AdministratorPage {
 
     public List<OrderComponent> getOrderList() {
         return orderDivList.stream()
-                .map(el -> new OrderComponent(el))
+                .map(el -> new OrderComponent(el, driver))
                 .collect(Collectors.toList());
     }
 }
