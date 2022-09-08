@@ -13,7 +13,7 @@ import java.util.List;
 
 public class ClientHeaderPageComponent {
     private final WebDriver driver;
-    public final ClientOrdersContainerComponent ordersContainer;
+    private final ClientOrdersContainerComponent ordersContainer;
 
     public ClientHeaderPageComponent(WebDriver driver) {
         this.driver = driver;
