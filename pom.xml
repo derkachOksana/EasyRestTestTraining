@@ -111,6 +111,7 @@
           <artifactId>maven-surefire-plugin</artifactId>
           <version>${maven-surefire.version}</version>
           <configuration>
+            <rerunFailingTestsCount>4</rerunFailingTestsCount>
             <suiteXmlFiles>
               <suiteXmlFile>${suiteFile}</suiteXmlFile>
             </suiteXmlFiles>

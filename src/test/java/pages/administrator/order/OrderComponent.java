@@ -3,16 +3,21 @@ package pages.administrator.order;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
 import java.util.List;
+
+import static pages.Main.driver;
 
 public class OrderComponent {
 
     private final WebElement orderDiv;
+    private final WebDriverWait wait;
 
     private OrderConfirmationComponent orderConfirmationComponent;
-
     private OrderAcceptedComponent orderAcceptedComponent;
+
 
     @FindBy(xpath = "./div[1]/div[@role='button']")
     private WebElement dropDownBtn;
@@ -26,6 +31,7 @@ public class OrderComponent {
     public OrderComponent(WebElement orderDiv) {
         PageFactory.initElements(orderDiv, this);
         this.orderDiv = orderDiv;
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     public String getOrderStatus() {
@@ -37,6 +43,7 @@ public class OrderComponent {
     }
 
     public void clickDropDownBtn() {
+        wait.until(ExpectedConditions.visibilityOf(dropDownBtn));
          dropDownBtn.click();
     }
 
