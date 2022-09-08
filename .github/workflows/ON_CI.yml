@@ -19,6 +19,6 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
           cache: maven
-
+      - uses: browser-actions/setup-chrome@latest
       - name: Build with Maven
-        run: xvfb-run --auto-servernum mvn clean test -DsuiteFile='ONTestSuite.xml'
+        run: mvn clean test -DsuiteFile='ONTestSuite.xml'
