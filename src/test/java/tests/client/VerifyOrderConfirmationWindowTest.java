@@ -84,8 +84,6 @@ public class VerifyOrderConfirmationWindowTest extends BaseTest {
         menuPage.menuItems.addToCartByItemName(menuItem1);
         menuPage.submitOrder();
         String itemNameInOrderConfirmation_actual = menuPage.orderConfirmation.orderSummary.itemName(menuItem1);
-        menuPage.orderConfirmation.cancelOrder(duration);
-        menuPage.deleteBtnClick(duration);
         Assert.assertEquals(itemNameInOrderConfirmation_actual, menuItem1);
     }
 
@@ -96,8 +94,6 @@ public class VerifyOrderConfirmationWindowTest extends BaseTest {
         String volumeItemInWatchMenuPage = menuPage.menuItems.getFoodMassByItemName(menuItem1);
         menuPage.submitOrder();
         String volumeItemInOrderConfirmation = menuPage.orderConfirmation.orderSummary.getVolumeByItemName(menuItem1);
-        menuPage.orderConfirmation.cancelOrder(duration);
-        menuPage.deleteBtnClick(duration);
         Assert.assertEquals(volumeItemInOrderConfirmation, volumeItemInWatchMenuPage);
     }
 
@@ -108,8 +104,6 @@ public class VerifyOrderConfirmationWindowTest extends BaseTest {
         String pricePerItemInWatchMenuPage = menuPage.menuItems.getPriceByItemName(menuItem1);
         menuPage.submitOrder();
         String pricePerItemInOrderConfirmation = menuPage.orderConfirmation.orderSummary.getPriceByItemName(menuItem1);
-        menuPage.orderConfirmation.cancelOrder(duration);
-        menuPage.deleteBtnClick(duration);
         Assert.assertEquals(pricePerItemInOrderConfirmation, pricePerItemInWatchMenuPage);
     }
 
@@ -120,8 +114,6 @@ public class VerifyOrderConfirmationWindowTest extends BaseTest {
         String quantityPerItemInWatchMenuPage = menuPage.menuItems.getQuantityByItemName(menuItem1);
         menuPage.submitOrder();
         String quantityPerItemInOrderConfirmation = menuPage.orderConfirmation.orderSummary.getQuantityByItemName(menuItem1);
-        menuPage.orderConfirmation.cancelOrder(duration);
-        menuPage.deleteBtnClick(duration);
         Assert.assertEquals(quantityPerItemInOrderConfirmation, quantityPerItemInWatchMenuPage);
     }
     @AfterMethod

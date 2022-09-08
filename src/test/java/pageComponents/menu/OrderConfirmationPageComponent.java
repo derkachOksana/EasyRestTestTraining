@@ -1,8 +1,10 @@
 package pageComponents.menu;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -13,7 +15,7 @@ import java.time.Duration;
 public class OrderConfirmationPageComponent {
     private final WebDriver driver;
     private WebDriverWait wait;
-
+    private Actions action;
     public OrderSummaryPageComponent orderSummary;
 
     public OrderConfirmationPageComponent(WebDriver driver)  {
@@ -52,6 +54,7 @@ public class OrderConfirmationPageComponent {
         wait = new WebDriverWait(driver, duration);
         for (int i = 0; i <= 2; i++) {
             try {
+                action.moveToElement(cancelBtn).perform();
                 wait.until(ExpectedConditions.elementToBeClickable(By
                         .xpath("//button/span[text()='Cancel']/ancestor::button")));
                 break;
@@ -59,7 +62,7 @@ public class OrderConfirmationPageComponent {
 
             }
         }
-        cancelBtn.click();
+        ((JavascriptExecutor)driver).executeScript("arguments[0].click();", cancelBtn);
     }
 
     public void submitOrder(Duration duration) {

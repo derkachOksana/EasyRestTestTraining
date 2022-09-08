@@ -1,8 +1,10 @@
 package pageComponents;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -17,18 +19,15 @@ import utility.ConfProperties;
 import java.time.Duration;
 
 public class HeaderGeneralPageComponent {
-
     private final WebDriver driver;
     private WebDriverWait wait;
+
     private Duration duration;
-
-
     public HeaderGeneralPageComponent(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
     }
-
-    @FindBy(xpath = "//div[contains(@class, 'UserMenu')]/*[button]")
+    @FindBy(xpath = "//div[contains(@class, 'MuiAvatar-root')]")
     private WebElement userMenuBtn;
 
     @FindBy(xpath = "//span[text()='Home']")
@@ -56,7 +55,7 @@ public class HeaderGeneralPageComponent {
         for (int i = 0; i <= 2; i++) {
             try {
                 wait.until(ExpectedConditions.elementToBeClickable(By
-                        .xpath("//div[contains(@class, 'UserMenu')]/*[button]")));
+                        .xpath("//div[contains(@class, 'MuiAvatar-root')]")));
                 break;
             } catch (Exception e) {
 
@@ -67,7 +66,7 @@ public class HeaderGeneralPageComponent {
     }
 
     public RestaurantsPage restaurantsListAccess(WebDriver driver)  {
-        restaurantListBtn.click();
+        ((JavascriptExecutor)driver).executeScript("arguments[0].click();", restaurantListBtn);
         return new RestaurantsPage(driver);
     }
 
