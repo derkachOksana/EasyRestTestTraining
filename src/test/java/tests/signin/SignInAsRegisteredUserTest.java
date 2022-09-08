@@ -84,8 +84,6 @@ public class SignInAsRegisteredUserTest extends BaseTest {
         Assert.assertEquals(driver.getCurrentUrl(), ownerUrl);
     }
 
-
-
     private void logIn(String email, String password) {
         signInPage.setUserEmailInputField(email);
         signInPage.setUserPasswordInputField(password);

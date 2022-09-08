@@ -1,5 +1,6 @@
 package pages.administrator.order;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -7,8 +8,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.List;
-
-import static pages.Main.driver;
 
 public class OrderComponent {
 
@@ -28,7 +27,7 @@ public class OrderComponent {
     @FindBy(xpath = "./div[2]")
     private WebElement orderExpansion;
 
-    public OrderComponent(WebElement orderDiv) {
+    public OrderComponent(WebElement orderDiv, WebDriver driver) {
         PageFactory.initElements(orderDiv, this);
         this.orderDiv = orderDiv;
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));

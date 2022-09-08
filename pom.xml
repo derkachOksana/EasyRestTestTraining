@@ -18,12 +18,12 @@
     <maven.compiler.target>11</maven.compiler.target>
 
     <!--dependencies-->
-    <selenium.version>4.2.2</selenium.version>
-    <testng.version>7.6.0</testng.version>
+    <selenium.version>4.4.0</selenium.version>
+    <testng.version>7.6.1</testng.version>
     <extentreports.version>5.0.9</extentreports.version>
     <javafaker.version>1.0.2</javafaker.version>
-    <webdrivermanager.version>5.2.1</webdrivermanager.version>
-    <postgresql.version>42.4.1</postgresql.version>
+    <webdrivermanager.version>5.3.0</webdrivermanager.version>
+    <postgresql.version>42.5.0</postgresql.version>
     <mybatis.version>3.5.10</mybatis.version>
 
     <!--plugins-->
@@ -85,7 +85,7 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>1.18.22</version>
+      <version>1.18.24</version>
     </dependency>
 
   </dependencies>
