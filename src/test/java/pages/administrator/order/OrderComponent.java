@@ -42,7 +42,7 @@ public class OrderComponent {
     }
 
     public void clickDropDownBtn() {
-        wait.until(ExpectedConditions.visibilityOf(dropDownBtn));
+         wait.until(ExpectedConditions.visibilityOf(dropDownBtn));
          dropDownBtn.click();
     }
 
