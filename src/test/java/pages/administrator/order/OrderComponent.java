@@ -42,7 +42,7 @@ public class OrderComponent {
     }
 
     public void clickDropDownBtn() {
-        wait.until(ExpectedConditions.visibilityOf(dropDownBtn));
+         wait.until(ExpectedConditions.visibilityOf(dropDownBtn));
          dropDownBtn.click();
     }
 
@@ -68,13 +68,13 @@ public class OrderComponent {
 
     private void initAcceptedComponent() {
         if(orderAcceptedComponent == null) {
-            orderAcceptedComponent = new OrderAcceptedComponent(orderExpansion);
+            orderAcceptedComponent = new OrderAcceptedComponent(orderExpansion, wait);
         }
     }
 
     private void initConfirmationComponent() {
         if(orderConfirmationComponent == null) {
-            orderConfirmationComponent = new OrderConfirmationComponent(orderExpansion);
+            orderConfirmationComponent = new OrderConfirmationComponent(orderExpansion, wait);
         }
     }
 }

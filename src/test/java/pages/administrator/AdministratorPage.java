@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 public class AdministratorPage {
 
     private final WebDriver driver;
-    private String orderId;
 
     @FindBy(xpath = "//main/div/header")
     private WebElement tabDiv;
